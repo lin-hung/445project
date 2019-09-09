@@ -1,0 +1,12 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts":{
+    "client":"yarn --cwd client start",
+    "server":"yarn --cwd server start",
+    "start":"yarn client && yarn server",
+    "update":"yarn --cwd client && yarn --cwd server"
+  }
+}
