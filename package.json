@@ -6,7 +6,6 @@
   "scripts":{
     "client":"yarn --cwd client start",
     "server":"yarn --cwd server start",
-    "start":"yarn client && yarn server",
     "update":"yarn --cwd client && yarn --cwd server"
   }
 }
