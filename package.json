@@ -6,7 +6,7 @@
   "scripts": {
     "client": "yarn --cwd client start",
     "server": "yarn --cwd server start",
-    "update": "yarn --cwd client && yarn --cwd server",
+    "update": "yarn && yarn --cwd client && yarn --cwd server",
     "start": "concurrently \"yarn client\" \"yarn server\""
   },
   "dependencies": {
