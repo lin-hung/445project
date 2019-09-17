@@ -14,8 +14,8 @@
   },
   "scripts": {
     "build": "yarn babel src --out-dir build",
-    "run": "yarn run build && node build/index.js",
-    "start": "nodemon --watch src --exec npm run run"
+    "run": "yarn run build && node -r dotenv/config build/index.js dotenv_config_path=../.env",
+    "start": "nodemon --watch src --exec yarn run run"
   },
   "nodemonConfig": {
     "sdf": "sdf"

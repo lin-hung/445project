@@ -1,12 +1,10 @@
 import Express from 'express'
-require('dotenv').config()
 import auth from "./users/auth"
 
 const app = Express()
 
-const port = process.env.PORT
-console.log(process.env.test)
-app.listen(port, () => console.log(`Example listening on port ${port}!`)) 
+//dotenv is preloaded
+app.listen(port, () => console.log(`Example listening on port ${process.env.PORT}!`)) 
 
 app.get('/api/test', (req, res) => {
     const data={
