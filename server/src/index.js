@@ -4,7 +4,8 @@ import auth from "./users/auth"
 const app = Express()
 
 //dotenv is preloaded
-app.listen(port, () => console.log(`Example listening on port ${process.env.PORT}!`)) 
+const port=process.env.serverport
+app.listen(port, () => console.log(`Now listening on port ${port}!`)) 
 
 app.get('/api/test', (req, res) => {
     const data={

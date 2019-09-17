@@ -6,7 +6,6 @@ const io = require('socket.io')(http)
 
 app.set('io', io);
 
-console.log(app.get('config'))
 const addSocketIdToSession = (req, res, next) => {
     req.session.socketId = req.query.socketId
     next()

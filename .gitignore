@@ -1,5 +1,5 @@
 node_modules/
 build/
-.log
-.code-workspace
-.env
+*.log
+*.code-workspace
+*.env
