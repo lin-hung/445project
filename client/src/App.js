@@ -5,7 +5,7 @@ import { Container, Jumbotron, Row, Col } from 'react-bootstrap'
 import Test from './TestComponent'
 
 const socket=io("http://localhost:3002/")
-
+console.log(process.env.serverport)
 function App() {
   return (
     <div className="App">

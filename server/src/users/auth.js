@@ -1,6 +1,6 @@
 import Express,{Router} from 'express'
-import socketioConfig from './socketioConfig'
-
-console.log(socketioConfig.addSocketIdToSession)
+import socketioConfig from '../config/socketioConfig'
+import User from "../models/User"
+//console.log(socketioConfig.addSocketIdToSession)
 
 module.exports = Router
