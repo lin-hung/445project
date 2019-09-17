@@ -1,16 +1,19 @@
 import Express from 'express'
+require('dotenv').config()
+import auth from "./users/auth"
 
 const app = Express()
-const port = 3001
- 
-//app.get('/', (req, res) => res.send('Hello World!'))
+
+const port = process.env.PORT
+console.log(process.env.test)
+app.listen(port, () => console.log(`Example listening on port ${port}!`)) 
+
 app.get('/api/test', (req, res) => {
-    //res.send('Hello sdfrld from the server!')
     const data={
         abc:"def"
     }
     res.json(data)
-    return console.log("test")
+    return console.log("/api/test")
 })
 
-app.listen(port, () => console.log(`Example listening on port ${port}!`)) 
+app.use('/api/users/auth',auth)

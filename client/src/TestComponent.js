@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
-class Test extends Component {
+class TestComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -10,6 +10,15 @@ class Test extends Component {
     }
     componentDidMount() {
         this.getData()
+        const socket=this.props.socket
+        socket.emit('test_message',"abcdefg")
+        this.testMsgRecieve()
+    }
+    
+    testMsgRecieve=()=>{
+        this.props.socket.on('test_response',(msg)=>{
+            console.log(`test response: ${msg}`)
+        })
     }
 
     getData = () => {
@@ -32,4 +41,4 @@ class Test extends Component {
     }
 }
 
-export default Test
+export default TestComponent
