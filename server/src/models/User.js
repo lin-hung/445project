@@ -18,7 +18,7 @@ const UserSchema=new Schema({
     },
     isEmployer:{
         type:Boolean,
-        required:true
+        required:false
     }
 })
 
