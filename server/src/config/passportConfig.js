@@ -1,5 +1,4 @@
 import Passport from "passport"
-import {JwtStrategy, ExtractJwt} from "passport-jwt"
 import GoogleStrategy from "passport-google-oauth20"
 import Mongoose from "mongoose"
 

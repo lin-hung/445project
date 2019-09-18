@@ -12,9 +12,9 @@ const addSocketIdToSession = (req, res, next) => {
 }
 
 io.on('connection', (socket)=> {
-    console.log("socket.io connected", socket.id)
+    console.log("client connected", socket.id)
     socket.on('disconnect', ()=> {
-      console.log("socket.io disconnected", socket.id)
+      console.log("client disconnected", socket.id)
     })
     socket.on('test_message', (msg)=> {
       console.log('test message: ' + msg + "\t id: " + socket.id)
