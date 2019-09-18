@@ -3,7 +3,7 @@ import Session from "express-session"
 import Mongoose from "mongoose"
 import Passport from "passport"
 
-import auth from "./users/auth"
+import auth from "./routes/auth"
 
 const app = Express()
 
@@ -27,7 +27,7 @@ require("./config/passportConfig")(Passport)
 
 
 ///////////////////
-app.use('/api/users/auth',auth)
+app.use('/api/auth',auth)
 
 ///////////////////
 const port=process.env.serverport

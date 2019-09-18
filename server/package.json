@@ -19,7 +19,8 @@
   },
   "scripts": {
     "build": "yarn babel src --out-dir build",
-    "run": "yarn run build && node -r dotenv/config build/index.js dotenv_config_path=../client/.env",
+    "runbuilt": "node -r dotenv/config build/index.js dotenv_config_path=../client/.env",
+    "run": "yarn run build && yarn run runbuilt",
     "start": "nodemon --watch src --exec yarn run run"
   },
   "nodemonConfig": {
