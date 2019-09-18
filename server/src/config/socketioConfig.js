@@ -1,12 +1,13 @@
-import Express, {Router} from 'express'
+import {Router} from 'express'
+import http from 'http'
+import socketio from "socket.io"
 
-const app=Express()
-const http = require('http').Server(app)
-const io = require('socket.io')(http)
-
-app.set('io', io);
+const io=socketio(http)
 
 const addSocketIdToSession = (req, res, next) => {
+    if(req.query.socketId=="undefined"){
+      return res.status(400).send('No socket ID')
+    }
     req.session.socketId = req.query.socketId
     next()
 }
@@ -23,4 +24,4 @@ io.on('connection', (socket)=> {
   })
 io.listen(process.env.socketioport)
 
-module.exports = {Router, addSocketIdToSession}
+module.exports = {Router, addSocketIdToSession,io}

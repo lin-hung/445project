@@ -4,19 +4,19 @@ import Navbar from "./Navbar"
 import { Container, Jumbotron, Row, Col } from 'react-bootstrap'
 import Test from './TestComponent'
 
-const socket=io("http://localhost:3002/")
 //console.log(process.env.serverport)
 function App() {
+  const socket = io("http://localhost:3002/")
   return (
     <div className="App">
-     <Navbar />
+      <Navbar />
       <div id="content">
         <Jumbotron>
           <Container>
             <Test socket={socket} />
             <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
             <p><a className="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
-          </Container>  
+          </Container>
         </Jumbotron>
         <Container>
           <Row>

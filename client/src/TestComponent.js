@@ -15,9 +15,7 @@ class TestComponent extends Component {
         this.getTestData()
         const socket=this.props.socket
         socket.emit('test_message',"abcdefg")
-        socket.on('googlecb',(data)=>{
-            console.log(data)
-        })
+        console.log(`socket id: ${socket.id}`)
         this.MsgRecieve()
     }
     openPopupGoogle=()=> {
@@ -34,8 +32,12 @@ class TestComponent extends Component {
         )
       }
     MsgRecieve=()=>{
-        this.props.socket.on('test_response',(msg)=>{
+        const socket=this.props.socket
+        socket.on('test_response',(msg)=>{
             console.log(`test response: ${msg}`)
+        })
+        socket.on('google',(msg)=>{
+            console.log(`google response: ${msg}`)
         })
     }
 
