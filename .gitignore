@@ -3,3 +3,4 @@ build/
 *.log
 *.code-workspace
 *.env
+.vscode/

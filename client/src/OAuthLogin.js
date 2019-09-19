@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Button} from 'react-bootstrap'
 import axios from 'axios'
 
-class TestComponent extends Component {
+class OAuthLogin extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -66,4 +66,4 @@ class TestComponent extends Component {
     }
 }
 
-export default TestComponent
+export default OAuthLogin
