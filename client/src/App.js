@@ -1,13 +1,13 @@
 import React from 'react'
-import io from 'socket.io-client'
+import { Container } from 'react-bootstrap'
 import { Provider } from "react-redux"
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
-import Navbar from "./components/Navbar"
-import { Container, Jumbotron, Row, Col } from 'react-bootstrap'
-import store from "./_store/store"
-import OAuthLogin from './OAuthLogin'
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import io from 'socket.io-client'
+import { DummyContent2, Footer } from './components/DummyContent'
 import Landing from "./components/Landing"
-import { Footer, DummyContent2 } from './components/DummyContent'
+import Navbar from "./components/Navbar"
+import OAuthLogin from './components/OAuthLogin'
+import store from "./_store/store"
 
 //console.log(process.env.serverport)
 function App() {
@@ -21,7 +21,7 @@ function App() {
           <Container id="content">
             <Route exact path="/" component={Landing} />
             <Route exact path="/DC2" component={DummyContent2} />
-            <Route excact path="/test"  
+            <Route excact path="/OAuthLogin"  
               render={(props)=><OAuthLogin socket={socket}/>}
             />
           </Container>

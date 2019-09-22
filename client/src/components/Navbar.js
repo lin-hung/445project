@@ -17,7 +17,7 @@ class Navbar extends Component {
           <LinkContainer to="/">
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/DC2">
+          <LinkContainer to="/OAuthLogin">
             <Nav.Link>Test</Nav.Link>
           </LinkContainer>
         </Nav>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {Button} from 'react-bootstrap'
+import {connect} from 'react-redux'
 import axios from 'axios'
+import {test} from '../_actions/authActions'
 
 class OAuthLogin extends Component {
     constructor(props) {
@@ -60,10 +62,14 @@ class OAuthLogin extends Component {
                 <h1 className="display-3">Data: {this.state.data}
                 </h1>
                 <Button onClick={this.openPopupGoogle}/>
-                <Button onClick={this.getTestData}/>
+                <Button onClick={this.props.test}/>
             </div>
         )
     }
 }
 
-export default OAuthLogin
+const mapStateToProps = state => ({
+    auth: state.auth
+  })
+
+export default connect(mapStateToProps,{test})(OAuthLogin)
