@@ -1,9 +1,19 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar as BSNav, Nav, Form, FormControl, Button } from 'react-bootstrap'
 import logo from '../resources/logo.svg'
+import { mapAuthStateToProps } from '../resources/utils'
+import { logoutAction } from '../_actions/authActions'
 
 class Navbar extends Component {
+  loginButton = () => {
+    if(this.props.auth.isAuthed) {
+      return(<Button onClick={this.props.logoutAction}>Log Out</Button>
+      )
+    }
+    return(<LinkContainer to='/OAuthLogin'><Button>Log In</Button></LinkContainer>)
+  }
   render() {
     return (
       <BSNav bg="dark" variant="dark">
@@ -17,17 +27,11 @@ class Navbar extends Component {
           <LinkContainer to="/">
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/OAuthLogin">
-            <Nav.Link>Test</Nav.Link>
-          </LinkContainer>
+          <this.loginButton/>
         </Nav>
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-info">Search</Button>
-        </Form>
       </BSNav>
 
     )
   }
 }
-export default Navbar
+export default connect(mapAuthStateToProps, { logoutAction })(Navbar)
