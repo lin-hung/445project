@@ -2,14 +2,13 @@ import React, { Component } from 'react'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {test} from '../_actions/authActions'
-
+import {testAction, oAuthLoginAction} from '../_actions/authActions'
+import ReduxDisplayComponent from './ReduxDisplayComponent'
 class OAuthLogin extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: "data not loaded",
-            user: {}
+            data: "data not loaded"
         }
         //this.openPopupGoogle=this.openPopupGoogle
     }
@@ -40,6 +39,7 @@ class OAuthLogin extends Component {
         })
         socket.on('google',(msg)=>{
             console.log(`google response: ${msg}`)
+            this.props.oAuthLoginAction(msg)
         })
     }
 
@@ -61,8 +61,11 @@ class OAuthLogin extends Component {
             <div>
                 <h1 className="display-3">Data: {this.state.data}
                 </h1>
+                <ul>
+                    <ReduxDisplayComponent />
+                </ul>
                 <Button onClick={this.openPopupGoogle}/>
-                <Button onClick={this.props.test}/>
+                <Button onClick={this.props.testAction}/>
             </div>
         )
     }
@@ -72,4 +75,4 @@ const mapStateToProps = state => ({
     auth: state.auth
   })
 
-export default connect(mapStateToProps,{test})(OAuthLogin)
+export default connect(mapStateToProps,{testAction, oAuthLoginAction})(OAuthLogin)
