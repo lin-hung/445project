@@ -1,5 +1,5 @@
 import isEmpty from 'is-empty'
-import {SET_CURRENT_USER, TESTACTION} from "../_actions/actionTypes"
+import {SET_CURRENT_USER, TESTACTION, LOG_OUT_CURRENT_USER} from "../_actions/actionTypes"
 
 const initialState = {
     isAuthed: false,
@@ -20,6 +20,14 @@ export default function(state = initialState, action) {
           a:'SET CURRENT USER',
           isAuthed:!isEmpty(action.payload),
           user:action.payload
+        }
+      }
+      case LOG_OUT_CURRENT_USER:{
+        return{
+          ...state,
+          a:'logged out',
+          isAuthed:false,
+          user:{}
         }
       }
       default:

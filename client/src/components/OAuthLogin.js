@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {testAction, oAuthLoginAction} from '../_actions/authActions'
+import {testAction, oAuthLoginAction,logoutAction} from '../_actions/authActions'
 import {mapAuthStateToProps} from '../resources/utils'
 import ReduxDisplayComponent from './ReduxDisplayComponent'
 class OAuthLogin extends Component {
@@ -58,9 +58,9 @@ class OAuthLogin extends Component {
         axios.get('/api/auth/testAuthed')
             .then(res=>{
                 this.setState({testAuth:`auth tested: ${res.data.success}`})
-                console.log(`oauthlogin.js testauth res: ${res.data.success}`)
+            }).catch(res=>{
+                this.setState({testAuth:`auth tested: ${res}`})
             })
-        this.setState({testAuth:`auth tested`})
 
     }
 
@@ -76,9 +76,10 @@ class OAuthLogin extends Component {
                 <Button onClick={this.openPopupGoogle}>google auth</Button>
                 <Button onClick={this.props.testAction}>TestAction</Button>
                 <Button onClick={this.testAuth}>test auth</Button>
+                <Button onClick={this.props.logoutAction}>log out</Button>
             </div>
         )
     }
 }
 
-export default connect(mapAuthStateToProps,{testAction, oAuthLoginAction})(OAuthLogin)
+export default connect(mapAuthStateToProps,{testAction, oAuthLoginAction,logoutAction})(OAuthLogin)
