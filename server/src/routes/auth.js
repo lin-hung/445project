@@ -17,10 +17,14 @@ Router.get("/googlecb", Passport.authenticate("google", { scope: ["profile", "em
             user:user
         }
         const token=JWT.sign(payload,process.env.secret)//DUMMY SECRET
-        io.in(req.session.socketId).emit('google', `token ${token}`);
+        io.in(req.session.socketId).emit('google', `Bearer ${token}`)
         return res.end(`<script>window.close()</script>`)
     }
 )
-
+Router.get("/testAuthed",Passport.authenticate('jwt',{session:false}),
+    (req,res)=>{
+        res.json({success:true})
+    }
+)
 
 module.exports = Router

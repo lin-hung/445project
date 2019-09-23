@@ -8,9 +8,9 @@ class OAuthLogin extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            data: "data not loaded"
+            data: "data not loaded",
+            testAuth: 'not run'
         }
-        //this.openPopupGoogle=this.openPopupGoogle
     }
     componentDidMount() {
         this.getTestData()
@@ -44,28 +44,37 @@ class OAuthLogin extends Component {
     }
 
     getTestData = () => {
-        console.log("get test data")
-        axios.get(`/test`)
+        axios.get(`/api/test`)
             .then(res => {
-                console.log("axios")
                 return res.data
             })
             .then(data => {
-                console.log(data)
                 this.setState({ data: data.abc })
             })
+    }
+
+    testAuth = () =>{
+        axios.get('/api/auth/testAuthed')
+            .then(res=>{
+                this.setState({testAuth:`auth tested: ${res.data.success}`})
+                console.log(`oauthlogin.js testauth res: ${res.data.success}`)
+            })
+        this.setState({testAuth:`auth tested`})
+
     }
 
     render() {
         return (
             <div>
                 <h1 className="display-3">Data: {this.state.data}
+                    Test Auth: {this.state.testAuth}
                 </h1>
                 <ul>
                     <ReduxDisplayComponent />
                 </ul>
-                <Button onClick={this.openPopupGoogle}/>
-                <Button onClick={this.props.testAction}/>
+                <Button onClick={this.openPopupGoogle}>google auth</Button>
+                <Button onClick={this.props.testAction}>TestAction</Button>
+                <Button onClick={this.testAuth}>test auth</Button>
             </div>
         )
     }

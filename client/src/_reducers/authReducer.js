@@ -15,7 +15,6 @@ export default function(state = initialState, action) {
           a:action.payload
         }
       case SET_CURRENT_USER:{
-        console.log(`in authreducer.js ${action.payload}`)
         return{
           ...state,
           a:'SET CURRENT USER',
