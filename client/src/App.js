@@ -23,7 +23,6 @@ function App() {
   const socket = io("http://localhost:3002/")
   return (
     <Provider store={store}>
-      "ABCDEFG"
       <Router>
         <div className="App">
           <Navbar />
