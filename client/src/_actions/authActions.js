@@ -1,16 +1,6 @@
-import Axios from 'axios'
 import Jwt_decode from 'jwt-decode'
-import {TESTACTION,SET_CURRENT_USER} from "./actionTypes"
-
-export function setAuthToken(token){//THIS IS NOT A REDUX ACTION
-    if (token) {
-        // Apply authorization token to every request if logged in
-        Axios.defaults.headers.common["Authorization"] = token;
-    } else {
-        // Delete auth header
-        delete Axios.defaults.headers.common["Authorization"]
-    }
-}
+import { setAuthToken } from '../resources/utils'
+import { SET_CURRENT_USER, TESTACTION } from "./actionTypes"
 
 export function testAction(data){
     return{

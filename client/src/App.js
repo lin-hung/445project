@@ -1,4 +1,3 @@
-import Jwt_decode from 'jwt-decode'
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import { Provider } from "react-redux"
@@ -8,11 +7,12 @@ import { DummyContent2, Footer } from './components/DummyContent'
 import Landing from "./components/Landing"
 import Navbar from "./components/Navbar"
 import OAuthLogin from './components/OAuthLogin'
-import { oAuthLoginAction, setAuthToken } from './_actions/authActions'; //not a redux action
+import { setAuthToken } from './resources/utils'
+import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
 
 if (localStorage.jwtToken) {
-  // Set auth token header auth
+  // Set auth token header if localstorage contains token
   const token = localStorage.jwtToken
   setAuthToken(token)
   store.dispatch(oAuthLoginAction(token))

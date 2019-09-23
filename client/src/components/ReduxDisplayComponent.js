@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {mapAuthStateToProps} from '../resources/utils'
 
 //For test purposes. Displays contents of Redux stores
 class ReduxDisplayComponent extends Component{
@@ -13,8 +14,4 @@ class ReduxDisplayComponent extends Component{
     }
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth
-  })
-
-export default connect(mapStateToProps)(ReduxDisplayComponent)
+export default connect(mapAuthStateToProps)(ReduxDisplayComponent)

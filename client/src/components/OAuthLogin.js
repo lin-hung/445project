@@ -3,6 +3,7 @@ import {Button} from 'react-bootstrap'
 import {connect} from 'react-redux'
 import axios from 'axios'
 import {testAction, oAuthLoginAction} from '../_actions/authActions'
+import {mapAuthStateToProps} from '../resources/utils'
 import ReduxDisplayComponent from './ReduxDisplayComponent'
 class OAuthLogin extends Component {
     constructor(props) {
@@ -80,8 +81,4 @@ class OAuthLogin extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    auth: state.auth
-  })
-
-export default connect(mapStateToProps,{testAction, oAuthLoginAction})(OAuthLogin)
+export default connect(mapAuthStateToProps,{testAction, oAuthLoginAction})(OAuthLogin)
