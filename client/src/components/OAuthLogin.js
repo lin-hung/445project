@@ -17,7 +17,6 @@ class OAuthLogin extends Component {
         this.getTestData()
         const socket=this.props.socket
         socket.emit('test_message',"abcdefg")
-        console.log(`socket id: ${socket.id}`)
         this.MsgRecieve()
     }
     openPopupGoogle=()=> {

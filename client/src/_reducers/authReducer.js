@@ -3,9 +3,8 @@ import {SET_CURRENT_USER, TESTACTION, LOG_OUT_CURRENT_USER} from "../_actions/ac
 
 const initialState = {
     isAuthed: false,
-    user: {},
-    loading: false
-}
+    user: {}
+  }
 
 export default function(state = initialState, action) {
     switch (action.type) {

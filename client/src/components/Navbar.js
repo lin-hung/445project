@@ -6,7 +6,7 @@ import logo from '../resources/logo.svg'
 class Navbar extends Component {
   render() {
     return (
-      <BSNav bg="dark" variant="dark" fixed="top">
+      <BSNav bg="dark" variant="dark">
         <LinkContainer to="/">
           <BSNav.Brand>
             <img src={logo} height="30px" alt="logo" />
