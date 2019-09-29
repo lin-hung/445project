@@ -16,6 +16,7 @@ class Login extends Component {
         const socket=this.props.socket
         socket.on('google',(msg)=>{
             this.props.oAuthLoginAction(msg)
+            this.setState({step:4})
         })
     }
     openOAuthWindow=(e)=>{
@@ -69,6 +70,10 @@ class Login extends Component {
             case 3:
                 return(
                     <Redirect to='/register' />
+                )
+            case 4:
+                return(
+                    <Redirect to='/' />
                 )
             default: {
                 return(<div>Error</div>)
