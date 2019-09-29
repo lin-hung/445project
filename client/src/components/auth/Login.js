@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ReduxDisplayComponent from '../ReduxDisplayComponent'
+import { Redirect } from 'react-router-dom'
 import { mapAuthStateToProps } from '../../resources/utils'
-import {oAuthLoginAction} from '../../_actions/authActions'
+import { oAuthLoginAction } from '../../_actions/authActions'
 import './style.css'
 class Login extends Component {
     constructor(props) {
@@ -43,11 +43,10 @@ class Login extends Component {
                                     <p className="lead">Do you have an account?</p>
                                     <p className="lead">
                                         <button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} value='2'>Yes</button>
-                                        <button type="button" className="btn btn-secondary btn-lg" onClick={this.toRegister} >No</button>
+                                        <button type="button" className="btn btn-secondary btn-lg" onClick={this.handleClick} value='3'>No</button>
                                     </p>
                                 </div>
                             </div>
-                            <ReduxDisplayComponent />
                         </div>
                     )
                 }
@@ -64,12 +63,15 @@ class Login extends Component {
                                     </p>
                                 </div>
                             </div>
-                            <ReduxDisplayComponent />
                         </div>
                 )
             }
+            case 3:
+                return(
+                    <Redirect to='/register' />
+                )
             default: {
-                return(<div>Something broke step: {this.state.step}</div>)
+                return(<div>Error</div>)
             }
 
         }

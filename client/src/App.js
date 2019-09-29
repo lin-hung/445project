@@ -8,6 +8,7 @@ import Landing from "./components/Landing"
 import Navbar from "./components/Navbar"
 import OAuthLogin from './components/OAuthLogin'
 import Login from './components/auth/Login'
+import Register from './components/auth/Register'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
@@ -30,11 +31,10 @@ function App() {
           <Container id="content">
             <Route exact path="/" component={Landing} />
             <Route exact path="/DC2" component={DummyContent2} />
-            <Route exact path="/OAuthLoginTest"
-              render={(props) => <OAuthLogin socket={socket} />}
-            />
-            <Route exact path="/Login"
-              render={(props)=> <Login socket={socket}/>} />
+            <Route exact path="/login"
+              render={(props) => <Login socket={socket} />} />
+            <Route exact path="/register"
+              render={(props) => <Register socket={socket} />} />
           </Container>
           <Footer />
         </div>

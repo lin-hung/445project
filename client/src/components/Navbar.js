@@ -12,7 +12,7 @@ class Navbar extends Component {
       return(<Button onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
-    return(<LinkContainer to='/Login'><Button>Log In</Button></LinkContainer>)
+    return(<LinkContainer to='/login'><Button>Log In</Button></LinkContainer>)
   }
   render() {
     return (
