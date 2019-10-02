@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
 import './loginStyle.css'
+
 class Login extends Component {
     constructor(props) {
         super(props)
