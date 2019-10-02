@@ -1,7 +1,9 @@
 import Passport from "passport"
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt'
 import GoogleStrategy from "passport-google-oauth20"
+import {Strategy as LinkedInStrategy} from 'passport-linkedin-oauth2'
 import Mongoose from "mongoose"
+
 
 const User = Mongoose.model("users")
 
@@ -28,8 +30,8 @@ module.exports = Passport => {
         if (user) {
           return done(null, user)
         }
-          return done(null, false)
-        })
+        return done(null, false)
+      })
       .catch(err => console.log(err))
     return done(null, true)
   }))
@@ -59,5 +61,43 @@ module.exports = Passport => {
       })
     }
   )//new googlestrategy
+  )//passport.use
+
+  Passport.use(new LinkedInStrategy({
+    clientID: process.env.linkedinClientID,
+    clientSecret: process.env.linkedinClientSecret,
+    callbackURL: "api/auth/linkedincb",
+    response_type: "code",
+    profileFields: [
+      "formatted-name",
+      "headline",
+      "id",
+      "public-profile-url",
+      "email-address",
+      "location",
+  ],
+    scope: ['r_liteprofile'],
+    state: true
+  }, (accessToken, refreshToken, profile, done) => {
+    console.log(`in linkedinstrategy ${profile}`)
+
+    User.findOne({ linkedinID: profile.id }).then((user) => {
+      return done(null, "abc")
+      // if (user) {
+      //   return done(null, user)
+      // }
+      // else {
+      //   new User({
+      //     name: profile.name.givenName + " " + profile.name.familyName,
+      //     email: profile.emails[0].value,
+      //     linkedinID: profile.id
+      //   }).save().then((user) => {
+      //     console.log(`new user created: linkedinID ${user.linkedinID} name ${user.name}`)
+      //     return done(null, user)
+      //   })
+   //   }
+    })
+  }
+  )//new LinkedInStrateg
   )//passport.use
 }
