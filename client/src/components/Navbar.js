@@ -14,23 +14,20 @@ class Navbar extends Component {
     }
     return(<LinkContainer to='/login'><Button>Log In</Button></LinkContainer>)
   }
+
   render() {
     return (
-      <BSNav bg="dark" variant="dark">
+      <BSNav>
         <LinkContainer to="/">
           <BSNav.Brand>
-            <img src={logo} height="30px" alt="logo" />
-            Nav
-            </BSNav.Brand>
+            <img src={logo} height="125px" alt="logo" />
+          </BSNav.Brand>
         </LinkContainer>
         <Nav className="mr-auto">
-          <LinkContainer to="/">
-            <Nav.Link>Home</Nav.Link>
-          </LinkContainer>
+
           <this.loginButton/>
         </Nav>
       </BSNav>
-
     )
   }
 }
