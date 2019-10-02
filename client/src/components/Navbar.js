@@ -20,11 +20,11 @@ class Navbar extends Component {
       <BSNav>
         <LinkContainer to="/">
           <BSNav.Brand>
-            <img src={logo} height="125px" alt="logo" />
+            <img src={logo} height="125px" alt="logo"/>
           </BSNav.Brand>
         </LinkContainer>
+        
         <Nav className="mr-auto">
-
           <this.loginButton/>
         </Nav>
       </BSNav>

@@ -5,6 +5,7 @@ import axios from 'axios'
 import {testAction, oAuthLoginAction,logoutAction} from '../_actions/authActions'
 import {mapAuthStateToProps} from '../resources/utils'
 import ReduxDisplayComponent from './ReduxDisplayComponent'
+
 class OAuthLogin extends Component {
     constructor(props) {
         super(props)
@@ -13,12 +14,14 @@ class OAuthLogin extends Component {
             testAuth: 'not run'
         }
     }
+
     componentDidMount() {
         this.getTestData()
         const socket=this.props.socket
         socket.emit('test_message',"abcdefg")
         this.MsgRecieve()
     }
+
     openPopupGoogle=()=> {
         const socket=this.props.socket
         const width = 600, height = 600
@@ -32,6 +35,7 @@ class OAuthLogin extends Component {
             height=${height}, top=${top}, left=${left}`
         )
       }
+
     MsgRecieve=()=>{
         const socket=this.props.socket
         socket.on('test_response',(msg)=>{
@@ -80,5 +84,4 @@ class OAuthLogin extends Component {
         )
     }
 }
-
 export default connect(mapAuthStateToProps,{testAction, oAuthLoginAction,logoutAction})(OAuthLogin)
