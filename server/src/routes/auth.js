@@ -28,7 +28,6 @@ Router.get("/googlecb", Passport.authenticate("google", { scope: ["profile", "em
 
 Router.get("/linkedincb", Passport.authenticate("linkedin", { state: process.env.linkedinState }),
     (req, res) => {
-        console.log(`linkedincb`)
         const user = req.user
         const payload = {
             user: user

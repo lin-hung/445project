@@ -82,12 +82,10 @@ module.exports = Passport => {
     console.log(`in linkedinstrategy ${profile}`)
 
     User.findOne({ linkedinID: profile.id }).then((user) => {
-      //return done(null, "abc")
       if (user) {
         return done(null, user)
       }
       else {
-        console.log(profile)
         new User({
           name: profile.name.givenName + " " + profile.name.familyName,
           email: profile.emails[0].value,
