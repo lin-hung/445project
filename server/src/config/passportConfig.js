@@ -76,26 +76,27 @@ module.exports = Passport => {
       "email-address",
       "location",
   ],
-    scope: ['r_liteprofile'],
+    scope: ['r_emailaddress','r_liteprofile'],
     state: true
   }, (accessToken, refreshToken, profile, done) => {
     console.log(`in linkedinstrategy ${profile}`)
 
     User.findOne({ linkedinID: profile.id }).then((user) => {
-      return done(null, "abc")
-      // if (user) {
-      //   return done(null, user)
-      // }
-      // else {
-      //   new User({
-      //     name: profile.name.givenName + " " + profile.name.familyName,
-      //     email: profile.emails[0].value,
-      //     linkedinID: profile.id
-      //   }).save().then((user) => {
-      //     console.log(`new user created: linkedinID ${user.linkedinID} name ${user.name}`)
-      //     return done(null, user)
-      //   })
-   //   }
+      //return done(null, "abc")
+      if (user) {
+        return done(null, user)
+      }
+      else {
+        console.log(profile)
+        new User({
+          name: profile.name.givenName + " " + profile.name.familyName,
+          email: profile.emails[0].value,
+          linkedinID: profile.id
+        }).save().then((user) => {
+          console.log(`new user created: linkedinID ${user.linkedinID} name ${user.name}`)
+          return done(null, user)
+        })
+     }
     })
   }
   )//new LinkedInStrateg

@@ -21,7 +21,7 @@ Router.get("/googlecb", Passport.authenticate("google", { scope: ["profile", "em
             user: user
         }
         const token = JWT.sign(payload, process.env.secret)//DUMMY SECRET
-        io.in(req.session.socketId).emit('google', `Bearer ${token}`)
+        io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
         return res.end(`<script>window.close()</script>`)
     }
 )
@@ -34,7 +34,7 @@ Router.get("/linkedincb", Passport.authenticate("linkedin", { state: process.env
             user: user
         }
         const token = JWT.sign(payload, process.env.secret)//DUMMY SECRET
-        io.in(req.session.socketId).emit('linkedin', `Bearer ${token}`)
+        io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
         return res.end(`<script>window.close()</script>`)
     },
 )
