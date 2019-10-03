@@ -15,34 +15,25 @@ Router.get("/linkedin",
     Passport.authenticate('linkedin', { state: process.env.linkedinState })
 )
 
-Router.get('/googlecb', (req,res,next)=>{
-    Passport.authenticate("google", { scope: ["profile", "email"] }, (err,user,msg)=>{ //if the user isn't registered, msg contains the provider profile info
-        if(user){
-            const payload = {
-                user: user
-            }
-            const token = JWT.sign(payload, process.env.secret)
-            io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
-            return res.end(`<script>window.close()</script>`)
+Router.get('/googlecb', (req, res, next) => {
+    Passport.authenticate("google", { scope: ["profile", "email"] }, (err, user, msg) => { //if the user isn't registered, msg contains the provider profile info
+        if (user) {
+           sendTokenToUser(req,res,user)
         }
         io.in(req.session.socketId).emit('authfailure', true)
         return res.end(`<script>window.close()</script>`)
-    }) (req,res,next)
+    })(req, res, next)
 })
 
-Router.get('/linkedincb', (req,res,next)=>{
-    Passport.authenticate("linkedin", { state: process.env.linkedinState }, (err,user,msg)=>{ 
-        if(user){
-            const payload = {
-                user: user
-            }
-            const token = JWT.sign(payload, process.env.secret)
-            io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
-            return res.end(`<script>window.close()</script>`)
+
+Router.get('/linkedincb', (req, res, next) => {
+    Passport.authenticate("linkedin", { state: process.env.linkedinState }, (err, user, msg) => {
+        if (user) {
+           sendTokenToUser(req,res,user)
         }
         io.in(req.session.socketId).emit('authfailure', true)
         return res.end(`<script>window.close()</script>`)
-    }) (req,res,next)
+    })(req, res, next)
 })
 
 Router.get("/testAuthed", Passport.authenticate('jwt', { session: false }),
@@ -50,5 +41,14 @@ Router.get("/testAuthed", Passport.authenticate('jwt', { session: false }),
         res.json({ success: true })
     }
 )
+
+const sendTokenToUser = (req, res, user) => {
+    const payload = {
+        user: user
+    }
+    const token = JWT.sign(payload, process.env.secret)
+    io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
+    return res.end(`<script>window.close()</script>`)
+}
 
 module.exports = Router
