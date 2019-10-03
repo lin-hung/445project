@@ -16,9 +16,9 @@ const UserSchema=new Schema({
         type:String,
         required:false
     },
-    isEmployer:{
-        type:Boolean,
-        required:false
+    userType:{
+        type:String,
+        required:true
     }
 })
 
