@@ -41,7 +41,8 @@ Router.get('/googlecb', (req, res, next) => {
         }
         io.in(req.session.socketId).emit('authfailure', true)
         return res.end(`<script>window.close()</script>`)
-    })(req, res, next)
+    })(req, res, next), 
+    removeRegisterTypeFromSession
 })
 
 
@@ -73,6 +74,13 @@ const sendTokenToUser = (req, res, user) => {
 function addRegisterTypeToSession(req, res, next) {
     if (req.query.registerType) {
         req.session.registerType = req.query.registerType
+    }
+    next()
+}
+function removeRegisterTypeFromSession(req, res, next) {
+    console.log('remove register type')
+    if (req.query.registerType) {
+        req.session.registerType = null
     }
     next()
 }
