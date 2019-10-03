@@ -49,14 +49,15 @@ module.exports = Passport => {
           return done(null, user)
         }
         else {
-          new User({
-            name: profile.name.givenName + " " + profile.name.familyName,
-            email: profile.emails[0].value,
-            googleID: profile.id
-          }).save().then((user) => {
-            console.log(`new user created: googleID ${user.googleID} name ${user.name}`)
-            return done(null, user)
-          })
+          return done(null,false,{message:'User does not exist',profile:profile})
+          // new User({
+          //   name: profile.name.givenName + " " + profile.name.familyName,
+          //   email: profile.emails[0].value,
+          //   googleID: profile.id
+          // }).save().then((user) => {
+          //   console.log(`new user created: googleID ${user.googleID} name ${user.name}`)
+          //   return done(null, user)
+          // })
         }
       })
     }

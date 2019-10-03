@@ -14,29 +14,36 @@ Router.get("/linkedin",
     addSocketIdToSession,
     Passport.authenticate('linkedin', { state: process.env.linkedinState })
 )
-Router.get("/googlecb", Passport.authenticate("google", { scope: ["profile", "email"] }),
-    (req, res) => {
-        const user = req.user
-        const payload = {
-            user: user
-        }
-        const token = JWT.sign(payload, process.env.secret)//DUMMY SECRET
-        io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
-        return res.end(`<script>window.close()</script>`)
-    }
-)
 
-Router.get("/linkedincb", Passport.authenticate("linkedin", { state: process.env.linkedinState }),
-    (req, res) => {
-        const user = req.user
-        const payload = {
-            user: user
+Router.get('/googlecb', (req,res,next)=>{
+    Passport.authenticate("google", { scope: ["profile", "email"] }, (err,user,msg)=>{ //if the user isn't registered, msg contains the provider profile info
+        if(user){
+            const payload = {
+                user: user
+            }
+            const token = JWT.sign(payload, process.env.secret)
+            io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
+            return res.end(`<script>window.close()</script>`)
         }
-        const token = JWT.sign(payload, process.env.secret)//DUMMY SECRET
-        io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
+        io.in(req.session.socketId).emit('authfailure', true)
         return res.end(`<script>window.close()</script>`)
-    },
-)
+    }) (req,res,next)
+})
+
+Router.get('/linkedincb', (req,res,next)=>{
+    Passport.authenticate("linkedin", { state: process.env.linkedinState }, (err,user,msg)=>{ 
+        if(user){
+            const payload = {
+                user: user
+            }
+            const token = JWT.sign(payload, process.env.secret)
+            io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
+            return res.end(`<script>window.close()</script>`)
+        }
+        io.in(req.session.socketId).emit('authfailure', true)
+        return res.end(`<script>window.close()</script>`)
+    }) (req,res,next)
+})
 
 Router.get("/testAuthed", Passport.authenticate('jwt', { session: false }),
     (req, res) => {

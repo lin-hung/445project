@@ -11,23 +11,32 @@ class Login extends Component {
             step: 1
         }
     }
-    handleClick=(e)=>{
-        this.setState({step:parseInt(e.target.value)})
-        const socket=this.props.socket
-        socket.on('authtoken',(token)=>{
-           this.setState({step:4}) 
-           this.props.oAuthLoginAction(token)
+    componentDidMount() {
+        const socket = this.props.socket
+        socket.once('authtoken', (token) => {
+            this.setState({ step: 4 })
+            this.props.oAuthLoginAction(token)
+        })
+        socket.once('authfailure', () => {
+            this.setState({ step: 5 })
         })
     }
-    openOAuthWindow=(e)=>{
-        const provider=e.target.value
-        const socket=this.props.socket
+    componentWillUnmount() {
+        const socket = this.props.socket
+        socket.removeAllListeners()
+    }
+    handleClick = (e) => {
+        this.setState({ step: parseInt(e.target.value) })
+    }
+    openOAuthWindow = (e) => {
+        const provider = e.target.value
+        const socket = this.props.socket
         const width = 600, height = 600
         const left = (window.innerWidth / 2) - (width / 2)
         const top = (window.innerHeight / 2) - (height / 2)
         const url = `http://localhost:3001/api/auth/${provider}?socketId=${socket.id}`;
         return window.open(url, '',
-          `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+            `toolbar=no, location=no, directories=no, status=no, menubar=no, 
             scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
             height=${height}, top=${top}, left=${left}`
         )
@@ -52,31 +61,33 @@ class Login extends Component {
                     )
                 }
             case 2: {
-                return(
+                return (
                     <div id='login' className="container h-100">
-                            <div className="col-sm-12 my-auto">
-                                <div className="jumbotron text-center">
-                                    <h1 className="display-4">Log in with:</h1>
-                                    <p className="lead"> </p>
-                                    <p className="lead">
-                                        <button type="button" className="btn btn-primary btn-lg" onClick={this.openOAuthWindow} value={'google'}>Google</button>
-                                        <button type="button" className="btn btn-primary btn-lg" onClick={this.openOAuthWindow} value={'linkedIn'}>LinkedIn</button>
-                                    </p>
-                                </div>
+                        <div className="col-sm-12 my-auto">
+                            <div className="jumbotron text-center">
+                                <h1 className="display-4">Log in with:</h1>
+                                <p className="lead"> </p>
+                                <p className="lead">
+                                    <button type="button" className="btn btn-primary btn-lg" onClick={this.openOAuthWindow} value={'google'}>Google</button>
+                                    <button type="button" className="btn btn-primary btn-lg" onClick={this.openOAuthWindow} value={'linkedIn'}>LinkedIn</button>
+                                </p>
                             </div>
                         </div>
+                    </div>
                 )
             }
             case 3:
-                return(
+                return (
                     <Redirect to='/register' />
                 )
             case 4:
-                return(
+                return (
                     <Redirect to='/' />
                 )
+            case 5:
+                return (<div>no account registered</div>)
             default: {
-                return(<div>Error</div>)
+                return (<div>Error</div>)
             }
 
         }
@@ -84,4 +95,4 @@ class Login extends Component {
     }
 }
 
-export default connect(mapAuthStateToProps, {oAuthLoginAction})(Login)
+export default connect(mapAuthStateToProps, { oAuthLoginAction })(Login)
