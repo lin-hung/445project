@@ -36,13 +36,10 @@ function App() {
             <Route exact path="/register"
               render={(props) => <Register socket={socket} />} />
           </Container>
-          <Footer />
+          <Footer></Footer>
         </div>
       </Router>
     </Provider>
   )
 }
-
-
-
 export default App;

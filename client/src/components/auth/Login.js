@@ -85,5 +85,4 @@ class Login extends Component {
 
     }
 }
-
 export default connect(mapAuthStateToProps, {oAuthLoginAction})(Login)

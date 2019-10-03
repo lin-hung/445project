@@ -1,7 +1,12 @@
-.landingHeader {
-    font-size: 50px;
+#landingHeader {
+    font-size: 75px;
     color: white;
     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#landingJumbotron {
+    background: rgb(255, 255, 255); /* IE8 and below */
+    background: rgba(255, 255, 255, 0.15); /* All other browsers */
 }
 
 body {

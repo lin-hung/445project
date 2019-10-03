@@ -24,7 +24,7 @@ class Navbar extends Component {
           </BSNav.Brand>
         </LinkContainer>
         
-        <Nav className="ml-auto"> {/** ml-auto to align button to right */}
+        <Nav className="ml-auto"> {/** ml-auto to align button to right, 'pullRight' doesn't work */}
           <this.loginButton/>
         </Nav>
       </BSNav>
