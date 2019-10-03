@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import { noop } from 'rxjs'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
 import './style.css'
@@ -42,39 +43,21 @@ class Login extends Component {
         )
     }
     render() {
+        var headline, subhead, buttonA, buttonB
         switch (this.state.step) {
-            case 1:
-                {
-                    return (
-                        <div id='login' className="container h-100">
-                            <div className="col-sm-12 my-auto">
-                                <div className="jumbotron text-center">
-                                    <h1 className="display-4">Welcome to Employeet!</h1>
-                                    <p className="lead">Do you have an account?</p>
-                                    <p className="lead">
-                                        <button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} value='2'>Yes</button>
-                                        <button type="button" className="btn btn-secondary btn-lg" onClick={this.handleClick} value='3'>No</button>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                }
+            case 1:{
+                headline = `Welcome to Employeet!`
+                subhead = `Do you have an account?`
+                buttonA = { text: `Yes`, onClick: this.handleClick, val: 2 }
+                buttonB = { text: `No`, onClick: this.handleClick, val: 3 }
+                break
+            }
             case 2: {
-                return (
-                    <div id='login' className="container h-100">
-                        <div className="col-sm-12 my-auto">
-                            <div className="jumbotron text-center">
-                                <h1 className="display-4">Log in with:</h1>
-                                <p className="lead"> </p>
-                                <p className="lead">
-                                    <button type="button" className="btn btn-primary btn-lg" onClick={this.openOAuthWindow} value={'google'}>Google</button>
-                                    <button type="button" className="btn btn-primary btn-lg" onClick={this.openOAuthWindow} value={'linkedIn'}>LinkedIn</button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                )
+                headline = `Log in with:`
+                subhead = ` `
+                buttonA = { text: `Google`, onClick: this.openOAuthWindow, val: 'google' }
+                buttonB = { text: `LinkedIn`, onClick: this.openOAuthWindow, val: 'linkedIn' }
+                break
             }
             case 3:
                 return (
@@ -84,13 +67,32 @@ class Login extends Component {
                 return (
                     <Redirect to='/' />
                 )
-            case 5:
-                return (<div>no account registered</div>)
+            case 5:{               
+                headline=`You don't have an account yet!`
+                subhead=`Would you like to register?`
+                buttonA={ text: `Yes`, onClick: this.handleClick, val: 3 }
+                buttonB={ text: `No`, onClick: this.handleClick, val: 4 }
+                break
+            }
             default: {
-                return (<div>Error</div>)
+                headline=`Error`
+                buttonA={ text: ``, onClick: noop, val: 0 }
+                buttonB={ text: ``, onClick: noop, val: 0 }
             }
 
         }
+        return (<div id='login' className="container h-100">
+            <div className="col-sm-12 my-auto">
+                <div className="jumbotron text-center">
+                    <h1 className="display-4">{headline}</h1>
+                    <p className="lead">{subhead}</p>
+                    <p className="lead">
+                        <button type="button" className="btn btn-primary btn-lg" onClick={buttonA.onClick} value={buttonA.val}>{buttonA.text}</button>
+                        <button type="button" className="btn btn-primary btn-lg" onClick={buttonB.onClick} value={buttonB.val}>{buttonB.text}</button>
+                    </p>
+                </div>
+            </div>
+        </div>)
 
     }
 }
