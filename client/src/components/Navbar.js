@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar as BSNav, Nav, Form, FormControl, Button } from 'react-bootstrap'
+import { Navbar as BSNav, Nav, Button } from 'react-bootstrap'
 import logo from '../resources/logo.svg'
 import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'

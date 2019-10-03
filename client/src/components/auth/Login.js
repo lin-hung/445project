@@ -14,10 +14,9 @@ class Login extends Component {
     handleClick=(e)=>{
         this.setState({step:parseInt(e.target.value)})
         const socket=this.props.socket
-        socket.on('google',(token)=>{
+        socket.on('authtoken',(token)=>{
            this.setState({step:4}) 
            this.props.oAuthLoginAction(token)
-
         })
     }
     openOAuthWindow=(e)=>{
