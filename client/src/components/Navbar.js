@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar as BSNav, Nav, Form, FormControl, Button } from 'react-bootstrap'
+import { Navbar as BSNav, Nav, Button } from 'react-bootstrap'
 import logo from '../resources/logo.svg'
 import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'
@@ -14,20 +14,23 @@ class Navbar extends Component {
     }
     return(<LinkContainer to='/login'><Button>Log In</Button></LinkContainer>)
   }
-
   render() {
     return (
-      <BSNav>
+      <BSNav bg="dark" variant="dark">
         <LinkContainer to="/">
           <BSNav.Brand>
-            <img src={logo} height="125px" alt="logo"/> {/** emploYEET logo in navbar */}
-          </BSNav.Brand>
+            <img src={logo} height="30px" alt="logo" />
+            Nav
+            </BSNav.Brand>
         </LinkContainer>
-        
-        <Nav className="ml-auto"> {/** ml-auto to align button to right, 'pullRight' doesn't work */}
+        <Nav className="mr-auto">
+          <LinkContainer to="/">
+            <Nav.Link>Home</Nav.Link>
+          </LinkContainer>
           <this.loginButton/>
         </Nav>
       </BSNav>
+
     )
   }
 }

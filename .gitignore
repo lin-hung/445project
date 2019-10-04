@@ -1,6 +1,6 @@
 node_modules/
 build/
-*.log
-*.code-workspace
-*.env
-.vscode/
+.log
+.code-workspace
+.vscode/**
+**.env

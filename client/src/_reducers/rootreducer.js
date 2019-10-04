@@ -1,4 +1,4 @@
-import Redux, {combineReducers} from "redux"
+import {combineReducers} from "redux"
 import authReducer from "./authReducer.js"
 
 export default combineReducers({

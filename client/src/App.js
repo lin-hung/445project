@@ -6,7 +6,6 @@ import io from 'socket.io-client'
 import { DummyContent2, Footer } from './components/DummyContent'
 import Landing from "./components/Landing"
 import Navbar from "./components/Navbar"
-import OAuthLogin from './components/OAuthLogin'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import { setAuthToken } from './resources/utils'
@@ -36,10 +35,13 @@ function App() {
             <Route exact path="/register"
               render={(props) => <Register socket={socket} />} />
           </Container>
-          <Footer></Footer>
+          <Footer />
         </div>
       </Router>
     </Provider>
   )
 }
+
+
+
 export default App;
