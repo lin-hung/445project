@@ -23,6 +23,10 @@ class Register extends Component {
         socket.once('authfailure', (msg) => {
             this.setState({ step: 0, error: msg })
         })
+        socket.once('isRegistered', (msg) => {
+            console.log(`is registered: ${JSON.stringify(msg)}`)
+            this.setState({ error:"Account exists already!", step: 5 })
+        })
     }
     componentWillUnmount() {
         const socket = this.props.socket

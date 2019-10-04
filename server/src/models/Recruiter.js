@@ -1,5 +1,5 @@
 import Mongoose, {Schema} from 'mongoose'
-const CandidateSchema=new Schema({
+const RecruiterSchema=new Schema({
     user:{
         type:Schema.Types.ObjectId,
         ref:'users',
@@ -9,4 +9,4 @@ const CandidateSchema=new Schema({
         type:String
     }
 })
-module.exports=Mongoose.model("candidates",CandidateSchema)
+module.exports=Mongoose.model("recruiters",RecruiterSchema)
