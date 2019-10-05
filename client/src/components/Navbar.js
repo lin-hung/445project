@@ -12,6 +12,10 @@ class Navbar extends Component {
       return(<Button onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
+    const pathname=window.location.pathname
+    if(pathname=='/' || pathname =='/login' || pathname == '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
     return(<LinkContainer to='/login'><Button>Log In</Button></LinkContainer>)
   }
 

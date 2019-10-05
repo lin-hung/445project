@@ -3,7 +3,7 @@ import { Container } from 'react-bootstrap'
 import { Provider } from "react-redux"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import io from 'socket.io-client'
-import { DummyContent2, Footer } from './components/DummyContent'
+import { Footer } from './components/Footer'
 import Landing from "./components/Landing"
 import Navbar from "./components/Navbar"
 import Login from './components/auth/Login'
@@ -17,7 +17,6 @@ if (localStorage.jwtToken) {
   const token = localStorage.jwtToken
   setAuthToken(token)
   store.dispatch(oAuthLoginAction(token))
-  console.log(`app.js login script`)
 }
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
           <Navbar />
           <Container id="content">
             <Route exact path="/" component={Landing} />
-            <Route exact path="/DC2" component={DummyContent2} />
             <Route exact path="/login"
               render={(props) => <Login socket={socket} />} />
             <Route exact path="/register"

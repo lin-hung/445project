@@ -6,11 +6,12 @@
 
 #landingJumbotron { /* Opaque background */
     background: rgb(255, 255, 255); /* IE8 and below */
-    background: rgba(255, 255, 255, 0.15); /* All other browsers */
+    background: rgba(255, 255, 255, 0.6); /* All other browsers */
 }
 
 body { /* Background image. This will have to be changed as it is static throughout due to React Redux */
-    background-image: url("/landingBG.jpg");
+    background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
+    ,url("/landingBG.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
