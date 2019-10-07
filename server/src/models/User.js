@@ -10,13 +10,13 @@ const UserSchema = new Schema({
     email: {
         type: String
     },
-    googleID: {
-        type: String,
-        required: false
+    provider:{
+        type:String,
+        required:true
     },
-    linkedinID: {
-        type: String,
-        required: false
+    providerId:{
+        type:String,
+        required:true
     }
 })
 UserSchema.virtual('fullName').get(function () {
@@ -24,5 +24,14 @@ UserSchema.virtual('fullName').get(function () {
 })
 UserSchema.methods.getUserProfile = function (cb) {
     return UserProfile.findOne({ user: this._id }).exec(cb)
+}
+UserSchema.statics.createUser=function(providerProfile, provider){
+    return new this({
+        firstName: providerProfile.name.givenName,
+        lastName: providerProfile.name.familyName,
+        email: providerProfile.emails[0].value,
+        provider:provider,
+        providerId: providerProfile.id,
+    })
 }
 module.exports = Mongoose.model("users", UserSchema)

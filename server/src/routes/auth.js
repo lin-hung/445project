@@ -28,13 +28,9 @@ Router.get('/googlecb', (req, res, next) => {//sorry this is super ugly
                 return res.end(closePopupScript)
             }
             else {//create user
-                const profile = msg.profile
-                const u = new User({
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName,
-                    email: profile.emails[0].value,
-                    googleID: profile.id,
-                }).save().then((user) => {
+                const providerProfile = msg.profile
+                User.createUser(providerProfile,'google').save()
+                .then((user) => {
                     createUserProfile(user,req.session.registerType).then((profile) => {
                         console.log(`new user created: user ${JSON.stringify(user)}, profile ${JSON.stringify(profile)}`)
                         sendTokenToUser(req, res, user)
@@ -44,6 +40,7 @@ Router.get('/googlecb', (req, res, next) => {//sorry this is super ugly
             }
         }
         if (user) {
+            console.log('sendtoken')
             sendTokenToUser(req, res, user)
             return res.end(closePopupScript)
         }
@@ -61,13 +58,9 @@ Router.get('/linkedincb', (req, res, next) => {
                 return res.end(closePopupScript)
             }
             else {
-                const profile = msg.profile
-                new User({
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName,
-                    email: profile.emails[0].value,
-                    linkedinID: profile.id
-                }).save().then((user) => {
+                const providerProfile = msg.profile
+                User.createUser(providerProfile,"linkedin").save()
+                .then((user) => {
                     createUserProfile(user,req.session.registerType).then((profile) => {
                         console.log(`new user created: user ${JSON.stringify(user)}, profile ${JSON.stringify(profile)}`)
                         sendTokenToUser(req, res, user)
@@ -109,6 +102,7 @@ const createUserProfile = (user,registerType) => {
     }).save()
 }
 function addRegisterTypeToSession(req, res, next) {
+    const regType = req.query.registerType
     if (regType == 'recruiter' || regType == 'candidate') {
         req.session.registerType = regType
     }
