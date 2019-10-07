@@ -20,7 +20,7 @@ class Login extends Component {
             this.props.oAuthLoginAction(token)
         })
         socket.once('authfailure', (msg) => {
-            console.log(msg)
+            console.log(`authfailure msg: ${msg}`)
             this.setState({ step: 5 })
         })
     }
