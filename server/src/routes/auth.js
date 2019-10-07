@@ -109,19 +109,12 @@ const createUserProfile = (user,registerType) => {
     }).save()
 }
 function addRegisterTypeToSession(req, res, next) {
-    const regType = req.query.registerType
-    try {
-        if (regType == 'recruiter' || regType == 'candidate') {
-            req.session.registerType = regType
-        }
-        else if (regType) {
-            throw "Not a valid user type."
-        }
+    if (regType == 'recruiter' || regType == 'candidate') {
+        req.session.registerType = regType
     }
-    catch (e) {
-        console.log(`error: ${e} user type: ${req.query.registerType}`)
-        req.session.registerType = null
-        res.sendStatus(400)
+    else if (regType) {
+        req.session.registerType=null
+        throw Error("Not a valid register type.")
     }
     next()
 }
