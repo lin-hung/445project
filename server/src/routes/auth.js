@@ -23,12 +23,14 @@ Router.get("/linkedin",
 Router.get('/googlecb', (req, res, next) => {//sorry this is super ugly
     Passport.authenticate("google", { scope: ["profile", "email"] }, (err, user, msg) => {
         loginOrRegister(err, user, msg, req, res, next, "google")
+        next()
     })(req, res, next)
 })
 
 Router.get('/linkedincb', (req, res, next) => {
     Passport.authenticate("linkedin", { state: process.env.linkedinState }, (err, user, msg) => {
         loginOrRegister(err,user,msg,req,res,next,"linkedin")
+        next()
     })(req, res, next)
 })
 
@@ -50,9 +52,8 @@ const sendTokenToUser = (req, res, user) => {
 const loginOrRegister=(err, user, msg, req, res, next, provider)=>{
     { //if the user isn't registered, msg contains the provider profile info
         if (req.session.registerType) {
-            console.log(`googlecb regtype: ${req.session.registerType}`)
+            console.log(`user: ${user} regtype: ${req.session.registerType}`)
             if (user) {
-             console.log('user already registered')
                 userAlreadyRegistered(req, res, user)
                 return res.end(closePopupScript)
             }
@@ -60,25 +61,22 @@ const loginOrRegister=(err, user, msg, req, res, next, provider)=>{
                 const providerProfile = msg.profile
                 User.createUser(providerProfile, provider).save()
                     .then((user) => {
-                        console.log(`createuser.then user:${user}`)
-                        createUserProfile(user, req.session.registerType).then((profile) => {
-                            console.log(`new user created: user ${JSON.stringify(user)}, profile ${JSON.stringify(profile)}`)
-                            sendTokenToUser(req, res, user)
-                            return res.end(closePopupScript)
-                        }).catch((err) => {
-                            console.log(err)
-                            return res.end(500)
-                        })
+                        sendTokenToUser(req, res, user)
+                        return createUserProfile(user, req.session.registerType)
+                    }).then((profile) => {
+                        return res.end(closePopupScript)
+                    }).catch((err) => {
+                        console.log(err)
+                        res.status(400)
+                        res.send(err)
                     })
             }
         }
         else if (user) {
-         console.log('sendtoken')
             sendTokenToUser(req, res, user)
             return res.end(closePopupScript)
         }
-        console.log('authfailure')
-        io.in(req.session.socketId).emit('authfailure', true)
+        io.in(req.session.socketId).emit('authfailure', "user is not registered")
         return res.end(closePopupScript)
     }
 }
