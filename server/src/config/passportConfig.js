@@ -44,7 +44,7 @@ module.exports = Passport => {
     callbackURL: "api/auth/googlecb"
   },
     (accessToken, refreshToken, profile, done) => {
-      User.findOne({ googleID: profile.id }).then((user) => {
+      User.findOne({ providerId: profile.id }).then((user) => {
         if (user) {
           return done(null, user)
         }
@@ -74,7 +74,7 @@ module.exports = Passport => {
   }, (accessToken, refreshToken, profile, done) => {
     console.log(`in linkedinstrategy ${profile}`)
 
-    User.findOne({ linkedinID: profile.id }).then((user) => {
+    User.findOne({ providerId: profile.id }).then((user) => {
       if (user) {
         return done(null, user)
       }
