@@ -37,9 +37,15 @@ class Register extends Component {
         switch (step) {
             case 1: {
                 this.setState({ userType: e.target.value })
+                break
             }
             case 2: {
                 this.setState({ provider: e.target.value })
+                break
+            }
+            default:{
+                this.setState({step:0, error:e})
+                break
             }
         }
         this.setState({ step: this.state.step + 1 })

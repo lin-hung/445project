@@ -21,70 +21,17 @@ Router.get("/linkedin",
 )
 
 Router.get('/googlecb', (req, res, next) => {//sorry this is super ugly
-    Passport.authenticate("google", { scope: ["profile", "email"] }, (err, user, msg) => { //if the user isn't registered, msg contains the provider profile info
-        if (req.session.registerType) {
-            if (user) {
-                userAlreadyRegistered(req, res, user)
-                return res.end(closePopupScript)
-            }
-            else {//create user
-                const profile = msg.profile
-                const u = new User({
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName,
-                    email: profile.emails[0].value,
-                    googleID: profile.id,
-                }).save().then((user) => {
-                    createUserProfile(user,req.session.registerType).then((profile) => {
-                        console.log(`new user created: user ${JSON.stringify(user)}, profile ${JSON.stringify(profile)}`)
-                        sendTokenToUser(req, res, user)
-                        return res.end(closePopupScript)
-                    })
-                })
-            }
-        }
-        if (user) {
-            sendTokenToUser(req, res, user)
-            return res.end(closePopupScript)
-        }
-        io.in(req.session.socketId).emit('authfailure', true)
-        return res.end(closePopupScript)
-    })(req, res, next),
-        removeRegisterTypeFromSession
+    Passport.authenticate("google", { scope: ["profile", "email"] }, (err, user, msg) => {
+        loginOrRegister(err, user, msg, req, res, next, "google")
+        next()
+    })(req, res, next)
 })
 
 Router.get('/linkedincb', (req, res, next) => {
     Passport.authenticate("linkedin", { state: process.env.linkedinState }, (err, user, msg) => {
-        if (req.session.registerType) {
-            if (user) {
-                userAlreadyRegistered(req, res, user)
-                return res.end(closePopupScript)
-            }
-            else {
-                const profile = msg.profile
-                new User({
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName,
-                    email: profile.emails[0].value,
-                    linkedinID: profile.id
-                }).save().then((user) => {
-                    createUserProfile(user,req.session.registerType).then((profile) => {
-                        console.log(`new user created: user ${JSON.stringify(user)}, profile ${JSON.stringify(profile)}`)
-                        sendTokenToUser(req, res, user)
-                        return res.end(closePopupScript)
-                    })
-
-                })
-            }
-        }
-        if (user) {
-            sendTokenToUser(req, res, user)
-            return res.end(closePopupScript)
-        }
-        io.in(req.session.socketId).emit('authfailure', true)
-        return res.end(closePopupScript)
-    })(req, res, next),
-        removeRegisterTypeFromSession
+        loginOrRegister(err,user,msg,req,res,next,"linkedin")
+        next()
+    })(req, res, next)
 })
 
 Router.get("/testAuthed", Passport.authenticate('jwt', { session: false }),
@@ -101,7 +48,40 @@ const sendTokenToUser = (req, res, user) => {
     io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
 }
 
-const createUserProfile = (user,registerType) => {
+
+const loginOrRegister=(err, user, msg, req, res, next, provider)=>{
+    { //if the user isn't registered, msg contains the provider profile info
+        if (req.session.registerType) {
+            console.log(`user: ${user} regtype: ${req.session.registerType}`)
+            if (user) {
+                userAlreadyRegistered(req, res, user)
+                return res.end(closePopupScript)
+            }
+            else {//create user
+                const providerProfile = msg.profile
+                User.createUser(providerProfile, provider).save()
+                    .then((user) => {
+                        sendTokenToUser(req, res, user)
+                        return createUserProfile(user, req.session.registerType)
+                    }).then((profile) => {
+                        return res.end(closePopupScript)
+                    }).catch((err) => {
+                        console.log(err)
+                        res.status(400)
+                        res.send(err)
+                    })
+            }
+        }
+        else if (user) {
+            sendTokenToUser(req, res, user)
+            return res.end(closePopupScript)
+        }
+        io.in(req.session.socketId).emit('authfailure', "user is not registered")
+        return res.end(closePopupScript)
+    }
+}
+
+const createUserProfile = (user, registerType) => {
     return new UserProfile({
         user: user._id,
         profileType: registerType,
@@ -109,25 +89,23 @@ const createUserProfile = (user,registerType) => {
     }).save()
 }
 function addRegisterTypeToSession(req, res, next) {
-    if (regType == 'recruiter' || regType == 'candidate') {
-        req.session.registerType = regType
-    }
-    else if (regType) {
-        req.session.registerType=null
-        throw Error("Not a valid register type.")
-    }
-    next()
-}
-function removeRegisterTypeFromSession(req, res, next) {
-    console.log('remove register type')
-    if (req.query.registerType) {
+    const regType = req.query.registerType
+    if (!regType) {
         req.session.registerType = null
+        return next()
     }
-    next()
+    else if (regType == 'recruiter' || regType == 'candidate') {
+        req.session.registerType = regType
+        return next()
+    } else {
+        req.session.registerType = null
+        throw Error(`${regType} is not a valid register type.`)
+    }
 }
+
 const userAlreadyRegistered = (req, res, user) => {
-    user.getUserProfile().then((profile)=>{
-        io.in(req.session.socketId).emit('isRegistered', {user:user,profile:profile})
+    user.getUserProfile().then((profile) => {
+        io.in(req.session.socketId).emit('isRegistered', { user: user, profile: profile })
     })
 }
 

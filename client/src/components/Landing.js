@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import {Link} from "react-router-dom"
-import {LinkContainer} from 'react-router-bootstrap'
-import {Button} from 'react-bootstrap'
-import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
+import { Button, Col, Container, Jumbotron } from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import './landingStyle.css'
 
 class Landing extends Component {

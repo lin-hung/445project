@@ -13,7 +13,7 @@ class Navbar extends Component {
       )
     }
     const pathname=window.location.pathname
-    if(pathname=='/' || pathname =='/login' || pathname == '/register'){//if not logged in and on landing, login, register, don't show login button
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
       return(null)
     }
     return(<LinkContainer to='/login'><Button>Log In</Button></LinkContainer>)
