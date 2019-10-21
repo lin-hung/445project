@@ -8,6 +8,7 @@ import Landing from "./components/Landing"
 import Navbar from "./components/Navbar"
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import ApplicantForm from './components/ApplicantForm'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
@@ -32,6 +33,7 @@ function App() {
               render={(props) => <Login socket={socket} />} />
             <Route exact path="/register"
               render={(props) => <Register socket={socket} />} />
+            <Route exact path="/registerApplicant" component={ApplicantForm} />
           </Container>
           <Footer />
         </div>
