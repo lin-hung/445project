@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "concurrently": "^4.1.2",
-    "dotenv": "^8.1.0"
+    "dotenv": "^8.1.0",
+    "i": "^0.3.6",
+    "npm": "^6.12.0",
+    "react-avatar-edit": "^0.8.3",
+    "react-images-upload": "^1.2.7"
   }
 }
