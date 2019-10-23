@@ -12,25 +12,26 @@ class Navbar extends Component {
       return(<Button onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
+    const pathname=window.location.pathname
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
     return(<LinkContainer to='/login'><Button>Log In</Button></LinkContainer>)
   }
+
   render() {
     return (
-      <BSNav bg="dark" variant="dark">
+      <BSNav>
         <LinkContainer to="/">
           <BSNav.Brand>
-            <img src={logo} height="30px" alt="logo" />
-            Nav
-            </BSNav.Brand>
+            <img src={logo} height="125px" alt="logo"/> {/** emploYEET logo in navbar */}
+          </BSNav.Brand>
         </LinkContainer>
-        <Nav className="mr-auto">
-          <LinkContainer to="/">
-            <Nav.Link>Home</Nav.Link>
-          </LinkContainer>
+        
+        <Nav className="ml-auto"> {/** ml-auto to align button to right, 'pullRight' doesn't work */}
           <this.loginButton/>
         </Nav>
       </BSNav>
-
     )
   }
 }

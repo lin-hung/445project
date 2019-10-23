@@ -44,19 +44,12 @@ module.exports = Passport => {
     callbackURL: "api/auth/googlecb"
   },
     (accessToken, refreshToken, profile, done) => {
-      User.findOne({ googleID: profile.id }).then((user) => {
+      User.findOne({ providerId: profile.id }).then((user) => {
         if (user) {
           return done(null, user)
         }
         else {
-          new User({
-            name: profile.name.givenName + " " + profile.name.familyName,
-            email: profile.emails[0].value,
-            googleID: profile.id
-          }).save().then((user) => {
-            console.log(`new user created: googleID ${user.googleID} name ${user.name}`)
-            return done(null, user)
-          })
+          return done(null,false,{message:'User does not exist',profile:profile})
         }
       })
     }
@@ -81,22 +74,23 @@ module.exports = Passport => {
   }, (accessToken, refreshToken, profile, done) => {
     console.log(`in linkedinstrategy ${profile}`)
 
-    User.findOne({ linkedinID: profile.id }).then((user) => {
-      //return done(null, "abc")
+    User.findOne({ providerId: profile.id }).then((user) => {
       if (user) {
         return done(null, user)
       }
-      else {
-        console.log(profile)
-        new User({
-          name: profile.name.givenName + " " + profile.name.familyName,
-          email: profile.emails[0].value,
-          linkedinID: profile.id
-        }).save().then((user) => {
-          console.log(`new user created: linkedinID ${user.linkedinID} name ${user.name}`)
-          return done(null, user)
-        })
-     }
+      else{
+        return done(null,false,{message:'User does not exist',profile:profile})
+      }
+    //   else {
+    //     new User({
+    //       name: profile.name.givenName + " " + profile.name.familyName,
+    //       email: profile.emails[0].value,
+    //       linkedinID: profile.id
+    //     }).save().then((user) => {
+    //       console.log(`new user created: linkedinID ${user.linkedinID} name ${user.name}`)
+    //       return done(null, user)
+    //     })
+    //  }
     })
   }
   )//new LinkedInStrateg

@@ -1,25 +1,37 @@
-import Mongoose,{Schema} from "mongoose"
-
-const UserSchema=new Schema({
-    name:{
+import Mongoose, { Schema } from "mongoose"
+import UserProfile from './UserProfile'
+const UserSchema = new Schema({
+    firstName: {
+        type: String,
+    },
+    lastName: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    provider:{
         type:String,
         required:true
     },
-    email:{
-        type:String
-    },
-    googleID:{
+    providerId:{
         type:String,
-        required:false
-    },
-    linkedinID:{
-        type:String,
-        required:false
-    },
-    isEmployer:{
-        type:Boolean,
-        required:false
+        required:true
     }
 })
-
-module.exports=Mongoose.model("users",UserSchema)
+UserSchema.virtual('fullName').get(function () {
+    return `${this.firstName} ${this.lastName}`
+})
+UserSchema.methods.getUserProfile = function (cb) {
+    return UserProfile.findOne({ user: this._id }).exec(cb)
+}
+UserSchema.statics.createUser=function(providerProfile, provider){
+    return new this({
+        firstName: providerProfile.name.givenName,
+        lastName: providerProfile.name.familyName,
+        email: providerProfile.emails[0].value,
+        provider:provider,
+        providerId: providerProfile.id,
+    })
+}
+module.exports = Mongoose.model("users", UserSchema)
