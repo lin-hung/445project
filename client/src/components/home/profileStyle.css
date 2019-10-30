@@ -1,0 +1,11 @@
+#profilePicture {
+    width : 50%;
+    height: auto;
+}
+ #left {
+    width : 25%
+ }
+
+ #right {
+    width : 75%
+ }

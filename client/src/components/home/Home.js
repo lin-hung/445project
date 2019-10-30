@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Button, Navbar, Nav} from 'react-bootstrap'
+import { Button, Navbar, Nav, Carousel} from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import './homeStyle.css'
+import Profile from './Profile.js'
+import ProfileCarousel from './ProfileCarousel.js'
 
 class Home extends Component {
     render() {
@@ -22,6 +24,10 @@ class Home extends Component {
                     </Nav>
 
                 </Navbar>
+                <h1 id = "header">Recommended Matches</h1>
+                <ProfileCarousel>
+
+                </ProfileCarousel>
             </div>
         )
     }
