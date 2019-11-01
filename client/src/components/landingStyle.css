@@ -9,15 +9,6 @@
     background: rgba(255, 255, 255, 0.15); /* All other browsers */
 }
 
-<<<<<<< Updated upstream
-body { /* Background image. This will have to be changed as it is static throughout due to React Redux */
-    background-image: url("/landingBG.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; 
-}
-=======
 @keyframes slideshow {
     0% {
         background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
@@ -44,5 +35,3 @@ body { /* Background image. This will have to be changed as it is static through
     animation-direction: alternate;
     animation-timing-function: linear;
 }
-
->>>>>>> Stashed changes
