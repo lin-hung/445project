@@ -1,13 +1,7 @@
 import React, { Component } from 'react'
-<<<<<<< Updated upstream
-import {Link} from "react-router-dom"
-import { Jumbotron, Container, Row, Col } from 'react-bootstrap'
-import './landingStyle.css'
-=======
 import { Button, Col, Container, Jumbotron } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import './landingStyle.css'//STYLING
->>>>>>> Stashed changes
 
 class Landing extends Component {
     render() {
