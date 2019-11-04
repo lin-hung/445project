@@ -1,11 +1,32 @@
 #profilePicture {
-    width : 50%;
+    width : 80%;
     height: auto;
+    padding-top: 25%;
+    padding-bottom: 5%;
+    display: block;
+    margin: 0 auto;
 }
  #left {
+   padding-left: 80px;
     width : 25%
  }
 
  #right {
+   padding-right: 80px;
     width : 75%
  }
+
+ #internalColLeft {
+    width: 33%;
+    margin: 10px
+ }
+
+ #internalColMid {
+   width: 33%;
+   margin: 10px
+}
+
+#internalColRight {
+   width: 33%;
+   margin: 10px
+}

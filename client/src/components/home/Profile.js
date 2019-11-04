@@ -7,7 +7,7 @@ class Profile extends Component {
     render() {
         return (
                <div>
-                   <Card bg="secondary" text="white">
+                   <Card bg="light" border = "primmary">
                         <Card.Body>
                             <div class = "row">
                                 <div id = "left" class = "column">
@@ -21,22 +21,35 @@ class Profile extends Component {
                                         </p>
                                     </Card.Text>
                                     
+                                    
                                 </div>
                                 <div id = "right" class = "column">
-                                    <h1>Qualifications</h1>
-                                    <h2>Education</h2>
-                                    <h>dsdfjdf</h>
-                                    <h2>Work</h2>
-                                    <h>dsdfjdf</h>
-                                    <h2>Misc</h2>
-                                    <h>dsdfjdf</h>
+                                    <h1 align = "center">Qualifications</h1>
+                                    <div class = "row">
+                                        <div class="col-sm">
+                                            <h2>Education</h2>
+                                            <h>test test test test test test test test test</h>
+                                        </div>
+                                        <div class="col-sm">
+                                            <h2>Work</h2>
+                                            <h>test test test test test test test test test</h>
+                                        </div>
+                                        <div class="col-sm">
+                                            <h2>Misc</h2>
+                                            <h>test test test test test test test test test</h>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    
+                                    
                                 </div>
                             </div>
                         </Card.Body> 
                         <Card.Text className="text-center">
                             <div>
                                 <p>
-                                    <LinkContainer to='/messages'><Button variant ="dark">Match User</Button></LinkContainer>
+                                    <LinkContainer to='/messages'><Button variant ="primary">YEET User</Button></LinkContainer>
                                 </p>
                             </div>
                         </Card.Text> 

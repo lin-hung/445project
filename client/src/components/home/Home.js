@@ -24,7 +24,7 @@ class Home extends Component {
                     </Nav>
 
                 </Navbar>
-                <h1 id = "header">Recommended Matches</h1>
+                <h1 id = "header">Recommended YEETs</h1>
                 <ProfileCarousel>
 
                 </ProfileCarousel>
