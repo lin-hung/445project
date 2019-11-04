@@ -27,50 +27,51 @@ class ApplicantForm extends React.Component{
       }
     render(){
         return(
-            <div className= "whitebackground">
+            <div className= "whitebackground" >
                  <Jumbotron fluid id="landingJumbotron">
-                    <div id="boxesRight"> 
-                        <Avatar
-                        width={390}
-                        height={295}
-                        onCrop={this.onCrop}
-                        onClose={this.onClose}
-                        src={this.state.src}
-                        />
-                        
-                        {/* <img src={this.state.preview} alt="Preview" /> */}
+    
+                    <div id = "boxesLeft" className = "form-row">
+                        <form className = "col">
+                            <div>
+                                <label for="exampleFormControlInput1">Email address</label>
+                                <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/> 
+                            </div>
+                            <div className="form-group">
+                                <label for="exampleFormControlSelect1">What type of position are you looking for?</label>
+                                <select className="form-control" id="exampleFormControlSelect1">
+                                    <option>Internship</option>
+                                    <option>Part time Job</option>
+                                    <option>Full time Job</option>
+                                    <option>Recent Grad Job</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label for="exampleFormControlSelect2">Example multiple select</label>
+                                <select multiple className="form-control" id="exampleFormControlSelect2">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label for="exampleFormControlTextarea1">Example textarea</label>
+                                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            </div>
+                        </form>
+                        <div id="boxesRight" className = "col"> 
+                            <Avatar
+                            width={390}
+                            height={295}
+                            onCrop={this.onCrop}
+                            onClose={this.onClose}
+                            src={this.state.src}
+                            />
+                            
+                            {/* <img src={this.state.preview} alt="Preview" /> */}
+                        </div>
                     </div>
-                <div id = "boxesLeft">
-                <form>
-                    <div className="form-group">
-                        <label for="exampleFormControlInput1">Email address</label>
-                        <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/> 
-                    </div>
-                    <div className="form-group">
-                        <label for="exampleFormControlSelect1">What type of position are you looking for?</label>
-                        <select className="form-control" id="exampleFormControlSelect1">
-                            <option>Internship</option>
-                            <option>Part time Job</option>
-                            <option>Full time Job</option>
-                            <option>Recent Grad Job</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label for="exampleFormControlSelect2">Example multiple select</label>
-                        <select multiple className="form-control" id="exampleFormControlSelect2">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label for="exampleFormControlTextarea1">Example textarea</label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </form>
-                </div>
          
                 </Jumbotron>
         </div> //close the background div
