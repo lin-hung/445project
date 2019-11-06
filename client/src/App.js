@@ -11,7 +11,8 @@ import Register from "./components/auth/Register";
 import { setAuthToken } from "./resources/utils";
 import { oAuthLoginAction } from "./_actions/authActions";
 import store from "./_store/store";
-import "./resources/appStyle.css"; //STYLING
+//STYLING
+import "./resources/appStyle.scss"; 
 
 if (localStorage.jwtToken) {
   // Set auth token header if localstorage contains token
