@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Carousel, Card} from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import {Carousel} from 'react-bootstrap'
 import Profile from './Profile.js'
 import './homeStyle.css'
 import './profileCarousel.css'

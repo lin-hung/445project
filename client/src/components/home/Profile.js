@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import './profileStyle.css'
+import noProfilePic from './noPic.png'
 
 class Profile extends Component {
     render() {
@@ -11,7 +12,7 @@ class Profile extends Component {
                         <Card.Body>
                             <div class = "row">
                                 <div id = "left" class = "column">
-                                    <img id = "profilePicture" src = "https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"></img>
+                                    <img id = "profilePicture" src = {noProfilePic} alt = "profilePicture"></img>
                                     <Card.Text className="text-center">
                                         <h3>
                                             First Last                                    
