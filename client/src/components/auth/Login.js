@@ -15,11 +15,12 @@ class Login extends Component {
     componentDidMount() {
         const socket = this.props.socket
         socket.once('authtoken', (token) => {
+            console.log(`authtoken recieved: ${token}`)
             this.setState({ step: 4 })
             this.props.oAuthLoginAction(token)
         })
         socket.once('authfailure', (msg) => {
-            console.log(msg)
+            console.log(`authfailure msg: ${msg}`)
             this.setState({ step: 5 })
         })
     }

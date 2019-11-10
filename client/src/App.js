@@ -1,24 +1,23 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import io from "socket.io-client";
-import { Footer } from "./components/Footer";
-import Landing from "./components/Landing";
-import Navbar from "./components/Navbar";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import { setAuthToken } from "./resources/utils";
-import { oAuthLoginAction } from "./_actions/authActions";
-import store from "./_store/store";
-//STYLING
-import "./resources/appStyle.scss"; 
-
+import React from 'react'
+import { Container } from 'react-bootstrap'
+import { Provider } from "react-redux"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import io from 'socket.io-client'
+import { Footer } from './components/Footer'
+import Landing from "./components/Landing"
+import Navbar from "./components/Navbar"
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
+import Profile from './components/Profile'
+import { setAuthToken } from './resources/utils'
+import { oAuthLoginAction } from './_actions/authActions'
+import store from "./_store/store"
+import "./resources/appStyle.scss"
 if (localStorage.jwtToken) {
   // Set auth token header if localstorage contains token
-  const token = localStorage.jwtToken;
-  setAuthToken(token);
-  store.dispatch(oAuthLoginAction(token));
+  const token = localStorage.jwtToken
+  setAuthToken(token)
+  store.dispatch(oAuthLoginAction(token))
 }
 
 function App() {
@@ -41,6 +40,8 @@ function App() {
                 path="/register"
                 render={props => <Register socket={socket} />}
               />
+              <Route exact path="/profile"
+                render={(props) => <Profile socket={socket} />} />
             </Switch>
           </Container>
           <Footer />

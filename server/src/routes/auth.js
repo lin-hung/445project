@@ -3,8 +3,7 @@ import Passport from 'passport'
 import JWT from "jsonwebtoken"
 import socketioConfig, { addSocketIdToSession, io } from '../config/socketioConfig'
 import User from "../models/User"
-import Candidate from '../models/Candidate'
-import Recruiter from '../models/Recruiter'
+import UserProfile from "../models/UserProfile"
 const Router = Express.Router()
 
 const closePopupScript = `<script>window.close()</script>`
@@ -22,69 +21,17 @@ Router.get("/linkedin",
 )
 
 Router.get('/googlecb', (req, res, next) => {//sorry this is super ugly
-    Passport.authenticate("google", { scope: ["profile", "email"] }, (err, user, msg) => { //if the user isn't registered, msg contains the provider profile info
-        if (req.session.registerType) {
-            if (user) {
-                userAlreadyRegistered(req, res, user)
-                return res.end(closePopupScript)
-            }
-            else {//create user
-                const profile = msg.profile
-                const u = new User({
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName,
-                    email: profile.emails[0].value,
-                    googleID: profile.id,
-                    userType: req.session.registerType
-                }).save().then((user) => {
-                    createUserTypeProfile(user)
-                    console.log(`new user created: googleID ${user.googleID} name ${user.fullName} userType ${user.userType}`)
-                    sendTokenToUser(req, res, user)
-                    return res.end(closePopupScript)
-                })
-            }
-        }
-        if (user) {
-            sendTokenToUser(req, res, user)
-            return res.end(closePopupScript)
-        }
-        io.in(req.session.socketId).emit('authfailure', true)
-        return res.end(closePopupScript)
-    })(req, res, next),
-        removeRegisterTypeFromSession
+    Passport.authenticate("google", { scope: ["profile", "email"] }, (err, user, msg) => {
+        loginOrRegister(err, user, msg, req, res, next, "google")
+        next()
+    })(req, res, next)
 })
 
 Router.get('/linkedincb', (req, res, next) => {
     Passport.authenticate("linkedin", { state: process.env.linkedinState }, (err, user, msg) => {
-        if (req.session.registerType) {
-            if (user) {
-                userAlreadyRegistered(req, res, user)
-                return res.end(closePopupScript)
-            }
-            else {
-                const profile = msg.profile
-                new User({
-                    firstName: profile.name.givenName,
-                    lastName: profile.name.familyName,
-                    email: profile.emails[0].value,
-                    linkedinID: profile.id,
-                    userType: req.session.registerType
-                }).save().then((user) => {
-                    createUserTypeProfile(user)
-                    console.log(`new user created: linkedinID ${user.linkedinID} name ${user.fullName} userType ${user.userType}`)
-                    sendTokenToUser(req, res, user)
-                    return res.end(closePopupScript)
-                })
-            }
-        }
-        if (user) {
-            sendTokenToUser(req, res, user)
-            return res.end(closePopupScript)
-        }
-        io.in(req.session.socketId).emit('authfailure', true)
-        return res.end(closePopupScript)
-    })(req, res, next),
-        removeRegisterTypeFromSession
+        loginOrRegister(err,user,msg,req,res,next,"linkedin")
+        next()
+    })(req, res, next)
 })
 
 Router.get("/testAuthed", Passport.authenticate('jwt', { session: false }),
@@ -101,64 +48,65 @@ const sendTokenToUser = (req, res, user) => {
     io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
 }
 
-const createUserTypeProfile = (user) => {
-    if (user.isCandidate) {
-        new Candidate({
-            user: user._id,
-            testContents: "candidatecontents"
-        }).save().then((candidate) => {
-            user.candidateProfile = candidate._id
-            user.save()
-        })
+
+const loginOrRegister=(err, user, msg, req, res, next, provider)=>{
+    { //if the user isn't registered, msg contains the provider profile info
+        if (req.session.registerType) {
+            console.log(`user: ${user} regtype: ${req.session.registerType}`)
+            if (user) {
+                userAlreadyRegistered(req, res, user)
+                return res.end(closePopupScript)
+            }
+            else {//create user
+                const providerProfile = msg.profile
+                User.createUser(providerProfile, provider).save()
+                    .then((user) => {
+                        sendTokenToUser(req, res, user)
+                        return createUserProfile(user, req.session.registerType)
+                    }).then((profile) => {
+                        return res.end(closePopupScript)
+                    }).catch((err) => {
+                        console.log(err)
+                        res.status(400)
+                        res.send(err)
+                    })
+            }
+        }
+        else if (user) {
+            sendTokenToUser(req, res, user)
+            return res.end(closePopupScript)
+        }
+        io.in(req.session.socketId).emit('authfailure', "user is not registered")
+        return res.end(closePopupScript)
     }
-    if (user.isRecruiter) {
-        new Recruiter({
-            user: user._id,
-            testContents: "recruitercontents"
-        }).save().then((recruiter) => {
-            user.recruiterProfile = recruiter._id
-            user.save()
-        })
-    }
+}
+
+const createUserProfile = (user, registerType) => {
+    return new UserProfile({
+        user: user._id,
+        profileType: registerType,
+        testContents: `test content user: ${user}`
+    }).save()
 }
 function addRegisterTypeToSession(req, res, next) {
     const regType = req.query.registerType
-    try {
-        if (regType == 'recruiter' || regType == 'candidate') {
-            req.session.registerType = regType
-        }
-        else if (regType) {
-            throw "Not a valid user type."
-        }
-    }
-    catch (e) {
-        console.log(`error: ${e} user type: ${req.query.registerType}`)
+    if (!regType) {
         req.session.registerType = null
-        res.sendStatus(400)
+        return next()
     }
-    next()
-}
-function removeRegisterTypeFromSession(req, res, next) {
-    console.log('remove register type')
-    if (req.query.registerType) {
+    else if (regType == 'recruiter' || regType == 'candidate') {
+        req.session.registerType = regType
+        return next()
+    } else {
         req.session.registerType = null
+        throw Error(`${regType} is not a valid register type.`)
     }
-    next()
 }
+
 const userAlreadyRegistered = (req, res, user) => {
-    if (user.isCandidate) {
-        Candidate.populate(user, { path: 'candidateProfile' }, (err) => {
-            io.in(req.session.socketId).emit('isRegistered', { type: 'candidate', candidate: user.candidateProfile })
-        })
-    }
-    else if (user.isRecruiter) {
-        Recruiter.populate(user, { path: 'recruiterProfile' }, (err) => {
-            io.in(req.session.socketId).emit('isRegistered', { type: 'recruiter', recruiter: user.recruiterProfile })
-        })
-    }
-    else {
-        io.in(req.session.socketId).emit('authfailure', "Account exists, but has an invalid user type.")
-    }
+    user.getUserProfile().then((profile) => {
+        io.in(req.session.socketId).emit('isRegistered', { user: user, profile: profile })
+    })
 }
 
 module.exports = Router
