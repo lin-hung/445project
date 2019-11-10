@@ -3,7 +3,7 @@ import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
-import './style.css'
+import './style.scss'
 class Register extends Component {
     constructor(props) {
         super(props)

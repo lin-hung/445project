@@ -1,0 +1,36 @@
+#landingHeader { /* "Connecting Professionals Worldwide */
+    font-size: 75px;
+    color: white;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#landingJumbotron { /* Opaque background */
+    background: rgb(255, 255, 255); /* IE8 and below */
+    background: rgba(255, 255, 255, 0.15); /* All other browsers */
+}
+
+@keyframes slideshow {
+    0% {
+        background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
+    ,url("/landingBG.jpg");
+    }
+
+    50% {
+        background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
+    ,url("/img2.jpg");
+    }
+
+    100% {
+        background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
+    ,url("/img3.jpg");
+    }
+}
+
+/* Background slideshow on landing page */
+.App { 
+    animation-name: slideshow;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
