@@ -1,3 +1,11 @@
 .orange-bg{
     background:#ffa500 !important;
 }
+
+#left{
+    width: 25%;
+}
+
+#right{
+    width: 75%;
+}

@@ -38,12 +38,13 @@ class Profile extends Component {
 
     render() {
         return (
-            <div id="parent" className="FormCenter orange-bg">
+            <div id="main" className="FormCenter orange-bg container">
+                <div id="landingHeader">Edit Your Profile</div>
                 <form onSubmit={this.handleSubmit} className="FormFields">
                     {/* begin section 1 */}
-                    <div id="sec1" className="form-row">
+                    <div id="sec1" className="form-row container">
                         {/* begin col 1 of sec 1 */}
-                        <div id="s1c1" className="col">
+                        <div id="left" className="col">
                             <div className="FormField">
                                 <label className="FormField__Label" htmlFor="fname">First Name</label>
                                 <input type="fname" id="fname" className="FormField__Input form-control"
@@ -81,8 +82,8 @@ class Profile extends Component {
                         </div>
                         {/* end col 1 of sec 1 */}
                         {/* col 2 sec 1 (profile picture) */}
-                        <div id="s1c2" className="col">
-                            <div className="form-group align-middle">
+                        <div id="right" className="col align-self-center">
+                            <div className="form-group" align="center">
                                 <label htmlFor="exampleFormControlFile1">Example file input</label>
                                 <input type="file" className="form-control-file" id="exampleFormControlFile1" />
                             </div>
@@ -91,7 +92,7 @@ class Profile extends Component {
                     </div>
                     {/* end section 1 */}
                     {/* begin section 2 */}
-                    <div id="sec2" className="form-row" >
+                    <div id="sec2" className="form-row container" >
                         {/* begin col 1 of sec 2 */}
                         <div id="s2c1" className="col">
                             <div className="FormField">
@@ -174,7 +175,7 @@ class Profile extends Component {
                     </div>
                     {/* end section 2 */}
                     {/* begin section 3 */}
-                    <div id="sec3" className="row">
+                    <div id="sec3" className="form-row container">
                         <div className="FormCenter col-12">
                             <label className="FormField__Label" htmlFor="tags">#Tags</label>
                             <textarea type="tags" id="tags" className="FormField__Input form-control"
@@ -183,8 +184,8 @@ class Profile extends Component {
                         </div>
                     </div>
                     {/* end section 3 */}
-                    <div id="sec4" className="row">
-                        <div className="FormCenter col-12">
+                    <div id="sec4" className="form-row container">
+                        <div className="FormCenter">
                             <button type="submit" className="btn btn-primary">Submit</button>
                         </div>
                     </div>
