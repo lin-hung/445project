@@ -9,8 +9,9 @@ const UserProfileSchema=new Schema({
         type:String,
         required:true
     },
-    testContents:{
-        type:String
+    contents:{
+        type:Map,
+        of:String
     }
 })
 UserProfileSchema.virtual('isRecruiter').get(function () {
