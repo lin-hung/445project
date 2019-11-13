@@ -13,7 +13,7 @@ class Landing extends Component {
                     <Container>
                         <Col align="center">
                             <h1 id="landingHeader">Connecting Professionals Worldwide</h1>
-                            <LinkContainer to='/register'><Button id="signButton" className="btn btn-primary btn-lg">Sign Up</Button></LinkContainer>
+                            <LinkContainer to='/register'><Button className="btn btn-lg employeetBtn">Sign Up</Button></LinkContainer>
                         </Col>
                     </Container>
                 </Jumbotron>

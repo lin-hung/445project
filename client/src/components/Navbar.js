@@ -6,11 +6,12 @@ import logo from '../resources/logo.svg'
 import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'
 import LoginModal from './auth/LoginModal'
+import './buttonColor.scss'
 
 class Navbar extends Component {
   loginButton = () => {
     if (this.props.auth.isAuthed) {
-      return (<Button className="btn employeetButton" onClick={this.props.logoutAction}>Log Out</Button>
+      return (<Button className="btn employeetBtn" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
     const pathname = window.location.pathname

@@ -48,7 +48,7 @@ class LoginModal extends Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                <Modal.Header>
+                <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
                         Sign in with:
               </Modal.Title>
@@ -71,9 +71,9 @@ class LoginModal extends Component {
 
         return (
             <div>
-                <Button variant="primary" className="btn employeetButton" onClick={() => this.setState({ modalShow: true })}>
-                    Launch vertically centered modal
-        </Button>
+                <Button className="employeetBtn" onClick={() => this.setState({ modalShow: true })}>
+                    Log In
+                </Button>
 
                 <this.MyVerticallyCenteredModal
                     show={this.state.modalShow}
