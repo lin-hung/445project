@@ -94,7 +94,7 @@ class Register extends Component {
             )
             case 3:
                 return (
-                    <Redirect to='/' />
+                    <Redirect to='/registerApplicant' />
                 )
             default: {
                 return (
