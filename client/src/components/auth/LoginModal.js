@@ -1,13 +1,27 @@
 import React, { Component } from 'react'
 import { ButtonToolbar, Button, Modal } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
 
 class LoginModal extends Component {
     state = {
         modalShow: false,
-        setModalShow: false
+        setModalShow: false,
+        loginSuccess: null
+    }
+    componentDidMount() {
+        const socket = this.props.socket
+        socket.once('authtoken', (token) => {
+            console.log(`authtoken recieved: ${token}`)
+            this.setState({ loginSuccess: true })
+            this.props.oAuthLoginAction(token)
+        })
+        socket.once('authfailure', (msg) => {
+            console.log(`authfailure msg: ${msg}`)
+            this.setState({ loginSuccess: false })
+        })
     }
     _closeModal = () => {
         this.setState({ modalShow: false })
@@ -50,17 +64,22 @@ class LoginModal extends Component {
         );
     }
     render() {
-        return (<div>
+        if (this.state.loginSuccess === true) {
+            return (<Redirect to='/profile' />
+            )
+        }
 
-            <Button variant="primary" className="btn employeetButton" onClick={() => this.setState({ modalShow: true })}>
-                Launch vertically centered modal
+        return (
+            <div>
+                <Button variant="primary" className="btn employeetButton" onClick={() => this.setState({ modalShow: true })}>
+                    Launch vertically centered modal
         </Button>
 
-            <this.MyVerticallyCenteredModal
-                show={this.state.modalShow}
-                onHide={() => this.setState({ setModalShow: true })}
-            />
-        </div>)
+                <this.MyVerticallyCenteredModal
+                    show={this.state.modalShow}
+                    onHide={() => this.setState({ setModalShow: true })}
+                />
+            </div>)
     }
 }
 
