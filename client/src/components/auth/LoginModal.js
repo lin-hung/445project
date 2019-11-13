@@ -13,6 +13,7 @@ class LoginModal extends Component {
         this.setState({ modalShow: false })
     }
     _openOAuthWindow = (e) => {
+        console.log(e)
         const provider = e.target.value
         const socket = this.props.socket
         const width = 600, height = 600
@@ -39,8 +40,8 @@ class LoginModal extends Component {
               </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Button onClick={this._openOAuthWindow} val='google'>Google</Button>
-                    <Button onClick={this._openOAuthWindow} val='linkedin'>LinkedIn</Button>
+                    <Button onClick={this._openOAuthWindow} value='google'>Google</Button>
+                    <Button onClick={this._openOAuthWindow} value='linkedin'>LinkedIn</Button>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this._closeModal}>Close</Button>
