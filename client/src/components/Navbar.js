@@ -5,7 +5,7 @@ import { Navbar as BSNav, Nav, Button } from 'react-bootstrap'
 import logo from '../resources/logo.svg'
 import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'
-
+import LoginModal from './auth/LoginModal'
 class Navbar extends Component {
   loginButton = () => {
     if(this.props.auth.isAuthed) {
@@ -16,7 +16,7 @@ class Navbar extends Component {
     // if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
     //   return(null)
     // }
-    return(<LinkContainer to='/login'><Button>Log In</Button></LinkContainer>)
+    return(<LoginModal/>)
   }
 
   render() {
