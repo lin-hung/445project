@@ -26,7 +26,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <Navbar />
+          <Navbar socket={socket} />
           <Container id="content">
             <Switch>
               <Route exact path="/" component={Landing} />

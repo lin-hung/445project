@@ -9,8 +9,21 @@ class LoginModal extends Component {
         modalShow: false,
         setModalShow: false
     }
-    _closeModal=()=>{
-        this.setState({modalShow:false})
+    _closeModal = () => {
+        this.setState({ modalShow: false })
+    }
+    _openOAuthWindow = (e) => {
+        const provider = e.target.value
+        const socket = this.props.socket
+        const width = 600, height = 600
+        const left = (window.innerWidth / 2) - (width / 2)
+        const top = (window.innerHeight / 2) - (height / 2)
+        const url = `http://localhost:3001/api/auth/${provider}?socketId=${socket.id}`;
+        return window.open(url, '',
+            `toolbar=no, location=no, directories=no, status=no, menubar=no, 
+            scrollbars=no, resizable=no, copyhistory=no, width=${width}, 
+            height=${height}, top=${top}, left=${left}`
+        )
     }
     MyVerticallyCenteredModal = (props) => {
         return (
@@ -22,16 +35,12 @@ class LoginModal extends Component {
             >
                 <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Modal heading
+                        Sign in with:
               </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>Centered Modal</h4>
-                    <p>
-                        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-                        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-                        consectetur ac, vestibulum at eros.
-              </p>
+                    <Button onClick={this._openOAuthWindow} val='google'>Google</Button>
+                    <Button onClick={this._openOAuthWindow} val='linkedin'>LinkedIn</Button>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this._closeModal}>Close</Button>
@@ -42,7 +51,7 @@ class LoginModal extends Component {
     render() {
         return (<div>
 
-            <Button variant="primary" onClick={() => this.setState({ modalShow: true })}>
+            <Button variant="primary" className="btn employeetButton" onClick={() => this.setState({ modalShow: true })}>
                 Launch vertically centered modal
         </Button>
 
