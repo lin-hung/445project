@@ -9,14 +9,14 @@ import { logoutAction } from '../_actions/authActions'
 class Navbar extends Component {
   loginButton = () => {
     if(this.props.auth.isAuthed) {
-      return(<Button onClick={this.props.logoutAction}>Log Out</Button>
+      return(<Button className="btn btn-primary employeetButton" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
     const pathname=window.location.pathname
     // if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
     //   return(null)
     // }
-    return(<LinkContainer to='/login'><Button>Log In</Button></LinkContainer>)
+    return(<LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>)
   }
 
   render() {

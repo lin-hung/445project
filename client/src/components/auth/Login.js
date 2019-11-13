@@ -5,6 +5,7 @@ import { noop } from 'rxjs'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
 import './style.scss'
+
 class Login extends Component {
     constructor(props) {
         super(props)
