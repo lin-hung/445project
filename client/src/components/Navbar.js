@@ -9,19 +9,24 @@ import { isThisHour } from 'date-fns'
 
 class Navbar extends Component {
   loginButton = () => {
+    const pathname=window.location.pathname
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
     if(this.props.auth.isAuthed) {
       return(//<Button variant ="light" onClick={this.props.logoutAction}>Log Out</Button>
       <a className='btn btn-primary' href='#' onCLick={this.props.logoutAction}>Log Out </a>
       )
     }
-    const pathname=window.location.pathname
-    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
-      return(null)
-    }
+    
     return(<LinkContainer to='/login'><Button variant ="light">Log In</Button></LinkContainer>)
   }
 
   utilities = () => {
+    const pathname=window.location.pathname
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
     if(this.props.auth.isAuthed) {
       return(
         <div>
@@ -30,12 +35,14 @@ class Navbar extends Component {
         </div>
       )
     }
-    else{//if not logged in and on landing, login, register, don't show login button
-      return(null)
-    }
+    
   }
 
   search = () => {
+    const pathname=window.location.pathname
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
     if(this.props.auth.isAuthed) {
       return(
         <div>
@@ -43,12 +50,14 @@ class Navbar extends Component {
         </div>
       )
     }
-    else{//if not logged in and on landing, login, register, don't show login button
-      return(null)
-    }
+    
   }
 
   profileUtilities = () => {
+    const pathname=window.location.pathname
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
     if(this.props.auth.isAuthed) {
       return(
         <div>
@@ -58,9 +67,7 @@ class Navbar extends Component {
         </div>
       )
     }
-    else{//if not logged in and on landing, login, register, don't show login button
-      return(null)
-    }
+    
   }
 
   render() {
