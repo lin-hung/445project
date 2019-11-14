@@ -71,7 +71,7 @@ class LoginModal extends Component {
 
         return (
             <div>
-                <Button className="employeetBtn" onClick={() => this.setState({ modalShow: true })}>
+                <Button className="btn btn-danger employeetBtn" onClick={() => this.setState({ modalShow: true })}>
                     Log In
                 </Button>
 
