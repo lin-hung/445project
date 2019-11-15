@@ -6,19 +6,20 @@ import logo from '../resources/logo.svg'
 import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'
 import { isThisHour } from 'date-fns'
+import './buttonColor.scss'
 
 class Navbar extends Component {
   loginButton = () => {
     const pathname=window.location.pathname
     if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
-      return(null)
+      return(<LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>)
     }
-    if(this.props.auth.isAuthed) {
-      return(<Button className="btn btn-primary employeetButton" onClick={this.props.logoutAction}>Log Out</Button>
+    else if(this.props.auth.isAuthed) {
+      return(<Button id = "navButton" className="btn btn-primary employeetButton" href = "/" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
     
-    return(<LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>)
+    
   }
 
   utilities = () => {

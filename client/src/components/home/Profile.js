@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import './profileStyle.css'
+import './profileStyle.scss'
 import noProfilePic from './noPic.png'
 
 

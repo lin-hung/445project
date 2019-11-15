@@ -45,6 +45,11 @@ function App() {
               />
               <Route exact path="/profile"
                 render={(props) => <Profile socket={socket} />} />
+              <Route
+                exact
+                path="/home"
+                render={props => <Home socket={socket} />}
+              />
             </Switch>
 
           </Container>
