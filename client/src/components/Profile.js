@@ -91,7 +91,7 @@ class Profile extends Component {
     render() {
         const { tags, suggestions } = this.state;
         return (
-            <div id="main" className="FormCenter orange-bg container">
+            <div id="main" className="FormCenter">
                 {/* <div id="landingHeader">Edit Your Profile</div> */}
                 <form onSubmit={this.handleSubmit} className="FormFields">
                     {/* begin section 1 */}
