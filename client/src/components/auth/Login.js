@@ -4,7 +4,8 @@ import { Redirect } from 'react-router-dom'
 import { noop } from 'rxjs'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
-import './style.css'
+import './style.scss'
+
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -47,6 +48,7 @@ class Login extends Component {
     render() {
         var headline, subhead, buttonA, buttonB
         switch (this.state.step) {
+            /*
             case 1:{
                 headline = `Welcome to Employeet!`
                 subhead = `Do you have an account?`
@@ -54,26 +56,27 @@ class Login extends Component {
                 buttonB = { text: `No`, onClick: this.handleClick, val: 3 }
                 break
             }
-            case 2: {
+            */
+            case 1: {
                 headline = `Log in with:`
                 subhead = ` `
                 buttonA = { text: `Google`, onClick: this.openOAuthWindow, val: 'google' }
                 buttonB = { text: `LinkedIn`, onClick: this.openOAuthWindow, val: 'linkedIn' }
                 break
             }
-            case 3:
+            case 2:
                 return (
                     <Redirect to='/register' />
                 )
-            case 4:
+            case 3:
                 return (
                     <Redirect to='/home' />
                 )
-            case 5:{               
+            case 4:{               
                 headline=`You don't have an account yet!`
                 subhead=`Would you like to register?`
-                buttonA={ text: `Yes`, onClick: this.handleClick, val: 3 }
-                buttonB={ text: `No`, onClick: this.handleClick, val: 4 }
+                buttonA={ text: `Yes`, onClick: this.handleClick, val: 2 }
+                buttonB={ text: `No`, onClick: this.handleClick, val: 3 }
                 break
             }
             default: {

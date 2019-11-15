@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Button, Col, Container, Jumbotron } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import './landingStyle.css'
+//STYLING
+import './landingStyle.scss'
+import './buttonColor.scss'
 
 class Landing extends Component {
     render() {
@@ -11,7 +13,7 @@ class Landing extends Component {
                     <Container>
                         <Col align="center">
                             <h1 id="landingHeader">Connecting Professionals Worldwide</h1>
-                            <LinkContainer to='/login'><Button>Sign Up or Log In</Button></LinkContainer>
+                            <LinkContainer to='/register'><Button className="btn btn-primary btn-lg employeetButton">Sign Up</Button></LinkContainer>
                         </Col>
                     </Container>
                 </Jumbotron>

@@ -14,16 +14,16 @@ class Navbar extends Component {
       return(null)
     }
     if(this.props.auth.isAuthed) {
-      return(//<Button variant ="light" onClick={this.props.logoutAction}>Log Out</Button>
-      <a className='btn btn-primary' href='#' onCLick={this.props.logoutAction}>Log Out </a>
+      return(<Button className="btn btn-primary employeetButton" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
     
-    return(<LinkContainer to='/login'><Button variant ="light">Log In</Button></LinkContainer>)
+    return(<LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>)
   }
 
   utilities = () => {
     const pathname=window.location.pathname
+    
     if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
       return(null)
     }
@@ -68,6 +68,11 @@ class Navbar extends Component {
       )
     }
     
+    // if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+    //   return(null)
+    // }
+    //return(<LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>)
+
   }
 
   render() {
