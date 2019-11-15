@@ -22,7 +22,7 @@ class Login extends Component {
         })
         socket.once('authfailure', (msg) => {
             console.log(`authfailure msg: ${msg}`)
-            this.setState({ step: 5 })
+            this.setState({ step: 4 })
         })
     }
     componentWillUnmount() {
@@ -70,7 +70,7 @@ class Login extends Component {
                 )
             case 3:
                 return (
-                    <Redirect to='/profile' />
+                    <Redirect to='/home' />
                 )
             case 4:{               
                 headline=`You don't have an account yet!`
