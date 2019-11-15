@@ -11,7 +11,7 @@ import './buttonColor.scss'
 class Navbar extends Component {
   loginButton = () => {
     if (this.props.auth.isAuthed) {
-      return (<Button className="btn btn-danger employeetBtn" onClick={this.props.logoutAction}>Log Out</Button>
+      return (<Button className="btn btn-danger employeetBtn" href ="/" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
     const pathname = window.location.pathname

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { ButtonToolbar, Button, Modal } from 'react-bootstrap'
+import { ButtonToolbar, Button, Modal, Col, Row, Container, Grid } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
+import './badPadding.scss'
 
 class LoginModal extends Component {
     state = {
@@ -11,6 +12,7 @@ class LoginModal extends Component {
         setModalShow: false,
         loginSuccess: null
     }
+
     componentDidMount() {
         const socket = this.props.socket
         socket.once('authtoken', (token) => {
@@ -23,12 +25,15 @@ class LoginModal extends Component {
             this.setState({ loginSuccess: false })
         })
     }
+
     _closeModal = () => {
         this.setState({ modalShow: false })
     }
+
     _openOAuthWindow = (e) => {
-        console.log(e)
-        const provider = e.target.value
+        console.log(e.target.getAttribute("value"))
+        
+        const provider = e.target.getAttribute("value")
         const socket = this.props.socket
         const width = 600, height = 600
         const left = (window.innerWidth / 2) - (width / 2)
@@ -40,6 +45,7 @@ class LoginModal extends Component {
             height=${height}, top=${top}, left=${left}`
         )
     }
+
     MyVerticallyCenteredModal = (props) => {
         return (
             <Modal
@@ -48,14 +54,27 @@ class LoginModal extends Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                <Modal.Header closeButton>
+                <Modal.Header> 
                     <Modal.Title id="contained-modal-title-vcenter">
                         Sign in with:
-              </Modal.Title>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Button onClick={this._openOAuthWindow} value='google'>Google</Button>
-                    <Button onClick={this._openOAuthWindow} value='linkedin'>LinkedIn</Button>
+                    <Container>                      
+                        <Row className="show-grid">
+                            
+    
+                            
+                           
+                            <Col>
+                                <Button bsPrefix="badButton" variant="outline-primary" onClick={this._openOAuthWindow} value='google'><img src="googBtn.png" value='google' /></Button>
+                            </Col>
+                            <Col>
+                                <Button variant="outline-primary" bsPrefix="badButton" onClick={this._openOAuthWindow} value='linkedin'><img src="linkedBtn.png" value='linkedin' /></Button>
+                            </Col>
+                            
+                        </Row>
+                    </Container>  
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this._closeModal}>Close</Button>
@@ -63,10 +82,10 @@ class LoginModal extends Component {
             </Modal>
         );
     }
+
     render() {
         if (this.state.loginSuccess === true) {
-            return (<Redirect to='/profile' />
-            )
+            return (<Redirect to='/profile' />)
         }
 
         return (
