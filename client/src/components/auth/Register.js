@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
 import './style.scss'
+
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -93,7 +94,7 @@ class Register extends Component {
             )
             case 3:
                 return (
-                    <Redirect to='/profile' />
+                    <Redirect to='/registerApplicant' />
                 )
             default: {
                 return (

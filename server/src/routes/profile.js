@@ -9,10 +9,12 @@ const Router = Express.Router()
 
 const auth = Passport.authenticate('jwt', { session: false })
 
-Router.post('/submit', auth, (req, res) => {
+//TODO: fix submit code (auth breaks it for some reason? also tags)
+Router.post('/submit', (req, res) => {
     const tokenUser = JWT.decode(req.header("Authorization").split(' ')[1]).user
     UserProfile.findOne({ user: tokenUser._id })
         .then(prof => {
+            console.log(req.body.tags)
             const map = new Map(Object.entries(req.body.form))
             prof.contents = map
             return prof.save()
@@ -22,4 +24,7 @@ Router.post('/submit', auth, (req, res) => {
         })
 })
 
+Router.post('/authtest', auth, (req, res) => {
+    res.sendStatus(200)
+})
 export default Router
