@@ -1,0 +1,16 @@
+Employeet project backlog
+	-Design client login web page - complete
+
+	-Set up working client login web page - complete
+
+		-Set up working client Google authentication and login
+		and logout - complete
+
+		-Set up working client LinkedIn authentication and login
+		and logout - complete
+
+	-Set up working server - complete
+
+	-Design client web page - in progress
+
+	-Set up working client web page - in progress
