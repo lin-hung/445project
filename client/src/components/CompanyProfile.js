@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './coprofileStyle.scss'
 import {TAGS} from './tags';
+import { render } from 'react-dom';
 import './tagStyle.scss'
 import { WithContext as ReactTags } from 'react-tag-input';
 const suggestions = TAGS.map((type) => {
