@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
@@ -18,15 +18,23 @@ class Register extends Component {
     componentDidMount() {
         const socket = this.props.socket
         socket.once('authtoken', (token) => {
-            this.setState({step:3})
             this.props.oAuthLoginAction(token)
+            //redirect to the applicant form if they are a prospective APPLICANT/CANIDATE
+            if (this.state.userType === 'candidate') {
+                this.setState({ step: 3 })
+            }
+            //redirect to the company form if they are a prospective COMPANY/RECRUITER
+            if (this.state.userType === 'recruiter') {
+                this.setState({ step: 3 })
+            }
+
         })
         socket.once('authfailure', (msg) => {
             this.setState({ step: 0, error: msg })
         })
         socket.once('isRegistered', (msg) => {
             console.log(`is registered: ${JSON.stringify(msg)}`)
-            this.setState({ error:"Account exists already!", step: 5 })
+            this.setState({ error: "Account exists already!", step: 5 })
         })
     }
     componentWillUnmount() {
@@ -44,13 +52,14 @@ class Register extends Component {
                 this.setState({ provider: e.target.value })
                 break
             }
-            default:{
-                this.setState({step:0, error:e})
+            default: {
+                this.setState({ step: 0, error: e })
                 break
             }
         }
         this.setState({ step: this.state.step + 1 })
-    }
+    } 
+    
     openOAuthWindow = (e) => {
         const provider = e.target.value
         const socket = this.props.socket
@@ -64,6 +73,20 @@ class Register extends Component {
             height=${height}, top=${top}, left=${left}`
         )
     }
+    RedirectAfterAuth = () => {
+        const { userType } = this.state
+        if (userType === 'candidate') {
+            return (<Redirect to='/applicantForm' />
+            )
+        }
+        else if (userType === 'recruiter') {
+            return (<Redirect to='/companyForm' />
+            )
+        }
+        else{
+            this.setState({step:9999})//error
+        }
+    }
     render() {
         switch (this.state.step) {
             case 1: return (<div id='login' className="container h-100">
@@ -73,7 +96,7 @@ class Register extends Component {
                         <p className="lead">Are you a recruiter or candidate?</p>
                         <p className="lead">
                             <button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} value='recruiter'>Recruiter</button>
-                            <button type="button" className="btn btn-secondary btn-lg" onClick={this.handleClick} value='candidate'>Candidate</button>
+                            <button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} value='candidate'>Candidate</button>
                         </p>
                     </div>
                 </div>
@@ -92,10 +115,11 @@ class Register extends Component {
                     </div>
                 </div>
             )
-            case 3:
-                return (
-                    <Redirect to='/registerApplicant' />
-                )
+            case 3: return (
+                <this.RedirectAfterAuth />
+            )
+          
+
             default: {
                 return (
                     <div id='login' className="container h-100">
