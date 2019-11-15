@@ -8,7 +8,9 @@ import Landing from "./components/Landing"
 import Navbar from "./components/Navbar"
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import Home from './components/home/Home.js'
 import Profile from './components/Profile'
+
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
@@ -28,6 +30,7 @@ function App() {
         <div className="App">
           <Navbar />
           <Container id="content">
+
             <Switch>
               <Route exact path="/" component={Landing} />
               <Route
@@ -43,6 +46,7 @@ function App() {
               <Route exact path="/profile"
                 render={(props) => <Profile socket={socket} />} />
             </Switch>
+
           </Container>
           <Footer />
         </div>

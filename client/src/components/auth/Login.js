@@ -70,7 +70,7 @@ class Login extends Component {
                 )
             case 3:
                 return (
-                    <Redirect to='/' />
+                    <Redirect to='/home' />
                 )
             case 4:{               
                 headline=`You don't have an account yet!`
