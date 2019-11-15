@@ -5,7 +5,6 @@ import { Navbar as BSNav, Nav, Button } from 'react-bootstrap'
 import logo from '../resources/logo.svg'
 import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'
-import { isThisHour } from 'date-fns'
 import './buttonColor.scss'
 
 class Navbar extends Component {
@@ -78,17 +77,17 @@ class Navbar extends Component {
 
   render() {
     return (
-      <BSNav class = "row">
+      <BSNav className = "row">
         <LinkContainer to="/">
           <BSNav.Brand>
             <img src={logo} height="125px" alt="logo"/> {/** emploYEET logo in navbar */}
           </BSNav.Brand>
         </LinkContainer>
         
-        <Nav class = "col">
+        <Nav className = "col">
           <this.utilities/>
         </Nav>
-        <Nav class = "col">
+        <Nav className = "col">
           <this.search/>
         </Nav>
         <Nav>
