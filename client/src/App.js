@@ -6,7 +6,6 @@ import io from 'socket.io-client'
 import { Footer } from './components/Footer'
 import Landing from "./components/Landing"
 import Navbar from "./components/Navbar"
-import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Home from './components/home/Home.js'
 import Profile from './components/Profile'
@@ -15,6 +14,7 @@ import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
 import "./resources/appStyle.scss"
+
 if (localStorage.jwtToken) {
   // Set auth token header if localstorage contains token
   const token = localStorage.jwtToken
@@ -33,11 +33,6 @@ function App() {
 
             <Switch>
               <Route exact path="/" component={Landing} />
-              <Route
-                exact
-                path="/login"
-                render={props => <Login socket={socket} />}
-              />
               <Route
                 exact
                 path="/register"

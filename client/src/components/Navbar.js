@@ -7,13 +7,17 @@ import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'
 import './buttonColor.scss'
 import './navBarStyle.scss'
+import LoginModal from './auth/LoginModal'
 
 
 class Navbar extends Component {
   loginButton = () => {
     const pathname=window.location.pathname
     if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
-      return(<LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>)
+      return(
+        <LoginModal socket={this.props.socket} />
+      // <LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>
+      )
     }
     else if(this.props.auth.isAuthed) {
       return(<Button id = "navButton" className="btn btn-primary employeetButton" href = "/" onClick={this.props.logoutAction}>Log Out</Button>
