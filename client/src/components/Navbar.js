@@ -6,6 +6,8 @@ import logo from '../resources/logo.svg'
 import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'
 import './buttonColor.scss'
+import './navBarStyle.scss'
+
 
 class Navbar extends Component {
   loginButton = () => {
@@ -77,7 +79,7 @@ class Navbar extends Component {
 
   render() {
     return (
-      <BSNav className = "row">
+      <BSNav className = "navbar row">
         <LinkContainer to="/">
           <BSNav.Brand>
             <img src={logo} height="125px" alt="logo"/> {/** emploYEET logo in navbar */}
