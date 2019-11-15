@@ -12,9 +12,6 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "concurrently": "^4.1.2",
-<<<<<<< HEAD
-    "dotenv": "^8.1.0"
-=======
     "core-js": "^3.4.0",
     "dotenv": "^8.1.0",
     "i": "^0.3.6",
@@ -29,6 +26,5 @@
     "react-dom": "^16.3.1",
     "react-images-upload": "^1.2.7",
     "react-tag-input": "^6.4.0"
->>>>>>> origin/master
   }
 }
