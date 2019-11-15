@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { TAGS } from './tags';
 import { render } from 'react-dom';
-import './tagStyle.css'
-import './profileStyle.css'
+import './tagStyle.scss'
+import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
 
@@ -92,7 +92,7 @@ class Profile extends Component {
         const { tags, suggestions } = this.state;
         return (
             <div id="main" className="FormCenter orange-bg container">
-                <div id="landingHeader">Edit Your Profile</div>
+                {/* <div id="landingHeader">Edit Your Profile</div> */}
                 <form onSubmit={this.handleSubmit} className="FormFields">
                     {/* begin section 1 */}
                     <div id="formlayout" className="form">

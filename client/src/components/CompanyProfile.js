@@ -1,7 +1,59 @@
 import React, { Component } from 'react'
-import './coprofileStyle.css'
+import './coprofileStyle.scss'
+import {TAGS} from './tags';
+import { render } from 'react-dom';
+import './tagStyle.scss'
+import { WithContext as ReactTags } from 'react-tag-input';
+const suggestions = TAGS.map((type) => {
+    return {
+      id: type,
+      text: type
+    }
+  })
+
+const KeyCodes = {
+    comma: 188,
+    enter: 13,
+  };
+  
+const delimiters = [KeyCodes.comma, KeyCodes.enter]
 
 class CompanyProfile extends Component {
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          tags: [{ id: 'computer science', text: 'computer science' }, { id: 'computer engineer', text: 'computer engineer' }],
+          suggestions: suggestions,
+        };
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleAddition = this.handleAddition.bind(this);
+        this.handleDrag = this.handleDrag.bind(this);
+        this.handleTagClick = this.handleTagClick.bind(this);
+    }
+    handleDelete(i) {
+        const { tags } = this.state;
+        this.setState({
+          tags: tags.filter((tag, index) => index !== i),
+        });
+    }
+    handleAddition(tag) {
+        this.setState(state => ({ tags: [...state.tags, tag] }));
+    }
+    handleDrag(tag, currPos, newPos) {
+        const tags = [...this.state.tags];
+        const newTags = tags.slice();
+    
+        newTags.splice(currPos, 1);
+        newTags.splice(newPos, 0, tag);
+    
+        // re-render
+        this.setState({ tags: newTags });
+    }
+    
+    handleTagClick(index) {
+        console.log('The tag at index ' + index + ' was clicked');
+    }
     state = {
         cname: '',  //company name
         email: '',  //company email
@@ -9,7 +61,7 @@ class CompanyProfile extends Component {
         job: '',    //desired occupation
         exp: '',    //desired experience
         skills: '', //desired skills
-        tags: ''    //help potentials find them
+        
     }
 
     handleChange = (e) => {
@@ -30,6 +82,7 @@ class CompanyProfile extends Component {
     }
 
     render() {
+        const { tags, suggestions } = this.state;
         return (
             <div id="main" className="FormCenter bg-white container">
                 <div id="landingHeader">Edit Your Profile</div>
@@ -112,19 +165,26 @@ class CompanyProfile extends Component {
                     {/* end section 2 */}
                     {/* begin section 3 */}
                     <div id="sec3" className="form-row container">
-                        <div className="FormCenter col-12">
-                            <label className="FormField__Label" htmlFor="tags">#Tags</label>
-                            <textarea type="tags" id="tags" className="FormField__Input form-control"
-                                placeholder="Tag yourself" name="tags" value={this.state.tags}
-                                onChange={this.handleChange} />
-                        </div>
+                    <label className = "FormField__Label" htmlFor="exampleFormControlFile1">Please enter some tags to describe yourself and how you want to be matched. 
+                                These tags will designate how employers find you. Please enter at least 5!</label>
+                            <ReactTags
+                                tags={tags}
+                                suggestions={suggestions}
+                                delimiters={delimiters}
+                                handleDelete={this.handleDelete}
+                                handleAddition={this.handleAddition}
+                                handleDrags={this.handleDrag}
+                                handleTagClick={this.handleTagClick}
+                            />
                     </div>
                     {/* end section 3 */}
                     {/* button area */}
-                    <div className="button">
-                        <div className="FormCenter">
-                            <button type="submit" className="btn btn-primary">Submit</button>
-                        </div>
+                    <div id = "buttonSpace" className ="button">
+                            <div id="sec4" className="row">
+                                <div className="FormCenter col-12">
+                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
                     </div>
                 </form>
             </div>
