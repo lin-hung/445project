@@ -5,33 +5,94 @@ import { Navbar as BSNav, Nav, Button } from 'react-bootstrap'
 import logo from '../resources/logo.svg'
 import { mapAuthStateToProps } from '../resources/utils'
 import { logoutAction } from '../_actions/authActions'
-import LoginModal from './auth/LoginModal'
-import './buttonColor.scss'
+import { isThisHour } from 'date-fns'
 
 class Navbar extends Component {
   loginButton = () => {
-    if (this.props.auth.isAuthed) {
-      return (<Button className="btn btn-danger employeetBtn" href ="/" onClick={this.props.logoutAction}>Log Out</Button>
-      )
-    }
-    const pathname = window.location.pathname
+    const pathname=window.location.pathname
     // if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
     //   return(null)
     // }
-    return (<LoginModal socket={this.props.socket} />)
+    if(this.props.auth.isAuthed) {
+      return(<Button className="btn btn-primary employeetButton" onClick={this.props.logoutAction}>Log Out</Button>
+      )
+    }
+    
+    return(<LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>)
+  }
+
+  utilities = () => {
+    const pathname=window.location.pathname
+    
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
+    if(this.props.auth.isAuthed) {
+      return(
+        <div>
+            <LinkContainer to='/home'><Button id = "navButton" variant = "primary">Home</Button></LinkContainer>
+            <LinkContainer to='/profile'><Button id = "navButton" variant = "primary">My Profile</Button></LinkContainer>
+        </div>
+      )
+    }
+    
+  }
+
+  search = () => {
+    const pathname=window.location.pathname
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
+    if(this.props.auth.isAuthed) {
+      return(
+        <div>
+            <LinkContainer to='/search'><Button id = "navButton" variant = "light">Search Employers</Button></LinkContainer>
+        </div>
+      )
+    }
+    
+  }
+
+  profileUtilities = () => {
+    const pathname=window.location.pathname
+    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+      return(null)
+    }
+    if(this.props.auth.isAuthed) {
+      return(
+        <div>
+            <LinkContainer to='/messages'><Button id = "navButton" variant ="light">Messages</Button></LinkContainer>
+            <LinkContainer to='/alerts'><Button id = "navButton" variant ="light">Alerts</Button></LinkContainer>
+            <LinkContainer to='/help'><Button id = "navButton" variant ="light">Help</Button></LinkContainer>        
+        </div>
+      )
+    }
+    
+    // if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+    //   return(null)
+    // }
+    //return(<LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>)
+
   }
 
   render() {
     return (
-      <BSNav>
+      <BSNav class = "row">
         <LinkContainer to="/">
           <BSNav.Brand>
             <img src={logo} height="125px" alt="logo" /> {/** emploYEET logo in navbar */}
           </BSNav.Brand>
         </LinkContainer>
-
-        <Nav className="ml-auto"> {/** ml-auto to align button to right, 'pullRight' doesn't work */}
-          <this.loginButton />
+        
+        <Nav class = "col">
+          <this.utilities/>
+        </Nav>
+        <Nav class = "col">
+          <this.search/>
+        </Nav>
+        <Nav>
+          <this.profileUtilities/>
+          <this.loginButton/>
         </Nav>
       </BSNav>
     )
