@@ -11,13 +11,16 @@
     "express-session": "^1.16.2",
     "https": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.7.1",
+    "mongoose": "^5.7.5",
     "nodemon": "^1.19.2",
     "passport": "^0.4.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "passport-jwt": "^4.0.0",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "react-dnd": "5.0.0",
+    "react-dnd-html5-backend": "3.0.2"
+    
   },
   "scripts": {
     "build": "yarn babel src --out-dir build",
