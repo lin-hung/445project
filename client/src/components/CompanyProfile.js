@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './coprofileStyle.scss'
 import {TAGS} from './tags';
+import { render } from 'react-dom';
 import './tagStyle.scss'
 import { WithContext as ReactTags } from 'react-tag-input';
 const suggestions = TAGS.map((type) => {
@@ -83,13 +84,15 @@ class CompanyProfile extends Component {
     render() {
         const { tags, suggestions } = this.state;
         return (
-            <div id="main" className="FormCenter bg-white container">
-                <div id="landingHeader">Edit Your Profile</div>
+            <div id="main" className="FormCenter">
+                {/* <div id="landingHeader">Edit Your Profile</div> */}
                 <form onSubmit={this.handleSubmit} className="FormFields">
                     {/* begin section 1 */}
-                    <div id="sec1" className="form-row container">
+                    <div id="formlayout" className="form">
+                        <h1> Create your Recruiter profile</h1>
+                         <div id="sec1" className="form-row">
                         {/* begin col 1 of sec 1 */}
-                        <div id="left" className="col">
+                        <div id="s1c1" className="col">
                             <div className="FormField">
                                 <label className="FormField__Label" htmlFor="fname">Your Company Name</label>
                                 <input type="cname" id="cname" className="FormField__Input form-control"
@@ -113,8 +116,8 @@ class CompanyProfile extends Component {
                         </div>
                         {/* end col 1 of sec 1 */}
                         {/* col 2 sec 1 (profile picture) */}
-                        <div id="right" className="col align-self-center">
-                            <div className="form-group" align="center">
+                        <div id="s1c2" className="col">
+                            <div className="form-group align-middle">
                                 <label htmlFor="exampleFormControlFile1">Upload your company logo</label>
                                 <input type="file" className="form-control-file" id="exampleFormControlFile1" />
                             </div>
@@ -123,7 +126,7 @@ class CompanyProfile extends Component {
                     </div>
                     {/* end section 1 */}
                     {/* begin section 2 */}
-                    <div id="sec2" className="form-row container" >
+                    <div id="sec2" className="form-row" >
                         {/* begin col 1 of sec 2 */}
                         <div id="s2c1" className="col">
                             <div className="FormField">
@@ -164,8 +167,8 @@ class CompanyProfile extends Component {
                     {/* end section 2 */}
                     {/* begin section 3 */}
                     <div id="sec3" className="form-row container">
-                    <label className = "FormField__Label" htmlFor="exampleFormControlFile1">Please enter some tags to describe yourself and how you want to be matched. 
-                                These tags will designate how employers find you. Please enter at least 5!</label>
+                    <label className = "FormField__Label" htmlFor="exampleFormControlFile1">Please enter some tags to describe what type of applicants you are looking for. 
+                                These tags will designate how you will find applicants. Please enter at least 5!</label>
                             <ReactTags
                                 tags={tags}
                                 suggestions={suggestions}
@@ -185,10 +188,11 @@ class CompanyProfile extends Component {
                                 </div>
                             </div>
                     </div>
+                    </div>
                 </form>
             </div>
         );
     }
 }
-
+render(<CompanyProfile />, document.getElementById('root'));
 export default CompanyProfile;

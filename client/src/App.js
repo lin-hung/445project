@@ -38,15 +38,19 @@ function App() {
                 path="/register"
                 render={props => <Register socket={socket} />}
               />
-              <Route exact path="/profileform"
+              <Route
+                exact 
+                path="/applicantForm"
                 render={(props) => <Profile socket={socket} />} />
+              <Route
+                exact 
+                path="/companyForm"
+                render={(props) => <CompanyProfile socket={socket} />} />
               <Route
                 exact
                 path="/home"
                 render={props => <Home socket={socket} />}
               />
-              <Route exact path="/companyform"
-                render={(props) => <CompanyProfile socket={socket} />} />
             </Switch>
 
           </Container>
