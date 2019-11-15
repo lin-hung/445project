@@ -9,6 +9,7 @@ import Navbar from "./components/Navbar"
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Profile from './components/Profile'
+import CompanyProfile from'./components/CompanyProfile'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
@@ -40,8 +41,10 @@ function App() {
                 path="/register"
                 render={props => <Register socket={socket} />}
               />
-              <Route exact path="/profile"
+              <Route exact path="/profileform"
                 render={(props) => <Profile socket={socket} />} />
+              <Route exact path="/companyform"
+                render={(props) => <CompanyProfile socket={socket} />} />
             </Switch>
           </Container>
           <Footer />
