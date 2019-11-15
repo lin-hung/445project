@@ -96,7 +96,7 @@ class Profile extends Component {
                 <form onSubmit={this.handleSubmit} className="FormFields">
                     {/* begin section 1 */}
                     <div id="formlayout" className="form">
-                        <h1> Create your profile</h1>
+                        <h1> Create your Applicant profile</h1>
                         <div id="sec1" className="form-row">
                             {/* begin col 1 of sec 1 */}
                             <div id="s1c1" className="col">
