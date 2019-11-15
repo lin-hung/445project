@@ -14,9 +14,9 @@ Router.post('/submit', (req, res) => {
     const tokenUser = JWT.decode(req.header("Authorization").split(' ')[1]).user
     UserProfile.findOne({ user: tokenUser._id })
         .then(prof => {
-            console.log(req.body.tags)
             const map = new Map(Object.entries(req.body.form))
             prof.contents = map
+            prof.tags=req.body.tags
             return prof.save()
         }).then(prof => {
             console.log(prof)
@@ -24,7 +24,5 @@ Router.post('/submit', (req, res) => {
         })
 })
 
-Router.post('/authtest', auth, (req, res) => {
-    res.sendStatus(200)
-})
+
 export default Router
