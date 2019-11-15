@@ -2,4 +2,7 @@
 .App {
     background-size:cover; /* So that background doesn't tile */
     height:100vh; /* So that the entire background scales to window */
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto
 }

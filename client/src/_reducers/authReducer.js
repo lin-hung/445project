@@ -16,7 +16,6 @@ export default function(state = initialState, action) {
       case SET_CURRENT_USER:{
         return{
           ...state,
-          a:'SET CURRENT USER',
           isAuthed:!isEmpty(action.payload),
           user:action.payload
         }
@@ -24,9 +23,8 @@ export default function(state = initialState, action) {
       case LOG_OUT_CURRENT_USER:{
         return{
           ...state,
-          a:'logged out',
           isAuthed:false,
-          user:{}
+          user:null
         }
       }
       default:

@@ -1,95 +1,90 @@
 import React, { Component } from 'react'
-import {TAGS} from './tags';
+import { TAGS } from './tags';
 import { render } from 'react-dom';
-import './tagStyle.css'
-import './profileStyle.css'
+import './tagStyle.scss'
+import './profileStyle.scss'
+import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
 
 
 
 const suggestions = TAGS.map((type) => {
     return {
-      id: type,
-      text: type
+        id: type,
+        text: type
     }
-  })
+})
 
 const KeyCodes = {
     comma: 188,
     enter: 13,
-  };
-  
+};
+
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
 class Profile extends Component {
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-          tags: [{ id: 'computer science', text: 'computer science' }, { id: 'computer engineer', text: 'computer engineer' }],
-          suggestions: suggestions,
-        };
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleAddition = this.handleAddition.bind(this);
-        this.handleDrag = this.handleDrag.bind(this);
-        this.handleTagClick = this.handleTagClick.bind(this);
+    state = {
+        form: {
+            fname: '', //first name
+            lname: '', //last name
+            email: '',
+            job: '', //current occupation
+            age: '',
+            about: '',
+            exp: '', //experience
+            skills: '',
+            prevjob: '', //previous jobs
+            hobbies: '',
+            prefs: '', //preferences
+            awards: '',
+            projects: '',
+            tags: ''
+        },
+        tags: [{ id: 'computer science', text: 'computer science' }, { id: 'computer engineer', text: 'computer engineer' }],
+        suggestions: suggestions,
     }
-    handleDelete(i) {
+
+    handleDelete = (i) => {
         const { tags } = this.state;
         this.setState({
-          tags: tags.filter((tag, index) => index !== i),
+            tags: tags.filter((tag, index) => index !== i),
         });
     }
-    handleAddition(tag) {
+    handleAddition = (tag) => {
         this.setState(state => ({ tags: [...state.tags, tag] }));
     }
-    handleDrag(tag, currPos, newPos) {
+    handleDrag = (tag, currPos, newPos) => {
         const tags = [...this.state.tags];
         const newTags = tags.slice();
-    
+
         newTags.splice(currPos, 1);
         newTags.splice(newPos, 0, tag);
-    
+
         // re-render
         this.setState({ tags: newTags });
     }
-    
-    handleTagClick(index) {
+    handleTagClick = (index) => {
         console.log('The tag at index ' + index + ' was clicked');
     }
-
-    state = {
-        fname: '', //first name
-        lname: '', //last name
-        email: '',
-        job: '', //current occupation
-        age: '',
-        about: '',
-        exp: '', //experience
-        skills: '',
-        prevjob: '', //previous jobs
-        hobbies: '',
-        prefs: '', //preferences
-        awards: '',
-        projects: '',
-    
-    }
-
     handleChange = (e) => {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;
         let name = target.name;
 
         this.setState({
-            [name]: value
+            form: { ...this.state.form, [name]: value }
         });
     }
-
     handleSubmit = (e) => {
         e.preventDefault();
-
-        console.log('The form was submitted with the following data:');
-        console.log(this.state);
+        Axios.post('/api/profile/submit', {
+            form: this.state.form, 
+            tags: this.state.tags.map(t => {
+                return t.id
+            })
+        }).then((res) => {
+            console.log(res)
+        })
     }
 
 
@@ -97,10 +92,10 @@ class Profile extends Component {
         const { tags, suggestions } = this.state;
         return (
             <div id="main" className="FormCenter orange-bg container">
-                <div id="landingHeader">Edit Your Profile</div>
+                {/* <div id="landingHeader">Edit Your Profile</div> */}
                 <form onSubmit={this.handleSubmit} className="FormFields">
                     {/* begin section 1 */}
-                    <div id = "formlayout" className = "form">
+                    <div id="formlayout" className="form">
                         <h1> Create your profile</h1>
                         <div id="sec1" className="form-row">
                             {/* begin col 1 of sec 1 */}
@@ -237,26 +232,26 @@ class Profile extends Component {
                         {/* begin section 3 #TAGS */}
                         <div id="sec3" className="row">
                             <div className="FormCenter col-12">
-                            <label className = "FormField__Label" htmlFor="exampleFormControlFile1">Please enter some tags to describe yourself and how you want to be matched. 
+                                <label className="FormField__Label" htmlFor="exampleFormControlFile1">Please enter some tags to describe yourself and how you want to be matched.
                                 These tags will designate how employers find you. Please enter at least 5!</label>
-                            <ReactTags
-                                tags={tags}
-                                suggestions={suggestions}
-                                delimiters={delimiters}
-                                handleDelete={this.handleDelete}
-                                handleAddition={this.handleAddition}
-                                handleDrag={this.handleDrag}
-                                handleTagClick={this.handleTagClick}
-                            />
+                                <ReactTags
+                                    tags={tags}
+                                    suggestions={suggestions}
+                                    delimiters={delimiters}
+                                    handleDelete={this.handleDelete}
+                                    handleAddition={this.handleAddition}
+                                    handleDrag={this.handleDrag}
+                                    handleTagClick={this.handleTagClick}
+                                />
 
-                               {/*  <label className="FormField__Label" htmlFor="tags">#Tags</label>
+                                {/*  <label className="FormField__Label" htmlFor="tags">#Tags</label>
                                 <textarea type="tags" id="tags" className="FormField__Input form-control"
                                     placeholder="Tag yourself" name="tags" value={this.state.tags}
                                     onChange={this.handleChange} /> */}
                             </div>
                         </div>
                         {/* end section 3 */}
-                        <div id = "buttonSpace" className ="button">
+                        <div id="buttonSpace" className="button">
                             <div id="sec4" className="row">
                                 <div className="FormCenter col-12">
                                     <button type="submit" className="btn btn-primary">Submit</button>
@@ -266,7 +261,7 @@ class Profile extends Component {
 
                     </div>
                 </form>
-                
+
             </div>
         );
     }

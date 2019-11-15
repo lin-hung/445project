@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { Carousel } from 'react-bootstrap'
 import Profile from './Profile.js'
-import './homeStyle.css'
-import './profileCarousel.css'
+import './homeStyle.scss'
+import './profileCarousel.scss'
 import CarouselCaption from 'react-bootstrap/CarouselCaption'
 
 class ProfileCarousel extends Component {
@@ -37,9 +37,8 @@ class ProfileCarousel extends Component {
 			}]
 		const carouselItems = profiles.map((p, i) => {
 			return (
-				<Carousel.Item>
+				<Carousel.Item key = {p.name + i}>
 					<Profile 
-						key = {p.name + i}
 						profilePicUrl = {p.profilePicUrl}
 						name = {p.name}
 						career = {p.career}

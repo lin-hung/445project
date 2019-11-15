@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import './homeStyle.css'
+import './homeStyle.scss'
 import ProfileCarousel from './ProfileCarousel.js'
 
 class Home extends Component {

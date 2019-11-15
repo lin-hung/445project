@@ -84,8 +84,7 @@ const loginOrRegister=(err, user, msg, req, res, next, provider)=>{
 const createUserProfile = (user, registerType) => {
     return new UserProfile({
         user: user._id,
-        profileType: registerType,
-        testContents: `test content user: ${user}`
+        profileType: registerType
     }).save()
 }
 function addRegisterTypeToSession(req, res, next) {

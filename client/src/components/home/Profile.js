@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Button, Card } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import './profileStyle.css'
+import './profileStyle.scss'
 import noProfilePic from './noPic.png'
 
 
@@ -12,41 +12,40 @@ class Profile extends Component {
             <div>
                 <Card bg="light" border="primmary">
                     <Card.Body>
-                        <div class="row">
-                            <div id="left" class="column">
+                        <div className="row">
+                            <div id="left" className="column">
                                 <img id="profilePicture" src={noProfilePic} alt="profilePicture"></img>
+                                <h3 className="text-center">
+                                    {this.props.name}
+                                </h3>
+
                                 <Card.Text className="text-center">
-                                    <h3>
-                                        {this.props.name}
-                                    </h3>
-                                    <p>
-                                        {this.props.career}
-                                    </p>
+                                    {this.props.career}
                                 </Card.Text>
 
 
                             </div>
-                            <div id="right" class="column">
+                            <div id="right" className="column">
                                 <h1 align="center">Qualifications</h1>
-                                <div class="row">
-                                    <div class="col-sm">
+                                <div className="row">
+                                    <div className="col-sm">
                                         {/* Need string.split("\n").map((i, key) => {return <div key={key}>{i}</div>;}) to convert /n to new divs in html*/}
                                         <h2>Education</h2>
-                                        <h> {this.props.education.split("\n").map((i, key) => {
-                                            return <div key={key}>{i}</div>;
-                                        })} </h>
+                                        <ul> {this.props.education.split("\n").map((i, key) => {
+                                            return <li key={key}>{i}</li>;
+                                        })} </ul>
                                     </div>
-                                    <div class="col-sm">
+                                    <div className="col-sm">
                                         <h2>Work</h2>
-                                        <h>{this.props.work.split("\n").map((i, key) => {
-                                            return <div key={key}>{i}</div>;
-                                        })} </h>
+                                        <ul>{this.props.work.split("\n").map((i, key) => {
+                                            return <li key={key}>{i}</li>;
+                                        })} </ul>
                                     </div>
-                                    <div class="col-sm">
+                                    <div className="col-sm">
                                         <h2>Misc</h2>
-                                        <h>{this.props.misc.split("\n").map((i, key) => {
-                                            return <div key={key}>{i}</div>;
-                                        })} </h>
+                                        <ul>{this.props.misc.split("\n").map((i, key) => {
+                                            return <li key={key}>{i}</li>;
+                                        })} </ul>
                                     </div>
                                 </div>
 
@@ -55,14 +54,11 @@ class Profile extends Component {
 
                             </div>
                         </div>
-                    </Card.Body>
-                    <Card.Text className="text-center">
-                        <div>
-                            <p>
+                        <Card.Text className="text-center">
                                 <LinkContainer to='/messages'><Button variant="primary">YEET User</Button></LinkContainer>
-                            </p>
-                        </div>
-                    </Card.Text>
+                        </Card.Text>
+                    </Card.Body>
+
                 </Card>
             </div>
         )

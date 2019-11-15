@@ -1,0 +1,31 @@
+.orange-bg{
+    background:red !important;
+    border-radius: 10px;
+}
+
+.form{
+  width: 100%;
+  border-radius: 25px;
+  background: #eee;
+  font-size: 12px;
+  padding: 10px;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 1%;
+  padding-bottom: 2%;
+  white-space: pre-wrap;
+}
+.form-group{
+  margin-top: 10px;
+}
+.FormField{
+  margin-top: 10px;
+}
+.FormField__Label{
+  margin-bottom: 0px;
+}
+
+.button{
+    text-align: center;
+    padding-top: 15px;
+}
