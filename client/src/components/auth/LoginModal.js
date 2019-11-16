@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
-import './badPadding.scss'
+import './idFedBtn.scss'
 
 class LoginModal extends Component {
     state = {
@@ -62,17 +62,12 @@ class LoginModal extends Component {
                 <Modal.Body>
                     <Container>                      
                         <Row className="show-grid">
-                            
-    
-                            
-                           
                             <Col>
-                                <Button bsPrefix="badButton" variant="outline-primary" onClick={this._openOAuthWindow} value='google'><img src="googBtn.png" value='google' /></Button>
+                                <Button bsPrefix="idFedBtn" onClick={this._openOAuthWindow} value='google'><img src="googBtn.png" value='google' /></Button>
                             </Col>
                             <Col>
-                                <Button variant="outline-primary" bsPrefix="badButton" onClick={this._openOAuthWindow} value='linkedin'><img src="linkedBtn.png" value='linkedin' /></Button>
-                            </Col>
-                            
+                                <Button bsPrefix="idFedBtn" onClick={this._openOAuthWindow} value='linkedin'><img src="linkedBtn.png" value='linkedin' /></Button>
+                            </Col>     
                         </Row>
                     </Container>  
                 </Modal.Body>
@@ -96,7 +91,7 @@ class LoginModal extends Component {
 
                 <this.MyVerticallyCenteredModal
                     show={this.state.modalShow}
-                    onHide={() => this.setState({ setModalShow: true })}
+                    onHide={() => this.setState({ setModalShow: false })}
                 />
             </div>)
     }
