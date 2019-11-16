@@ -6,8 +6,6 @@ import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
 
-
-
 const suggestions = TAGS.map((type) => {
     return {
         id: type,
@@ -242,8 +240,7 @@ class Profile extends Component {
                                     handleAddition={this.handleAddition}
                                     handleDrag={this.handleDrag}
                                     handleTagClick={this.handleTagClick}
-                                />
-
+                                /> {/* End react tags */}
                                 {/*  <label className="FormField__Label" htmlFor="tags">#Tags</label>
                                 <textarea type="tags" id="tags" className="FormField__Input form-control"
                                     placeholder="Tag yourself" name="tags" value={this.state.tags}
@@ -258,10 +255,8 @@ class Profile extends Component {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </form>
-
             </div>
         );
     }
