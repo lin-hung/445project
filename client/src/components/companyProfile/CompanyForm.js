@@ -18,7 +18,7 @@ const KeyCodes = {
   
 const delimiters = [KeyCodes.comma, KeyCodes.enter]
 
-class CompanyProfile extends Component {
+class CompanyForm extends Component {
     constructor(props) {
         super(props);
     
@@ -194,5 +194,4 @@ class CompanyProfile extends Component {
         );
     }
 }
-render(<CompanyProfile />, document.getElementById('root'));
-export default CompanyProfile;
+export default CompanyForm;

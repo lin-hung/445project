@@ -8,8 +8,8 @@ import Landing from "./components/landing/Landing"
 import Navbar from "./components/_navbar/Navbar"
 import Register from './components/_auth/Register'
 import Home from './components/home/Home.js'
-import Profile from './components/applicantProfile/Profile'
-import CompanyProfile from './components/companyProfile/CompanyProfile'
+import ApplicantForm from './components/applicantProfile/applicantForm'
+import CompanyForm from './components/companyProfile/CompanyForm'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
@@ -40,8 +40,8 @@ function App() {
                 render={props => <Register socket={socket} />}
               />
               <PrivateRoute exact path='/home' component={Home} />
-              <PrivateRoute exact path="/applicantForm" component={Profile} />
-              <PrivateRoute exact path="/companyForm" component={CompanyProfile} />
+              <PrivateRoute exact path="/applicantForm" component={ApplicantForm} />
+              <PrivateRoute exact path="/companyForm" component={CompanyForm} />
             </Switch>
           </Container>
           <Footer />
