@@ -4,12 +4,12 @@ import { Provider } from "react-redux"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import io from 'socket.io-client'
 import { Footer } from './components/Footer'
-import Landing from "./components/Landing"
-import Navbar from "./components/Navbar"
-import Register from './components/auth/Register'
+import Landing from "./components/landing/Landing"
+import Navbar from "./components/_navbar/Navbar"
+import Register from './components/_auth/Register'
 import Home from './components/home/Home.js'
-import Profile from './components/Profile'
-import CompanyProfile from'./components/CompanyProfile'
+import Profile from './components/applicantProfile/Profile'
+import CompanyProfile from'./components/companyProfile/CompanyProfile'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"

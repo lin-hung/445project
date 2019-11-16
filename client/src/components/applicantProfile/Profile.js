@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { TAGS } from './tags';
 import { render } from 'react-dom';
-import './tagStyle.scss'
+import '../tagStyle.scss'
 import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
