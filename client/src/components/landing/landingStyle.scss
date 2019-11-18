@@ -25,6 +25,14 @@
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-play-state: running;
     -webkit-animation-direction: alternate;
+
+    //Mozilla support
+    -moz-animation-name: slideshow;
+    -moz-animation-duration: 10s;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-play-state: running;
+    -moz-animation-direction: alternate;
 }
 
 @keyframes slideshow {
@@ -45,6 +53,23 @@
 }
 
 @-webkit-keyframes slideshow {
+    0% {
+        background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
+    ,url("/landingBG.jpg");
+    }
+
+    50% {
+        background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
+    ,url("/img2.jpg");
+    }
+
+    100% {
+        background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
+    ,url("/img3.jpg");
+    }
+}
+
+@-moz-keyframes slideshow {
     0% {
         background-image:     linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5))
     ,url("/landingBG.jpg");
