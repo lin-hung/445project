@@ -1,7 +1,8 @@
 .badButton {
     border:5px;
     padding:0 ;
-    margin: 0;
+    display: block;
+    margin: 0 auto;
 }
 
 .badButton:hover {
@@ -9,3 +10,4 @@
     background-color:#bf0000;
     border-color:#bf0000;
 }
+
