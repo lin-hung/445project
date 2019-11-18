@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { TAGS } from './tags';
-import { render } from 'react-dom';
+// import { render } from 'react-dom';
 import '../tagStyle.scss'
 import './profileStyle.scss'
 import Axios from 'axios'

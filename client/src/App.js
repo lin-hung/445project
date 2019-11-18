@@ -15,7 +15,7 @@ import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
 import "./resources/appStyle.scss"
 
-import { PrivateRoute, PropsRoute } from './routes'
+import { PrivateRoute/*, PropsRoute*/ } from './routes'
 
 if (localStorage.jwtToken) {
   // Set auth token header if localstorage contains token

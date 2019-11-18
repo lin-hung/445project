@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Modal, Col, Row, Container } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
 import './badPadding.scss'

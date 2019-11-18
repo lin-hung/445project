@@ -12,7 +12,7 @@ import LoginModal from '../_auth/LoginModal'
 
 class Navbar extends Component {
   loginButton = () => {
-    const pathname=window.location.pathname
+    // const pathname=window.location.pathname
     if(!this.props.auth.isAuthed){
       return(
         <LoginModal socket={this.props.socket} />
