@@ -17,13 +17,11 @@ class Navbar extends Component {
       return(
         <LoginModal socket={this.props.socket} />
       )
-    }
-    else if(this.props.auth.isAuthed) {
+    } else if(this.props.auth.isAuthed) {
       return(<Button id = "navButton" className="btn btn-primary employeetButton" href = "/" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
-    
-    
+
   }
 
   utilities = () => {
