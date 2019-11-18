@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import './coprofileStyle.scss'
-import {TAGS} from './tags';
+import {TAGS} from '../applicantProfile/tags';
 import { render } from 'react-dom';
-import './tagStyle.scss'
+import '../tagStyle.scss'
 import { WithContext as ReactTags } from 'react-tag-input';
 const suggestions = TAGS.map((type) => {
     return {
@@ -18,7 +18,7 @@ const KeyCodes = {
   
 const delimiters = [KeyCodes.comma, KeyCodes.enter]
 
-class CompanyProfile extends Component {
+class CompanyForm extends Component {
     constructor(props) {
         super(props);
     
@@ -194,5 +194,4 @@ class CompanyProfile extends Component {
         );
     }
 }
-render(<CompanyProfile />, document.getElementById('root'));
-export default CompanyProfile;
+export default CompanyForm;

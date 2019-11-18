@@ -4,16 +4,18 @@ import { Provider } from "react-redux"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import io from 'socket.io-client'
 import { Footer } from './components/Footer'
-import Landing from "./components/Landing"
-import Navbar from "./components/Navbar"
-import Register from './components/auth/Register'
+import Landing from "./components/landing/Landing"
+import Navbar from "./components/_navbar/Navbar"
+import Register from './components/_auth/Register'
 import Home from './components/home/Home.js'
-import Profile from './components/Profile'
-import CompanyProfile from'./components/CompanyProfile'
+import ApplicantForm from './components/applicantProfile/applicantForm'
+import CompanyForm from './components/companyProfile/CompanyForm'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
 import "./resources/appStyle.scss"
+
+import { PrivateRoute, PropsRoute } from './routes'
 
 if (localStorage.jwtToken) {
   // Set auth token header if localstorage contains token
@@ -30,7 +32,6 @@ function App() {
         <div className="App">
           <Navbar socket={socket} />
           <Container id="content">
-
             <Switch>
               <Route exact path="/" component={Landing} />
               <Route
@@ -38,21 +39,10 @@ function App() {
                 path="/register"
                 render={props => <Register socket={socket} />}
               />
-              <Route
-                exact 
-                path="/applicantForm"
-                render={(props) => <Profile socket={socket} />} />
-              <Route
-                exact 
-                path="/companyForm"
-                render={(props) => <CompanyProfile socket={socket} />} />
-              <Route
-                exact
-                path="/home"
-                render={props => <Home socket={socket} />}
-              />
+              <PrivateRoute exact path='/home' component={Home} />
+              <PrivateRoute exact path="/applicantForm" component={ApplicantForm} />
+              <PrivateRoute exact path="/companyForm" component={CompanyForm} />
             </Switch>
-
           </Container>
           <Footer />
         </div>

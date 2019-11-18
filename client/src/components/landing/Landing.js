@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
+import {Redirect} from 'react-router-dom'
+import {connect} from 'react-redux'
 import { Button, Col, Container, Jumbotron } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import {mapAuthStateToProps} from '../../resources/utils'
 //STYLING
 import './landingStyle.scss'
-import './buttonColor.scss'
+import '../buttonColor.scss'
 
 class Landing extends Component {
     render() {
+        if(this.props.auth.isAuthed){
+            return(<Redirect to='/home'/>)
+        }
         return (
             <div id="landingPage">
                 <Jumbotron fluid id="landingJumbotron">
@@ -21,4 +27,4 @@ class Landing extends Component {
         )
     }
 }
-export default Landing
+export default connect(mapAuthStateToProps)(Landing)
