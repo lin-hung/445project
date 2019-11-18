@@ -17,25 +17,27 @@ class Register extends Component {
     }
     componentDidMount() {
         const socket = this.props.socket
-        socket.once('authtoken', (token) => {
-            this.props.oAuthLoginAction(token)
-            //redirect to the applicant form if they are a prospective APPLICANT/CANIDATE
-            if (this.state.userType === 'candidate') {
-                this.setState({ step: 3 })
-            }
-            //redirect to the company form if they are a prospective COMPANY/RECRUITER
-            if (this.state.userType === 'recruiter') {
-                this.setState({ step: 3 })
-            }
+        // setTimeout(() => {
+            socket.once('authtoken', (token) => {
+                this.props.oAuthLoginAction(token)
+                //redirect to the applicant form if they are a prospective APPLICANT/CANIDATE
+                if (this.state.userType === 'candidate') {
+                    this.setState({ step: 3 })
+                }
+                //redirect to the company form if they are a prospective COMPANY/RECRUITER
+                if (this.state.userType === 'recruiter') {
+                    this.setState({ step: 3 })
+                }
 
-        })
-        socket.once('authfailure', (msg) => {
-            this.setState({ step: 0, error: msg })
-        })
-        socket.once('isRegistered', (msg) => {
-            console.log(`is registered: ${JSON.stringify(msg)}`)
-            this.setState({ error: "Account exists already!", step: 5 })
-        })
+            })
+            socket.once('authfailure', (msg) => {
+                this.setState({ step: 0, error: msg })
+            })
+            socket.once('isRegistered', (msg) => {
+                console.log(`is registered: ${JSON.stringify(msg)}`)
+                this.setState({ error: "Account exists already!", step: 5 })
+            })
+      //  }, 500)
     }
     componentWillUnmount() {
         const socket = this.props.socket
@@ -58,8 +60,8 @@ class Register extends Component {
             }
         }
         this.setState({ step: this.state.step + 1 })
-    } 
-    
+    }
+
     openOAuthWindow = (e) => {
         const provider = e.target.value
         const socket = this.props.socket
@@ -83,11 +85,14 @@ class Register extends Component {
             return (<Redirect to='/companyForm' />
             )
         }
-        else{
-            this.setState({step:9999})//error
+        else {
+            this.setState({ step: 9999 })//error
         }
     }
     render() {
+        if(this.props.auth.isAuthed){
+            return(<Redirect to='/home'/>)
+        }
         switch (this.state.step) {
             case 1: return (<div id='login' className="container h-100">
                 <div className="col-sm-12 my-auto">
@@ -118,7 +123,7 @@ class Register extends Component {
             case 3: return (
                 <this.RedirectAfterAuth />
             )
-          
+
 
             default: {
                 return (

@@ -2,21 +2,20 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar as BSNav, Nav, Button } from 'react-bootstrap'
-import logo from '../resources/logo.svg'
-import { mapAuthStateToProps } from '../resources/utils'
-import { logoutAction } from '../_actions/authActions'
-import './buttonColor.scss'
+import logo from '../../resources/logo.svg'
+import { mapAuthStateToProps } from '../../resources/utils'
+import { logoutAction } from '../../_actions/authActions'
+import '../buttonColor.scss'
 import './navBarStyle.scss'
-import LoginModal from './auth/LoginModal'
+import LoginModal from '../_auth/LoginModal'
 
 
 class Navbar extends Component {
   loginButton = () => {
     const pathname=window.location.pathname
-    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+    if(!this.props.auth.isAuthed){
       return(
         <LoginModal socket={this.props.socket} />
-      // <LinkContainer to='/login'><Button className="btn btn-primary employeetButton">Log In</Button></LinkContainer>
       )
     }
     else if(this.props.auth.isAuthed) {

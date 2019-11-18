@@ -20,9 +20,10 @@ class LoginModal extends Component {
             this.setState({ loginSuccess: true })
             this.props.oAuthLoginAction(token)
         })
-        socket.once('authfailure', (msg) => {
+        socket.on('authfailure', (msg) => {
             console.log(`authfailure msg: ${msg}`)
-            this.setState({ loginSuccess: false })
+            this.setState({ loginSuccess: false, modalShow: false, setModalShow: false })
+            window.location.href = "./register"
         })
     }
 
@@ -32,7 +33,7 @@ class LoginModal extends Component {
 
     _openOAuthWindow = (e) => {
         console.log(e.target.getAttribute("value"))
-        
+
         const provider = e.target.getAttribute("value")
         const socket = this.props.socket
         const width = 600, height = 600
@@ -54,13 +55,13 @@ class LoginModal extends Component {
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >
-                <Modal.Header> 
+                <Modal.Header>
                     <Modal.Title id="contained-modal-title-vcenter">
                         Sign in with:
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Container>                      
+                    <Container>
                         <Row className="show-grid">
                             <Col>
                                 <Button bsPrefix="badButton" variant="outline-primary" onClick={this._openOAuthWindow} value='google'><img src="googBtn.png" value='google' /></Button>
@@ -69,7 +70,7 @@ class LoginModal extends Component {
                                 <Button variant="outline-primary" bsPrefix="badButton" onClick={this._openOAuthWindow} value='linkedin'><img src="linkedBtn.png" value='linkedin' /></Button>
                             </Col>
                         </Row>
-                    </Container>  
+                    </Container>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={this._closeModal}>Close</Button>
@@ -79,10 +80,6 @@ class LoginModal extends Component {
     }
 
     render() {
-        if (this.state.loginSuccess === true) {
-            return (<Redirect to='/profile' />)
-        }
-
         return (
             <div>
                 <Button className="btn btn-danger employeetBtn" onClick={() => this.setState({ modalShow: true })}>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { TAGS } from './tags';
 import { render } from 'react-dom';
-import './tagStyle.scss'
+import '../tagStyle.scss'
 import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
@@ -20,7 +20,7 @@ const KeyCodes = {
 
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
 
-class Profile extends Component {
+class ApplicantForm extends Component {
     state = {
         form: {
             fname: '', //first name
@@ -261,5 +261,4 @@ class Profile extends Component {
         );
     }
 }
-render(<Profile />, document.getElementById('root'));
-export default Profile;
+export default ApplicantForm;
