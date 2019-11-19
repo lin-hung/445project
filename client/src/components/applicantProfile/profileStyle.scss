@@ -13,6 +13,12 @@
 .form-group{
   margin-top: 10px;
 }
+
+.form-group.required .control-label:after {
+  content:"*";
+  color:red;
+}
+
 .FormField{
   margin-top: 10px;
 }

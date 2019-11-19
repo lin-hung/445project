@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { ButtonToolbar, Button, Modal, Col, Row, Container, Grid } from 'react-bootstrap'
+import { Button, Modal, Col, Row, Container } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
-import './idFedBtn.scss'
+import './idFedButton.scss'
 
 class LoginModal extends Component {
     state = {
@@ -68,7 +67,7 @@ class LoginModal extends Component {
                             </Col>
                             <Col>
                                 <Button bsPrefix="idFedBtn" onClick={this._openOAuthWindow} value='linkedin'><img src="linkedBtn.png" value='linkedin' /></Button>
-                            </Col>     
+                            </Col>
                         </Row>
                     </Container>
                 </Modal.Body>

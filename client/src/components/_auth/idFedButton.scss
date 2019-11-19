@@ -1,0 +1,18 @@
+.idFedBtn {
+    border:5px;
+    padding:0;
+    display:block;
+    margin:0 auto;
+
+    :hover {
+        border:20px;
+        border-radius:10px;
+        box-shadow:         0px 0px 30px 0px rgba(73, 173, 255, 0.67);
+
+        -webkit-border-radius:10px;
+        -webkit-box-shadow: 0px 0px 30px 0px rgba(73, 173, 255, 0.67);
+
+        -moz-border-radius:10px;
+        -moz-box-shadow:    0px 0px 30px 0px rgba(73, 173, 255, 0.67);
+    }
+}
