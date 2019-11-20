@@ -24,5 +24,14 @@ Router.post('/submit', (req, res) => {
         })
 })
 
+Router.get('/get',(req,res)=> {
+    const tokenUser = JWT.decode(req.header("Authorization").split(' ')[1]).user
+    UserProfile.findOne({user:tokenUser._id})
+        .then((prof)=>{ console.log(prof)
+            return res.json(prof)
+        })
+
+}) 
+
 
 export default Router

@@ -20,14 +20,7 @@ class Register extends Component {
         // setTimeout(() => {
             socket.once('authtoken', (token) => {
                 this.props.oAuthLoginAction(token)
-                //redirect to the applicant form if they are a prospective APPLICANT/CANIDATE
-                if (this.state.userType === 'candidate') {
-                    this.setState({ step: 3 })
-                }
-                //redirect to the company form if they are a prospective COMPANY/RECRUITER
-                if (this.state.userType === 'recruiter') {
-                    this.setState({ step: 3 })
-                }
+
 
             })
             socket.once('authfailure', (msg) => {
@@ -36,6 +29,7 @@ class Register extends Component {
             socket.once('isRegistered', (msg) => {
                 console.log(`is registered: ${JSON.stringify(msg)}`)
                 this.setState({ error: "Account exists already!", step: 5 })
+
             })
       //  }, 500)
     }
@@ -45,12 +39,15 @@ class Register extends Component {
     }
     handleClick = (e) => {
         const step = this.state.step
+        
         switch (step) {
             case 1: {
+                //stores the userType (either recruiter or candidate)
                 this.setState({ userType: e.target.value })
                 break
             }
             case 2: {
+                //stores user's Auth Provider (either google or linkedin)
                 this.setState({ provider: e.target.value })
                 break
             }
@@ -75,23 +72,10 @@ class Register extends Component {
             height=${height}, top=${top}, left=${left}`
         )
     }
-    RedirectAfterAuth = () => {
-        const { userType } = this.state
-        if (userType === 'candidate') {
-            return (<Redirect to='/applicantForm' />
-            )
-        }
-        else if (userType === 'recruiter') {
-            return (<Redirect to='/companyForm' />
-            )
-        }
-        else {
-            this.setState({ step: 9999 })//error
-        }
-    }
+
     render() {
         if(this.props.auth.isAuthed){
-            return(<Redirect to='/home'/>)
+              return( <Redirect to='/home' />)
         }
         switch (this.state.step) {
             case 1: return (<div id='login' className="container h-100">
@@ -119,9 +103,6 @@ class Register extends Component {
                         </div>
                     </div>
                 </div>
-            )
-            case 3: return (
-                <this.RedirectAfterAuth />
             )
 
 
