@@ -13,23 +13,10 @@ class Home extends Component {
     componentDidMount(){
         Axios.get('/api/profile/get').then(result => {
             this.setState({profile: result.data})
-
-            // if(result.data.contents == null){
-            //     if(result.data.profileType == 'candidate'){
-                    
-            //         //redirect to applicant form
-            //         return(<Redirect to='/applicantForm' />)
-            //     }
-            //     if(result.data.profileType == 'recruiter'){
-            //         //redirect to recruiter form
-            //         return(<Redirect to='/companyForm' />)
-            //     }
-            // }
         })
     }
     RedirectToForm = () => {
         if(!this.state.profile.contents){
-            console.log('###################')
             if(this.state.profile.profileType === 'candidate'){
                 return(<Redirect to = '/applicantForm' />)
             }
