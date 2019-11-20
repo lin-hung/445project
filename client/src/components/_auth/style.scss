@@ -1,0 +1,28 @@
+#login {
+    margin-top:100px
+}
+
+button {
+    margin-left:5rem;
+    margin-right:5rem
+}
+
+#squareShapeView{
+    width: 120;
+    height: 120;
+    background-color: '#00BCD4'
+}
+
+#landingJumbotron { /* Opaque background */
+    background: rgb(255, 255, 255); /* IE8 and below */
+    background: rgba(255, 255, 255, 0.6); /* All other browsers */
+}
+
+#boxesRight{
+    background-color: cyan;
+}
+
+#boxesLeft{
+    margin-right: 60%;
+    padding: 5%;
+}

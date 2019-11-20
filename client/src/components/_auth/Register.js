@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { oAuthLoginAction } from '../../_actions/authActions'
-import './style.css'
+import './style.scss'
+
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -16,17 +17,21 @@ class Register extends Component {
     }
     componentDidMount() {
         const socket = this.props.socket
-        socket.once('authtoken', (token) => {
-            this.setState({step:3})
-            this.props.oAuthLoginAction(token)
-        })
-        socket.once('authfailure', (msg) => {
-            this.setState({ step: 0, error: msg })
-        })
-        socket.once('isRegistered', (msg) => {
-            console.log(`is registered: ${JSON.stringify(msg)}`)
-            this.setState({ error:"Account exists already!", step: 5 })
-        })
+        // setTimeout(() => {
+            socket.once('authtoken', (token) => {
+                this.props.oAuthLoginAction(token)
+
+
+            })
+            socket.once('authfailure', (msg) => {
+                this.setState({ step: 0, error: msg })
+            })
+            socket.once('isRegistered', (msg) => {
+                console.log(`is registered: ${JSON.stringify(msg)}`)
+                this.setState({ error: "Account exists already!", step: 5 })
+
+            })
+      //  }, 500)
     }
     componentWillUnmount() {
         const socket = this.props.socket
@@ -34,22 +39,26 @@ class Register extends Component {
     }
     handleClick = (e) => {
         const step = this.state.step
+        
         switch (step) {
             case 1: {
+                //stores the userType (either recruiter or candidate)
                 this.setState({ userType: e.target.value })
                 break
             }
             case 2: {
+                //stores user's Auth Provider (either google or linkedin)
                 this.setState({ provider: e.target.value })
                 break
             }
-            default:{
-                this.setState({step:0, error:e})
+            default: {
+                this.setState({ step: 0, error: e })
                 break
             }
         }
         this.setState({ step: this.state.step + 1 })
     }
+
     openOAuthWindow = (e) => {
         const provider = e.target.value
         const socket = this.props.socket
@@ -63,7 +72,11 @@ class Register extends Component {
             height=${height}, top=${top}, left=${left}`
         )
     }
+
     render() {
+        if(this.props.auth.isAuthed){
+              return( <Redirect to='/home' />)
+        }
         switch (this.state.step) {
             case 1: return (<div id='login' className="container h-100">
                 <div className="col-sm-12 my-auto">
@@ -72,7 +85,7 @@ class Register extends Component {
                         <p className="lead">Are you a recruiter or candidate?</p>
                         <p className="lead">
                             <button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} value='recruiter'>Recruiter</button>
-                            <button type="button" className="btn btn-secondary btn-lg" onClick={this.handleClick} value='candidate'>Candidate</button>
+                            <button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} value='candidate'>Candidate</button>
                         </p>
                     </div>
                 </div>
@@ -91,10 +104,8 @@ class Register extends Component {
                     </div>
                 </div>
             )
-            case 3:
-                return (
-                    <Redirect to='/' />
-                )
+
+
             default: {
                 return (
                     <div id='login' className="container h-100">
