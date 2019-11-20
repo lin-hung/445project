@@ -87,6 +87,7 @@ class ApplicantForm extends Component {
         }).then((res) => {
             console.log(res)
             this.setState({form:res.data.contents})
+            this.setState({tags:res.data.tags})
         })
     }
 
