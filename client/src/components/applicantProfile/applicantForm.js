@@ -42,7 +42,11 @@ class ApplicantForm extends Component {
         tags: [{ id: 'computer science', text: 'computer science' }, { id: 'computer engineer', text: 'computer engineer' }],
         suggestions: suggestions,
     }
-
+    componentDidMount(){
+        Axios.get('/api/profile/get').then(result => {
+            console.log(result.data)
+        })
+    }
     handleDelete = (i) => {
         const { tags } = this.state;
         this.setState({
