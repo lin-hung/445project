@@ -32,7 +32,7 @@ class Navbar extends Component {
     if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
       return(null)
     }
-    if(this.props.auth.isAuthed) {
+    if(this.props.auth.isAuthed) { //needs to change to if user has an account 
       return(
         <div>
             <LinkContainer to='/home'><Button id = "navButton" variant = "primary">Home</Button></LinkContainer>
@@ -60,10 +60,10 @@ class Navbar extends Component {
 
   profileUtilities = () => {
     const pathname=window.location.pathname
-    if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
+    if(pathname ==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
       return(null)
     }
-    if(this.props.auth.isAuthed) {
+    if(this.props.auth.isAuthed) { //needs to change to if user has an account in database
       return(
         <div>
             <LinkContainer to='/messages'><Button id = "navButton" variant ="light">Messages</Button></LinkContainer>

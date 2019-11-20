@@ -20,14 +20,7 @@ class Register extends Component {
         // setTimeout(() => {
             socket.once('authtoken', (token) => {
                 this.props.oAuthLoginAction(token)
-                //redirect to the applicant form if they are a prospective APPLICANT/CANIDATE
-                if (this.state.userType === 'candidate') {
-                    this.setState({ step: 3 })
-                }
-                //redirect to the company form if they are a prospective COMPANY/RECRUITER
-                if (this.state.userType === 'recruiter') {
-                    this.setState({ step: 3 })
-                }
+
 
             })
             socket.once('authfailure', (msg) => {
@@ -45,12 +38,15 @@ class Register extends Component {
     }
     handleClick = (e) => {
         const step = this.state.step
+        
         switch (step) {
             case 1: {
+                //stores the userType (either recruiter or candidate)
                 this.setState({ userType: e.target.value })
                 break
             }
             case 2: {
+                //stores user's Auth Provider (either google or linkedin)
                 this.setState({ provider: e.target.value })
                 break
             }
@@ -91,7 +87,7 @@ class Register extends Component {
     }
     render() {
         if(this.props.auth.isAuthed){
-            return(<Redirect to='/home'/>)
+              return(<this.RedirectAfterAuth />)
         }
         switch (this.state.step) {
             case 1: return (<div id='login' className="container h-100">
