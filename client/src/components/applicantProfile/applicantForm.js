@@ -5,7 +5,6 @@ import '../tagStyle.scss'
 import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
-// import { Redirect } from 'react-router-dom';
 
 const suggestions = TAGS.map((type) => {
     return {
@@ -36,13 +35,17 @@ class ApplicantForm extends Component {
             hobbies: '',
             prefs: '', //preferences
             awards: '',
-            projects: '',
-            tags: ''
+            projects: ''
         },
         tags: [{ id: 'computer science', text: 'computer science' }, { id: 'computer engineer', text: 'computer engineer' }],
         suggestions: suggestions,
     }
-
+    componentDidMount(){
+        Axios.get('/api/profile/get').then((res)=>{
+            console.log(res.data)
+            this.setState({form:res.data.contents})
+        })
+    }
     handleDelete = (i) => {
         const { tags } = this.state;
         this.setState({
@@ -83,14 +86,13 @@ class ApplicantForm extends Component {
             })
         }).then((res) => {
             console.log(res)
+            this.setState({form:res.data.contents})
         })
     }
 
-    // handleRedirect = (e) => {
-    //     return (
-    //         <Redirect to='/home' />
-    //     )
-    // }
+    handleRedirect = (e) => {
+       this.props.history.push('/home')
+    }
 
 
     render() {
@@ -98,7 +100,7 @@ class ApplicantForm extends Component {
         return (
             <div id="main" className="FormCenter">
                 {/* <div id="landingHeader">Edit Your Profile</div> */}
-                <form onSubmit={this.handleSubmit /*, this.handleRedirect*/} className="FormFields">
+                <form className="FormFields">
                     {/* begin section 1 */}
                     <div id="formlayout" className="form">
                         <h1> Create your Applicant profile</h1>
@@ -108,7 +110,7 @@ class ApplicantForm extends Component {
                                 <div className="FormField form-group required">
                                     <label className="FormField__Label control-label" htmlFor="fname">First Name</label>
                                     <input type="fname" id="fname" className="FormField__Input form-control"
-                                        placeholder="Enter your first name" name="fname" value={this.state.fname}
+                                        placeholder="Enter your first name" name="fname" value={this.state.form.fname}
                                         required={true}
                                         onChange={this.handleChange} />
                                 </div>
@@ -116,7 +118,7 @@ class ApplicantForm extends Component {
                                 <div className="FormField form-group required">
                                     <label className="FormField__Label control-label" htmlFor="lname">Last Name</label>
                                     <input type="lname" id="lname" className="FormField__Input form-control"
-                                        placeholder="Enter your last name" name="lname" value={this.state.lname}
+                                        placeholder="Enter your last name" name="lname" value={this.state.form.lname}
                                         required={true}
                                         onChange={this.handleChange} />
                                 </div>
@@ -124,7 +126,7 @@ class ApplicantForm extends Component {
                                 <div className="FormField form-group required">
                                     <label className="FormField__Label control-label" htmlFor="email">E-Mail Address</label>
                                     <input type="email" id="email" className="FormField__Input form-control"
-                                        placeholder="Enter your email" name="email" value={this.state.email}
+                                        placeholder="Enter your email" name="email" value={this.state.form.email}
                                         required={true}
                                         onChange={this.handleChange} />
                                 </div>
@@ -132,7 +134,7 @@ class ApplicantForm extends Component {
                                 <div className="FormField form-group required">
                                     <label className="FormField__Label control-label" htmlFor="job">Occupation</label>
                                     <input type="job" id="job" className="FormField__Input form-control"
-                                        placeholder="Enter your current job" name="job" value={this.state.job}
+                                        placeholder="Enter your current job" name="job" value={this.state.form.job}
                                         required={true}
                                         onChange={this.handleChange} />
                                 </div>
@@ -140,7 +142,7 @@ class ApplicantForm extends Component {
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="age">Age</label>
                                     <input type="age" id="age" className="FormField__Input form-control"
-                                        placeholder="Enter your age" name="age" value={this.state.age}
+                                        placeholder="Enter your age" name="age" value={this.state.form.age}
                                         onChange={this.handleChange} />
                                 </div>
                             </div>
@@ -162,14 +164,14 @@ class ApplicantForm extends Component {
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="about">About me</label>
                                     <textarea type="about" id="about" className="FormField__Input form-control"
-                                        placeholder="Enter info about yourself" name="about" value={this.state.about}
+                                        placeholder="Enter info about yourself" name="about" value={this.state.form.about}
                                         onChange={this.handleChange} />
                                 </div>
 
                                 <div className="FormField form-group required">
                                     <label className="FormField__Label control-label" htmlFor="exp">Experience</label>
                                     <textarea type="exp" id="exp" className="FormField__Input form-control"
-                                        placeholder="Enter your experience" name="exp" value={this.state.exp}
+                                        placeholder="Enter your experience" name="exp" value={this.state.form.exp}
                                         required={true}
                                         onChange={this.handleChange} />
                                 </div>
@@ -177,14 +179,14 @@ class ApplicantForm extends Component {
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="skills">Skills</label>
                                     <textarea type="skills" id="skills" className="FormField__Input form-control"
-                                        placeholder="List your skills" name="skills" value={this.state.skills}
+                                        placeholder="List your skills" name="skills" value={this.state.form.skills}
                                         onChange={this.handleChange} />
                                 </div>
 
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="prevjob">Previous occupations</label>
                                     <textarea type="prevjob" id="prevjob" className="FormField__Input form-control"
-                                        placeholder="List your previous occupations" name="prevjob" value={this.state.prevjob}
+                                        placeholder="List your previous occupations" name="prevjob" value={this.state.form.prevjob}
                                         onChange={this.handleChange} />
                                 </div>
 
@@ -206,28 +208,28 @@ class ApplicantForm extends Component {
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="hobbies">Hobbies</label>
                                     <textarea type="hobbies" id="hobbies" className="FormField__Input form-control"
-                                        placeholder="Enter your hobbies" name="hobbies" value={this.state.hobbies}
+                                        placeholder="Enter your hobbies" name="hobbies" value={this.state.form.hobbies}
                                         onChange={this.handleChange} />
                                 </div>
 
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="prefs">Preferences</label>
                                     <textarea type="prefs" id="prefs" className="FormField__Input form-control"
-                                        placeholder="Enter your preferences" name="prefs" value={this.state.prefs}
+                                        placeholder="Enter your preferences" name="prefs" value={this.state.form.prefs}
                                         onChange={this.handleChange} />
                                 </div>
 
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="awards">Awards</label>
                                     <textarea type="awards" id="awards" className="FormField__Input form-control"
-                                        placeholder="Enter your awards" name="awards" value={this.state.awards}
+                                        placeholder="Enter your awards" name="awards" value={this.state.form.awards}
                                         onChange={this.handleChange} />
                                 </div>
 
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="projects">Projects</label>
                                     <textarea type="projects" id="projects" className="FormField__Input form-control"
-                                        placeholder="Enter your projects" name="projects" value={this.state.projects}
+                                        placeholder="Enter your projects" name="projects" value={this.state.form.projects}
                                         onChange={this.handleChange} />
                                 </div>
 
@@ -263,7 +265,7 @@ class ApplicantForm extends Component {
                         <div id="buttonSpace" className="button">
                             <div id="sec4" className="row">
                                 <div className="FormCenter col-12">
-                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                    <button type="submit" onClick={this.handleSubmit, this.handleRedirect} className="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </div>
