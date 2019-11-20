@@ -12,18 +12,16 @@ import LoginModal from '../_auth/LoginModal'
 
 class Navbar extends Component {
   loginButton = () => {
-    const pathname=window.location.pathname
+    // const pathname=window.location.pathname
     if(!this.props.auth.isAuthed){
       return(
         <LoginModal socket={this.props.socket} />
       )
-    }
-    else if(this.props.auth.isAuthed) {
+    } else if(this.props.auth.isAuthed) {
       return(<Button id = "navButton" className="btn btn-primary employeetButton" href = "/" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
-    
-    
+
   }
 
   utilities = () => {

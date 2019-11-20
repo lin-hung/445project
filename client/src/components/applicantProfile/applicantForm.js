@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { TAGS } from './tags';
-import { render } from 'react-dom';
+// import { render } from 'react-dom';
 import '../tagStyle.scss'
 import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
-
-
+// import { Redirect } from 'react-router-dom';
 
 const suggestions = TAGS.map((type) => {
     return {
@@ -87,44 +86,54 @@ class ApplicantForm extends Component {
         })
     }
 
+    // handleRedirect = (e) => {
+    //     return (
+    //         <Redirect to='/home' />
+    //     )
+    // }
+
 
     render() {
         const { tags, suggestions } = this.state;
         return (
             <div id="main" className="FormCenter">
                 {/* <div id="landingHeader">Edit Your Profile</div> */}
-                <form onSubmit={this.handleSubmit} className="FormFields">
+                <form onSubmit={this.handleSubmit /*, this.handleRedirect*/} className="FormFields">
                     {/* begin section 1 */}
                     <div id="formlayout" className="form">
                         <h1> Create your Applicant profile</h1>
                         <div id="sec1" className="form-row">
                             {/* begin col 1 of sec 1 */}
                             <div id="s1c1" className="col">
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="fname">First Name</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="fname">First Name</label>
                                     <input type="fname" id="fname" className="FormField__Input form-control"
                                         placeholder="Enter your first name" name="fname" value={this.state.fname}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="lname">Last Name</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="lname">Last Name</label>
                                     <input type="lname" id="lname" className="FormField__Input form-control"
                                         placeholder="Enter your last name" name="lname" value={this.state.lname}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="email">E-Mail Address</label>
                                     <input type="email" id="email" className="FormField__Input form-control"
                                         placeholder="Enter your email" name="email" value={this.state.email}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="job">Occupation</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="job">Occupation</label>
                                     <input type="job" id="job" className="FormField__Input form-control"
                                         placeholder="Enter your current job" name="job" value={this.state.job}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
@@ -139,7 +148,7 @@ class ApplicantForm extends Component {
                             {/* col 2 sec 1 (profile picture) */}
                             <div id="s1c2" className="col">
                                 <div className="form-group align-middle">
-                                    <label htmlFor="exampleFormControlFile1">Example file input</label>
+                                    <label htmlFor="exampleFormControlFile1">Upload your profile picture</label>
                                     <input type="file" className="form-control-file" id="exampleFormControlFile1" />
                                 </div>
                             </div>
@@ -157,10 +166,11 @@ class ApplicantForm extends Component {
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="exp">Experience</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="exp">Experience</label>
                                     <textarea type="exp" id="exp" className="FormField__Input form-control"
                                         placeholder="Enter your experience" name="exp" value={this.state.exp}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
@@ -242,8 +252,7 @@ class ApplicantForm extends Component {
                                     handleAddition={this.handleAddition}
                                     handleDrag={this.handleDrag}
                                     handleTagClick={this.handleTagClick}
-                                />
-
+                                /> {/* End react tags */}
                                 {/*  <label className="FormField__Label" htmlFor="tags">#Tags</label>
                                 <textarea type="tags" id="tags" className="FormField__Input form-control"
                                     placeholder="Tag yourself" name="tags" value={this.state.tags}
@@ -258,10 +267,8 @@ class ApplicantForm extends Component {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </form>
-
             </div>
         );
     }
