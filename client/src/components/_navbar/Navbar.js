@@ -22,7 +22,7 @@ class Navbar extends Component {
         <LoginModal socket={this.props.socket} />
       )
     } else if (this.props.auth.isAuthed) {
-      return (<Button id="navButton" className="btn btn-primary employeetButton" href="/" onClick={this.props.logoutAction}>Log Out</Button>
+      return (<Button id="navButton" className="btn btn-primary employeetBtn" href="/" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
 
