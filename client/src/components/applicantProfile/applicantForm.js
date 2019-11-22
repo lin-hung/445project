@@ -14,11 +14,11 @@ const suggestions = TAGS.map((type) => {
 })
 
 const KeyCodes = {
-    comma: 188,
     enter: 13,
+    comma: 188    
 };
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+const delimiters = [KeyCodes.enter, KeyCodes.comma];
 
 class ApplicantForm extends Component {
     state = {
@@ -46,8 +46,10 @@ class ApplicantForm extends Component {
             if (res.data.contents === undefined) {
                 console.log("Error: no user data retrieved")
             } else {
-                console.log("Retrieved the following data: ", res.data)
+                console.log("Retrieved the following data: ", res.data.contents)
                 this.setState({form:res.data.contents})
+                console.log("tag info: ", [res.data.tags])
+                this.setState([res.data.tags])
             }
         })
     }
@@ -84,7 +86,7 @@ class ApplicantForm extends Component {
         let name = target.name;
 
         this.setState({
-            form: { ...this.state.form, [name]: value }
+            form: { ...this.state.form, [name]: value },
         });
     }
 
@@ -98,6 +100,7 @@ class ApplicantForm extends Component {
         }).then((res) => {
             console.log(res)
             this.setState({form:res.data.contents})
+            console.log("submitting", {tags:res.data.tags})
             this.setState({tags:res.data.tags})
             this.handleRedirect()
         })
