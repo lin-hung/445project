@@ -81,7 +81,7 @@ class LoginModal extends Component {
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this._closeModal}>Close</Button>
+                    <Button className="btn btn-danger" onClick={this._closeModal}>Close</Button>
                 </Modal.Footer>
             </Modal>
         );
