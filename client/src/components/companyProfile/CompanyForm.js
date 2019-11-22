@@ -14,11 +14,11 @@ const suggestions = TAGS.map((type) => {
 })
 
 const KeyCodes = {
-    comma: 188,
     enter: 13,
+    comma: 188,
 };
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter]
+const delimiters = [KeyCodes.enter, KeyCodes.comma];
 
 class CompanyForm extends Component {
     constructor(props) {
@@ -47,12 +47,22 @@ class CompanyForm extends Component {
         suggestions: suggestions,
     }
 
-    // componentDidMount() {
-    //     Axios.get('/api/profile/get').then((res) => {
-    //         console.log("Print res.data", res.data)
-    //         this.setState({ form: res.data.contents })
-    //     })
-    // }
+    componentDidMount() {
+        Axios.get('/api/profile/get').then((res) => {
+            if (res.data.contents === undefined || res.data.tags === undefined) {
+                console.log("Error: no user data retrieved")
+            } else {
+                console.log("Retrieved the following data: ", res.data)
+                console.log("Tags: ", res.data.tags)
+                this.setState({ form: res.data.contents })
+                this.setState({
+                    tags: res.data.tags.map((t) => {
+                        return { id: t, text: t }
+                    })
+                })
+            }
+        })
+    }
 
     handleDelete(i) {
         const { tags } = this.state;
@@ -86,7 +96,8 @@ class CompanyForm extends Component {
         let name = target.name;
 
         this.setState({
-            form: { ...this.state.form, [name]: value }
+            form: { ...this.state.form, [name]: value },
+            tags: [...this.state.tags]
         });
     }
 
@@ -95,12 +106,12 @@ class CompanyForm extends Component {
         Axios.post('/api/profile/submit', {
             form: this.state.form,
             tags: this.state.tags.map(t => {
-                return t.id
+                return (t.id, t.text)
             })
         }).then((res) => {
             console.log("Form submitted")
-            this.setState({ form: res.data.contents })
-            this.setState({ tags: res.data.tags })
+            // this.setState({ form: res.data.contents })
+            // this.setState({ tags: res.data.tags })
             this.handleRedirect()
         })
     }
