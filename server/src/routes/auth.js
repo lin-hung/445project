@@ -29,7 +29,7 @@ Router.get('/googlecb', (req, res, next) => {//sorry this is super ugly
 
 Router.get('/linkedincb', (req, res, next) => {
     Passport.authenticate("linkedin", { state: process.env.linkedinState }, (err, user, msg) => {
-        loginOrRegister(err,user,msg,req,res,next,"linkedin")
+        loginOrRegister(err, user, msg, req, res, next, "linkedin")
         next()
     })(req, res, next)
 })
@@ -48,8 +48,12 @@ const sendTokenToUser = (req, res, user) => {
     io.in(req.session.socketId).emit('authtoken', `Bearer ${token}`)
 }
 
+const sendProfileToUser = (req, res, profile) => {
+    // console.log('send profile', profile)
+    io.in(req.session.socketId).emit('profile', profile)
+}
 
-const loginOrRegister=(err, user, msg, req, res, next, provider)=>{
+const loginOrRegister = (err, user, msg, req, res, next, provider) => {
     { //if the user isn't registered, msg contains the provider profile info
         if (req.session.registerType) {
             console.log(`user: ${user} regtype: ${req.session.registerType}`)
@@ -61,9 +65,13 @@ const loginOrRegister=(err, user, msg, req, res, next, provider)=>{
                 const providerProfile = msg.profile
                 User.createUser(providerProfile, provider).save()
                     .then((user) => {
+                        return createUserProfile(user, req.session.registerType).then((profile) => [user, profile])
+                    }).then(([user, profile]) => {
+                        // console.log(`user created: 
+                        // ${user}
+                        // ${profile}`)
                         sendTokenToUser(req, res, user)
-                        return createUserProfile(user, req.session.registerType)
-                    }).then((profile) => {
+                        sendProfileToUser(req, res, profile)
                         return res.end(closePopupScript)
                     }).catch((err) => {
                         console.log(err)
@@ -74,6 +82,9 @@ const loginOrRegister=(err, user, msg, req, res, next, provider)=>{
         }
         else if (user) {
             sendTokenToUser(req, res, user)
+            UserProfile.findOne({ user: user._id }).then((prof) => {
+                sendProfileToUser(req, res, prof)
+            })
             return res.end(closePopupScript)
         }
         io.in(req.session.socketId).emit('authfailure', "user is not registered")

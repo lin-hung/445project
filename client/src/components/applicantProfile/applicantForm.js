@@ -40,21 +40,29 @@ class ApplicantForm extends Component {
         tags: [{ id: 'computer science', text: 'computer science' }, { id: 'computer engineer', text: 'computer engineer' }],
         suggestions: suggestions,
     }
+
     componentDidMount(){
         Axios.get('/api/profile/get').then((res)=>{
-            console.log(res.data)
-            this.setState({form:res.data.contents})
+            if (res.data.contents === undefined) {
+                console.log("Error: no user data retrieved")
+            } else {
+                console.log("Retrieved the following data: ", res.data)
+                this.setState({form:res.data.contents})
+            }
         })
     }
+    
     handleDelete = (i) => {
         const { tags } = this.state;
         this.setState({
             tags: tags.filter((tag, index) => index !== i),
         });
     }
+
     handleAddition = (tag) => {
         this.setState(state => ({ tags: [...state.tags, tag] }));
     }
+
     handleDrag = (tag, currPos, newPos) => {
         const tags = [...this.state.tags];
         const newTags = tags.slice();
@@ -65,9 +73,11 @@ class ApplicantForm extends Component {
         // re-render
         this.setState({ tags: newTags });
     }
+
     handleTagClick = (index) => {
         console.log('The tag at index ' + index + ' was clicked');
     }
+
     handleChange = (e) => {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;
@@ -77,6 +87,7 @@ class ApplicantForm extends Component {
             form: { ...this.state.form, [name]: value }
         });
     }
+
     handleSubmit = (e) => {
         e.preventDefault();
         Axios.post('/api/profile/submit', {
@@ -88,6 +99,7 @@ class ApplicantForm extends Component {
             console.log(res)
             this.setState({form:res.data.contents})
             this.setState({tags:res.data.tags})
+            this.handleRedirect()
         })
     }
 
@@ -101,7 +113,7 @@ class ApplicantForm extends Component {
         return (
             <div id="main" className="FormCenter">
                 {/* <div id="landingHeader">Edit Your Profile</div> */}
-                <form className="FormFields">
+                <form onSubmit={this.handleSubmit} className="FormFields">
                     {/* begin section 1 */}
                     <div id="formlayout" className="form">
                         <h1> Create your Applicant profile</h1>
@@ -266,7 +278,7 @@ class ApplicantForm extends Component {
                         <div id="buttonSpace" className="button">
                             <div id="sec4" className="row">
                                 <div className="FormCenter col-12">
-                                    <button type="submit" onClick={this.handleSubmit, this.handleRedirect} className="btn btn-primary">Submit</button>
+                                    <button type="submit" className="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </div>
