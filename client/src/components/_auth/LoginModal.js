@@ -30,6 +30,11 @@ class LoginModal extends Component {
         })
     }
 
+    componentWillUnmount() {
+        const socket = this.props.socket
+        socket.removeAllListeners()
+    }
+
     _closeModal = () => {
         this.setState({ modalShow: false })
     }

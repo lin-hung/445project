@@ -54,6 +54,7 @@ const sendProfileToUser = (req, res, profile) => {
 }
 
 const loginOrRegister = (err, user, msg, req, res, next, provider) => {
+    console.log('###########REGISTERTYPE:',req.session.registerType)
     { //if the user isn't registered, msg contains the provider profile info
         if (req.session.registerType) {
             console.log(`user: ${user} regtype: ${req.session.registerType}`)
@@ -67,9 +68,9 @@ const loginOrRegister = (err, user, msg, req, res, next, provider) => {
                     .then((user) => {
                         return createUserProfile(user, req.session.registerType).then((profile) => [user, profile])
                     }).then(([user, profile]) => {
-                        // console.log(`user created: 
-                        // ${user}
-                        // ${profile}`)
+                        console.log(`user created: 
+                        ${user}
+                        ${profile}`)
                         sendTokenToUser(req, res, user)
                         sendProfileToUser(req, res, profile)
                         return res.end(closePopupScript)
