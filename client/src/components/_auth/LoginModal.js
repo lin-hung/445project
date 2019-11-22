@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Modal, Col, Row, Container } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
-import { oAuthLoginAction } from '../../_actions/authActions'
+import { oAuthLoginAction, setProfileAction } from '../../_actions/authActions'
 import './idFedButton.scss'
 
 class LoginModal extends Component {
@@ -18,6 +18,10 @@ class LoginModal extends Component {
             console.log(`authtoken recieved: ${token}`)
             this.setState({ loginSuccess: true })
             this.props.oAuthLoginAction(token)
+        })
+        socket.once('profile', (profile) => {
+            console.log(`profile recieved: ${profile}`)
+            this.props.setProfileAction(profile)
         })
         socket.on('authfailure', (msg) => {
             console.log(`authfailure msg: ${msg}`)
@@ -93,4 +97,4 @@ class LoginModal extends Component {
     }
 }
 
-export default connect(mapAuthStateToProps, { oAuthLoginAction })(LoginModal)
+export default connect(mapAuthStateToProps, { oAuthLoginAction, setProfileAction })(LoginModal)
