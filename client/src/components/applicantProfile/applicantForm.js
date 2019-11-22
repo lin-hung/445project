@@ -6,6 +6,7 @@ import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
 
+
 const suggestions = TAGS.map((type) => {
     return {
         id: type,
@@ -15,7 +16,7 @@ const suggestions = TAGS.map((type) => {
 
 const KeyCodes = {
     enter: 13,
-    comma: 188    
+    comma: 188,
 };
 
 const delimiters = [KeyCodes.enter, KeyCodes.comma];
@@ -37,23 +38,29 @@ class ApplicantForm extends Component {
             awards: '',
             projects: ''
         },
-        tags: [{ id: 'computer science', text: 'computer science' }, { id: 'computer engineer', text: 'computer engineer' }],
-        suggestions: suggestions,
+        tags: [
+            { id: 'computer science', text: 'computer science' },
+            { id: 'computer engineer', text: 'computer engineer' }],
+        suggestions: suggestions
     }
 
-    componentDidMount(){
-        Axios.get('/api/profile/get').then((res)=>{
-            if (res.data.contents === undefined) {
+    componentDidMount() {
+        Axios.get('/api/profile/get').then((res) => {
+            if (res.data.contents === undefined || res.data.tags === undefined) {
                 console.log("Error: no user data retrieved")
             } else {
-                console.log("Retrieved the following data: ", res.data.contents)
-                this.setState({form:res.data.contents})
-                console.log("tag info: ", [res.data.tags])
-                this.setState([res.data.tags])
+                console.log("Retrieved the following data: ", res.data)
+                console.log("Tags: ", res.data.tags)
+                this.setState({ form: res.data.contents })
+                this.setState({
+                    tags: res.data.tags.map((t) => {
+                        return { id: t, text: t }
+                    })
+                })
             }
         })
     }
-    
+
     handleDelete = (i) => {
         const { tags } = this.state;
         this.setState({
@@ -84,30 +91,31 @@ class ApplicantForm extends Component {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;
         let name = target.name;
-
         this.setState({
             form: { ...this.state.form, [name]: value },
+            tags: [...this.state.tags]
         });
     }
 
     handleSubmit = (e) => {
         e.preventDefault();
+
+        console.log('HANDLE SUBMIT THIS.TAGS', this.tags)
         Axios.post('/api/profile/submit', {
-            form: this.state.form, 
+            form: this.state.form,
             tags: this.state.tags.map(t => {
-                return t.id
+                return (t.id, t.text)
             })
         }).then((res) => {
-            console.log(res)
-            this.setState({form:res.data.contents})
-            console.log("submitting", {tags:res.data.tags})
-            this.setState({tags:res.data.tags})
+            console.log("Submitting data...", res)
+            // this.setState({ form: res.data.contents })
+            // this.setState({ tags: res.data.tags })
             this.handleRedirect()
         })
     }
 
     handleRedirect = (e) => {
-       this.props.history.push('/home')
+        this.props.history.push('/home')
     }
 
 
