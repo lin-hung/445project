@@ -3,7 +3,6 @@ import './homeStyle.scss'
 import ProfileCarousel from './ProfileCarousel.js'
 import Axios from 'axios'
 import { Redirect } from 'react-router-dom';
-import { isThisHour } from 'date-fns';
 
 class Home extends Component {
     state = {

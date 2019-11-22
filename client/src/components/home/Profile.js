@@ -49,9 +49,6 @@ class Profile extends Component {
                                     </div>
                                 </div>
 
-
-
-
                             </div>
                         </div>
                         <Card.Text className="text-center">
