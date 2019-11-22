@@ -20,8 +20,6 @@ class Register extends Component {
         // setTimeout(() => {
             socket.once('authtoken', (token) => {
                 this.props.oAuthLoginAction(token)
-
-
             })
             socket.once('authfailure', (msg) => {
                 this.setState({ step: 0, error: msg })
