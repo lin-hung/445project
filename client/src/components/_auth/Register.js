@@ -104,7 +104,7 @@ class Register extends Component {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="btn btn-danger" onClick={this._closeModal}>Close</Button>
+          <Button className="btn btn-primary" onClick={this._closeModal}>Close</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -150,14 +150,14 @@ class Register extends Component {
                   {/* <button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} value='recruiter'>Recruiter</button> */}
                   {/* <button type="button" className="btn btn-primary btn-lg" onClick={this.handleClick} value='candidate'>Candidate</button> */}
                   <Button
-                    className="btn btn-danger employeetBtn"
+                    className="btn btn-primary employeetBtn"
                     value="recruiter"
                     onClick={this._openModal}
                   >
                     Recruiter
                   </Button>
                   <Button
-                    className="btn btn-danger employeetBtn"
+                    className="btn btn-primary employeetBtn"
                     value="candidate"
                     onClick={this._openModal}
                   >

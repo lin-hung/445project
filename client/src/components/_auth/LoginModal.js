@@ -81,7 +81,7 @@ class LoginModal extends Component {
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button className="btn btn-danger" onClick={this._closeModal}>Close</Button>
+                    <Button className="btn btn-primary" onClick={this._closeModal}>Close</Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -90,7 +90,7 @@ class LoginModal extends Component {
     render() {
         return (
             <div>
-                <Button className="btn btn-danger employeetBtn" onClick={() => this.setState({ modalShow: true })}>
+                <Button className="btn btn-primary employeetBtn" onClick={() => this.setState({ modalShow: true })}>
                     Log In
                 </Button>
 
