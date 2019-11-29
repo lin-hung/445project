@@ -1,17 +1,17 @@
 .employeetBtn {
-    color:#bf0000;
+    color:#004dcf;
     background-color:#fff;
     border-color:#fff;
 
     :hover {
         color:#fff;
-        background-color:#bf0000;
-        border-color:#bf0000;
+        background-color:#004dcf;
+        border-color:#004dcf;
     }
 }
 
 .btn-primary:not(:disabled):not(.disabled).active {
-    color:#bf0000;
+    color:#004dcf;
     background-color:#fff;
     border-color:#fff;
 }

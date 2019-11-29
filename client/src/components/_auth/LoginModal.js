@@ -30,6 +30,11 @@ class LoginModal extends Component {
         })
     }
 
+    componentWillUnmount() {
+        const socket = this.props.socket
+        socket.removeAllListeners()
+    }
+
     _closeModal = () => {
         this.setState({ modalShow: false })
     }
@@ -76,7 +81,7 @@ class LoginModal extends Component {
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this._closeModal}>Close</Button>
+                    <Button className="btn btn-primary" onClick={this._closeModal}>Close</Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -85,13 +90,13 @@ class LoginModal extends Component {
     render() {
         return (
             <div>
-                <Button className="btn btn-danger employeetBtn" onClick={() => this.setState({ modalShow: true })}>
+                <Button className="btn btn-primary employeetBtn" onClick={() => this.setState({ modalShow: true })}>
                     Log In
                 </Button>
 
                 <this.MyVerticallyCenteredModal
                     show={this.state.modalShow}
-                    onHide={() => this.setState({ setModalShow: true })}
+                    onHide={() => this.setState({ setModalShow: false })}
                 />
             </div>)
     }
