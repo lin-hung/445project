@@ -6,7 +6,7 @@ export class Footer extends Component {
         return (
             <footer>
                 <Container>
-                    <p>© Company 2017-2019</p>
+                    <p>© Employeet 2019</p>
                 </Container>
             </footer>
         )
