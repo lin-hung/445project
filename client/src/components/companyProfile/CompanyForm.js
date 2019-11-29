@@ -156,10 +156,10 @@ class CompanyForm extends Component {
                             {/* end col 1 of sec 1 */}
                             {/* col 2 sec 1 (profile picture) */}
                             <div id="s1c2" className="col">
-                                <div className="form-group align-middle">
+                                {/* <div className="form-group align-middle">
                                     <label htmlFor="exampleFormControlFile1">Upload your company logo</label>
                                     <input type="file" className="form-control-file" id="exampleFormControlFile1" />
-                                </div>
+                                </div> */}
                             </div>
                             {/* end col 2 of sec 1 */}
                         </div>
@@ -223,7 +223,7 @@ class CompanyForm extends Component {
                         <div id="buttonSpace" className="button">
                             <div id="sec4" className="row">
                                 <div className="FormCenter col-12">
-                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                    <button type="submit" className="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>

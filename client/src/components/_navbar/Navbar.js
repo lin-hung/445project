@@ -44,11 +44,14 @@ class Navbar extends Component {
     if (this.props.auth.isAuthed) { //needs to change to if user has an account 
       return (
         <div>
-          <LinkContainer to='/home'><Button id="navButton" variant="primary">Home</Button></LinkContainer>
+          {/* <LinkContainer to='/home'><Button id="navButton" variant="primary">Home</Button></LinkContainer>
           {(this.state.profile.profileType === "candidate") ?
           <LinkContainer to='/applicantForm'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>
-          : <LinkContainer to='/applicantForm'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>}
-
+          : <LinkContainer to='/applicantForm'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>} */}
+          <LinkContainer to='/home'><Button id="navButton" variant="primary">Home</Button></LinkContainer>
+          {(this.state.profile.profileType === "candidate") ?
+          <LinkContainer to='/applicantProfile'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>
+          : <LinkContainer to='/companyProfile'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>}
         </div>
       )
     }

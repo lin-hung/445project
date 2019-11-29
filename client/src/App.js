@@ -10,6 +10,8 @@ import Register from './components/_auth/Register'
 import Home from './components/home/Home.js'
 import ApplicantForm from './components/applicantProfile/applicantForm'
 import CompanyForm from './components/companyProfile/CompanyForm'
+import viewApplicantProfile from './components/applicantProfile/viewApplicantProfile'
+import viewCompanyProfile from './components/companyProfile/viewCompanyProfile'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import store from "./_store/store"
@@ -42,6 +44,8 @@ function App() {
               <PrivateRoute exact path='/home' component={Home} />
               <PrivateRoute exact path="/applicantForm" component={ApplicantForm} />
               <PrivateRoute exact path="/companyForm" component={CompanyForm} />
+              <PrivateRoute exact path="/applicantProfile" component={viewApplicantProfile} />
+              <PrivateRoute exact path="/companyProfile" component={viewCompanyProfile} />
             </Switch>
           </Container>
           <Footer />

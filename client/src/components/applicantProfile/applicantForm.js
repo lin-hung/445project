@@ -159,7 +159,6 @@ class ApplicantForm extends Component {
                                     <label className="FormField__Label control-label" htmlFor="job">Occupation</label>
                                     <input type="job" id="job" className="FormField__Input form-control"
                                         placeholder="Enter your current job" name="job" value={this.state.form.job}
-                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
@@ -167,16 +166,17 @@ class ApplicantForm extends Component {
                                     <label className="FormField__Label" htmlFor="age">Age</label>
                                     <input type="age" id="age" className="FormField__Input form-control"
                                         placeholder="Enter your age" name="age" value={this.state.form.age}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
                             </div>
                             {/* end col 1 of sec 1 */}
                             {/* col 2 sec 1 (profile picture) */}
                             <div id="s1c2" className="col">
-                                <div className="form-group align-middle">
+                                {/* <div className="form-group align-middle">
                                     <label htmlFor="exampleFormControlFile1">Upload your profile picture</label>
                                     <input type="file" className="form-control-file" id="exampleFormControlFile1" />
-                                </div>
+                                </div> */}
                             </div>
                             {/* end col 2 of sec 1 */}
                         </div>
@@ -257,10 +257,10 @@ class ApplicantForm extends Component {
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="form-group align-middle">
+                                {/* <div className="form-group align-middle">
                                     <label className="FormField__Label" htmlFor="exampleFormControlFile1">Upload your resumé</label>
                                     <input type="file" className="form-control-file" id="exampleFormControlFile2" />
-                                </div>
+                                </div> */}
                             </div>
                             {/* end col 2 of sec 2 */}
                         </div>
@@ -289,7 +289,7 @@ class ApplicantForm extends Component {
                         <div id="buttonSpace" className="button">
                             <div id="sec4" className="row">
                                 <div className="FormCenter col-12">
-                                    <button type="submit" className="btn btn-primary">Submit</button>
+                                    <button type="submit" className="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>

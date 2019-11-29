@@ -1,0 +1,33 @@
+
+#nobullet{
+   list-style-type: none;
+   margin-right: 0px;
+   margin-left: 0px;
+   padding-inline-start: none;
+}
+.inner{
+    display: inline-block;
+}
+
+#buttonRight{
+   float: right;
+   padding-right: 20px;
+}
+#wider{
+   width: 40%
+}
+
+#internalColLeft {
+   width: 33%;
+   margin: 10px
+}
+
+#internalColMid {
+  width: 33%;
+  margin: 10px
+}
+
+#internalColRight {
+  width: 33%;
+  margin: 10px
+}
