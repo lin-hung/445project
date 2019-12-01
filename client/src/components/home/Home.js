@@ -3,7 +3,8 @@ import './homeStyle.scss'
 import ProfileCarousel from './ProfileCarousel.js'
 import Axios from 'axios'
 import { Redirect } from 'react-router-dom';
-
+import { connect } from 'react-redux'
+import { mapAuthStateToProps } from '../../resources/utils'
 class Home extends Component {
     state = {
         profile: ''
@@ -27,6 +28,7 @@ class Home extends Component {
     }
 
     render() {
+        console.log('home',this.props.auth)
         return (
             <div id="homePage">
                 <this.RedirectToForm/>
@@ -38,4 +40,4 @@ class Home extends Component {
         )
     }
 }
-export default Home
+export default connect(mapAuthStateToProps)(Home)

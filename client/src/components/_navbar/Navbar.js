@@ -12,9 +12,6 @@ import LoginModal from '../_auth/LoginModal'
 
 
 class Navbar extends Component {
-  state = {
-    profile: {}
-  }
   loginButton = () => {
     // const pathname=window.location.pathname
     if (!this.props.auth.isAuthed) {
@@ -28,12 +25,7 @@ class Navbar extends Component {
 
   }
 
-  componentDidMount() {
-    Axios.get('/api/profile/get').then((res) => {
-      console.log(res)
-      this.setState({ profile: res.data })
-    })
-  }
+
 
   utilities = () => {
     const pathname = window.location.pathname
@@ -41,20 +33,17 @@ class Navbar extends Component {
     if (pathname === '/' || pathname === '/login' || pathname === '/register') {//if not logged in and on landing, login, register, don't show login button
       return (null)
     }
-    if (this.props.auth.isAuthed) { //needs to change to if user has an account 
+    if (this.props.auth.isAuthed && this.props.auth.profile) { //needs to change to if user has an account 
       return (
         <div>
-          {/* <LinkContainer to='/home'><Button id="navButton" variant="primary">Home</Button></LinkContainer>
-          {(this.state.profile.profileType === "candidate") ?
-          <LinkContainer to='/applicantForm'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>
-          : <LinkContainer to='/applicantForm'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>} */}
           <LinkContainer to='/home'><Button id="navButton" variant="primary">Home</Button></LinkContainer>
-          {(this.state.profile.profileType === "candidate") ?
-          <LinkContainer to='/applicantProfile'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>
-          : <LinkContainer to='/companyProfile'><Button id="navButton" variant="primary">My Profile</Button></LinkContainer>}
+          {(this.props.auth.profile.profileType === "candidate") ?
+            <LinkContainer to='/applicantProfile'><Button id="navButton" variant="primary">Applicant Profile</Button></LinkContainer>
+            : <LinkContainer to='/companyProfile'><Button id="navButton" variant="primary">Company Profile</Button></LinkContainer>}
         </div>
       )
     }
+    return null
 
   }
 

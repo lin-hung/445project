@@ -7,87 +7,86 @@ import './viewStyleApplicant.scss'
 
 //This class is basically their profile card, this is what recruiters will see  
 class viewApplicantProfile extends Component {
-	state={
-		form:null,
+	state = {
+		form: null,
 		tags: []
 	}
-	componentDidMount(){
+	componentDidMount() {
 		Axios.get('/api/profile/get').then((res) => {
-            if (res.data.contents === undefined || res.data.tags === undefined) {
-                console.log("Error: no user data retrieved")
-            } else {
-                console.log("Retrieved the following data: ", res.data.contents)
+			if (res.data.contents === undefined || res.data.tags === undefined) {
+				console.log("Error: no user data retrieved")
+			} else {
+				console.log("Retrieved the following data: ", res.data.contents)
 				console.log("Tags: ", res.data.tags)
-				console.log("form", {form: res.data.contents} )
+				console.log("form", { form: res.data.contents })
 				this.setState({ form: res.data.contents })
-                this.setState({
-                    tags: res.data.tags.map((t) => {
-                        return { id: t, text: t }
-                    })
-                })
-            }
-        })
-    }
+				this.setState({
+					tags: res.data.tags.map((t) => {
+						return { id: t, text: t }
+					})
+				})
+			}
+		})
+	}
 	render() {
-		while(this.state.form === null ){
-            return(
+		while (this.state.form === null) {
+			return (
 				<div className="col-sm-12 my-auto">
-						<div className="jumbotron text-center">
-							<h1 className="display-4">Loading...</h1>
-							<p className="lead">{this.state.error}</p>
-						</div>
+					<div className="jumbotron text-center">
+						<h1 className="display-4">Loading...</h1>
+						<p className="lead">{this.state.error}</p>
+					</div>
 				</div>
-            )
+			)
 		}
-		const {form} = this.state.form
-		const {tags} = this.state.tags
-		return(
+		const { form, tags } = this.state
+		return (
 			<div>
-			<Card bg="light" border="primmary">
-				<Card.Header><h3>{this.state.form.fname}'s Profile</h3> 
-				<div className = "inner">
-					<ul id = "nobullet">
-						<li> <b>Currently: </b> {this.state.form.job}</li>
-						<li> <b> Email: </b> {this.state.form.email}</li>
-					</ul>
-				</div>
-				
-				<div id = "buttonRight" className="inner">
-				<LinkContainer to='/applicantForm'><Button variant="primary">Edit profile</Button></LinkContainer>
-				</div> 
-			
-
-				</Card.Header>
-				<Card.Body>
-					<div className="row">
-						<div id = "wider" className="col-sm">
-							<h3> About me: </h3>
-							{this.state.form.about}
-						</div>
-						<div id = "wider" className="col-sm">
-							<h3> Awards: </h3>
-							{this.state.form.awards}
-						</div>
-						<div className="col-sm">
-							<h2>Who we're hiring for: </h2>
-							<ul>
-								<li>{this.state.form.job}</li>
+				<Card bg="light" border="primmary">
+					<Card.Header><h3>{this.state.form.fname}'s Profile</h3>
+						<div className="inner">
+							<ul id="nobullet">
+								<li> <b>Currently: </b> {this.state.form.job}</li>
+								<li> <b> Email: </b> {this.state.form.email}</li>
 							</ul>
 						</div>
-						<div className="col-sm">
-							<h2>Skills we're looking for: </h2>
-							{this.state.form.skills}
-							<h2>Experience we're looking for: </h2>
-							{this.state.form.experience}
+
+						<div id="buttonRight" className="inner">
+							<LinkContainer to='/applicantForm'><Button variant="primary">Edit profile</Button></LinkContainer>
 						</div>
-					</div>
-		
-				</Card.Body>
-			</Card>
-		</div>
+
+
+					</Card.Header>
+					<Card.Body>
+						<div className="row">
+							<div id="wider" className="col-sm">
+								<h3> About me: </h3>
+								{this.state.form.about}
+							</div>
+							<div id="wider" className="col-sm">
+								<h3> Awards: </h3>
+								{this.state.form.awards}
+							</div>
+							<div className="col-sm">
+								<h2>Who we're hiring for: </h2>
+								<ul>
+									<li>{this.state.form.job}</li>
+								</ul>
+							</div>
+							<div className="col-sm">
+								<h2>Skills we're looking for: </h2>
+								{this.state.form.skills}
+								<h2>Experience we're looking for: </h2>
+								{this.state.form.experience}
+							</div>
+						</div>
+
+					</Card.Body>
+				</Card>
+			</div>
 		)
-		
-	
+
+
 		// const profiles = [
 		// 	{
 		// 		profilePicUrl: '',
