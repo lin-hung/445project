@@ -7,24 +7,25 @@ import './profileCarousel.scss'
 
 class ProfileCarousel extends Component {
 	render() {
-		const { profiles, _handleYeetCB } = this.props
+		const { profiles, _handleYeetCB, disableYeetButton } = this.props
+		if (!profiles) return null
 		const carouselItems = profiles.map((p, i) => {
-			console.log('carousel', p)
 			return (
 				<Carousel.Item key={p.form.fname + i}>
 					<Profile profile={p} />
 					<CarouselCaption />
-					<Card.Text className="text-center">
+
+					{(!disableYeetButton) ? <Card.Text className="text-center">
 						<Button variant="primary" onClick={_handleYeetCB} value={i}>YEET User</Button>
-					</Card.Text>
+					</Card.Text> : null}
 				</Carousel.Item>)
 		})
 		return (
-	
-					<Carousel bsPrefix="carousel" indicators={false} keyboard={true} interval={null} touch={true}>
-						{carouselItems}
-					</Carousel>
-				
+
+			<Carousel bsPrefix="carousel" indicators={false} keyboard={true} interval={null} touch={true}>
+				{carouselItems}
+			</Carousel>
+
 		)
 	}
 }

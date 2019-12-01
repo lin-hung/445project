@@ -15,6 +15,8 @@ import viewCompanyProfile from './components/companyProfile/viewCompanyProfile'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import { store, persistor } from "./_store/store"
+import YeetedList from './components/yeetlist/YeetedList'
+
 import "./resources/appStyle.scss"
 
 import { PrivateRoute/*, PropsRoute*/ } from './routes'
@@ -32,27 +34,28 @@ function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-      <Router>
-        <div className="App">
-          <Navbar socket={socket} />
-          <Container id="content">
-            <Switch>
-              <Route exact path="/" component={Landing} />
-              <Route
-                exact
-                path="/register"
-                render={props => <Register socket={socket} />}
-              />
-              <PrivateRoute exact path='/home' component={Home} />
-              <PrivateRoute exact path="/applicantForm" component={ApplicantForm} />
-              <PrivateRoute exact path="/companyForm" component={CompanyForm} />
-              <PrivateRoute exact path="/applicantProfile" component={viewApplicantProfile} />
-              <PrivateRoute exact path="/companyProfile" component={viewCompanyProfile} />
-            </Switch>
-          </Container>
-          <Footer />
-        </div>
-      </Router>
+        <Router>
+          <div className="App">
+            <Navbar socket={socket} />
+            <Container id="content">
+              <Switch>
+                <Route exact path="/" component={Landing} />
+                <Route
+                  exact
+                  path="/register"
+                  render={props => <Register socket={socket} />}
+                />
+                <PrivateRoute exact path='/home' component={Home} />
+                <PrivateRoute exact path="/applicantForm" component={ApplicantForm} />
+                <PrivateRoute exact path="/companyForm" component={CompanyForm} />
+                <PrivateRoute exact path="/applicantProfile" component={viewApplicantProfile} />
+                <PrivateRoute exact path="/companyProfile" component={viewCompanyProfile} />
+                <PrivateRoute exact path="/yeetedList" component={YeetedList} />
+              </Switch>
+            </Container>
+            <Footer />
+          </div>
+        </Router>
       </PersistGate>
     </Provider>
   );

@@ -13,7 +13,7 @@ import LoginModal from '../_auth/LoginModal'
 
 class Navbar extends Component {
   loginButton = () => {
-  if (this.props.auth.isAuthed) {
+    if (this.props.auth.isAuthed) {
       return (<Button id="navButton" className="btn btn-primary employeetBtn" href="/" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
@@ -36,6 +36,9 @@ class Navbar extends Component {
           {(this.props.auth.profile.profileType === "candidate") ?
             <LinkContainer to='/applicantProfile'><Button id="navButton" variant="primary">Applicant Profile</Button></LinkContainer>
             : <LinkContainer to='/companyProfile'><Button id="navButton" variant="primary">Company Profile</Button></LinkContainer>}
+          {(this.props.auth.profile.profileType === "recruiter") ?
+            <LinkContainer to='/yeetedList'><Button id="navButton" variant="primary">Yeeted Profiles</Button></LinkContainer>
+            : null}
         </div>
       )
     }
