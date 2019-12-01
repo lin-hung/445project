@@ -13,15 +13,11 @@ import LoginModal from '../_auth/LoginModal'
 
 class Navbar extends Component {
   loginButton = () => {
-    // const pathname=window.location.pathname
-    if (!this.props.auth.isAuthed) {
-      return (
-        <LoginModal socket={this.props.socket} />
-      )
-    } else if (this.props.auth.isAuthed) {
+  if (this.props.auth.isAuthed) {
       return (<Button id="navButton" className="btn btn-primary employeetBtn" href="/" onClick={this.props.logoutAction}>Log Out</Button>
       )
     }
+    return <LoginModal socket={this.props.socket} />
 
   }
 
@@ -44,7 +40,6 @@ class Navbar extends Component {
       )
     }
     return null
-
   }
 
   search = () => {
@@ -59,7 +54,7 @@ class Navbar extends Component {
         </div>
       )
     }
-
+    return null
   }
 
   profileUtilities = () => {
