@@ -4,6 +4,7 @@ import JWT from "jsonwebtoken"
 import socketioConfig, { addSocketIdToSession, io } from '../config/socketioConfig'
 import User from "../models/User"
 import UserProfile from "../models/UserProfile"
+import YeetList from '../models/YeetList'
 
 const Router = Express.Router()
 

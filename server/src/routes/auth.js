@@ -4,6 +4,8 @@ import JWT from "jsonwebtoken"
 import socketioConfig, { addSocketIdToSession, io } from '../config/socketioConfig'
 import User from "../models/User"
 import UserProfile from "../models/UserProfile"
+import YeetList from '../models/YeetList'
+
 const Router = Express.Router()
 
 const closePopupScript = `<script>window.close()</script>`
@@ -54,7 +56,7 @@ const sendProfileToUser = (req, res, profile) => {
 }
 
 const loginOrRegister = (err, user, msg, req, res, next, provider) => {
-    console.log('###########REGISTERTYPE:',req.session.registerType)
+    console.log('###########REGISTERTYPE:', req.session.registerType)
     { //if the user isn't registered, msg contains the provider profile info
         if (req.session.registerType) {
             console.log(`user: ${user} regtype: ${req.session.registerType}`)
@@ -97,7 +99,14 @@ const createUserProfile = (user, registerType) => {
     return new UserProfile({
         user: user._id,
         profileType: registerType
-    }).save()
+    }).save().then((prof) => {
+        if (registerType == 'recruiter') {
+            new YeetList({
+                owner: prof._id
+            }).save()
+        }
+        return prof
+    })
 }
 function addRegisterTypeToSession(req, res, next) {
     const regType = req.query.registerType

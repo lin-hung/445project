@@ -10,29 +10,31 @@ class Home extends Component {
         profile: ''
     }
 
-    componentDidMount(){
+    componentDidMount() {
         Axios.get('/api/profile/get').then(result => {
-            this.setState({profile: result.data})
+            this.setState({ profile: result.data })
         })
     }
     RedirectToForm = () => {
-        if(!this.state.profile.contents){
-            if(this.state.profile.profileType === 'candidate'){
-                return(<Redirect to = '/applicantForm' />)
+        if (!this.state.profile.contents) {
+            if (this.state.profile.profileType === 'candidate') {
+                return (<Redirect to='/applicantForm' />)
             }
-            if(this.state.profile.profileType === 'recruiter'){
-                return(<Redirect to = '/companyForm' />)
+            if (this.state.profile.profileType === 'recruiter') {
+                return (<Redirect to='/companyForm' />)
             }
         }
-        return(null) //don't send them to form
+        return (null) //don't send them to form
     }
 
     render() {
-        console.log('home',this.props.auth)
+        if (this.state.profile === '') {
+            return null
+        }
         return (
             <div id="homePage">
-                <this.RedirectToForm/>
-                <h1 id = "header">Recommended YEETs</h1>
+                <this.RedirectToForm />
+                <h1 id="header">Recommended YEETs</h1>
                 <ProfileCarousel />
             </div>
         )
