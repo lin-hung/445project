@@ -16,7 +16,7 @@ Router.post('/submit', (req, res) => {
         .then(prof => {
             const map = new Map(Object.entries(req.body.form))
             prof.contents = map
-            prof.tags=req.body.tags
+            prof.tags = req.body.tags
             return prof.save()
         }).then(prof => {
             console.log(prof)
@@ -24,14 +24,28 @@ Router.post('/submit', (req, res) => {
         })
 })
 
-Router.get('/get',(req,res)=> {
-    if(!req.header("Authorization")) return res.sendStatus(403)
+Router.get('/get', (req, res) => {
+    if (!req.header("Authorization")) return res.sendStatus(403)
     const tokenUser = JWT.decode(req.header("Authorization").split(' ')[1]).user
-    UserProfile.findOne({user:tokenUser._id})
-        .then((prof)=>{ console.log(prof)
+    UserProfile.findOne({ user: tokenUser._id })
+        .then((prof) => {
+            console.log(prof)
             return res.json(prof)
         })
-}) 
+})
 
+Router.get('/getAllCandidates', (req, res) => {
+    if (!req.header("Authorization")) return res.sendStatus(403)
+    UserProfile.find({ profileType: 'candidate' })
+        .then((profiles) => {
+            console.log('getall profiels:', profiles)
+            res.json(profiles.map(p => ({
+
+                contents: p.contents,
+                tags: p.tags
+
+            })))
+        })
+})
 
 export default Router

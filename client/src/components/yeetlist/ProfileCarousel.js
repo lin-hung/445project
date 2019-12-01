@@ -1,37 +1,37 @@
+import Axios from 'axios'
 import React, { Component } from 'react'
-import { Carousel, Card } from 'react-bootstrap'
+import { Button, Card, Carousel } from 'react-bootstrap'
+import CarouselCaption from 'react-bootstrap/CarouselCaption'
 import Profile from './Profile.js'
 import './profileCarousel.scss'
-import CarouselCaption from 'react-bootstrap/CarouselCaption'
 
 class ProfileCarousel extends Component {
+	state = {
+		profiles: []
+	}
+	componentDidMount() {
+		Axios.get('/api/profile/getAllCandidates')
+			.then((res) => {
+				this.setState({
+					profiles: res.data.map((p) =>
+						({ form: p.contents, tags: p.tags }))
+				})
+			})
+	}
+	_handleYeet = (e) => {
+		console.log(e.target.value)
+	}
 	render() {
-		const profiles = [{
-			form: {
-				about: "f",
-				age: "12",
-				awards: "adfs",
-				email: "test1@test.com",
-				exp: "asdfafsd",
-				fname: "SUPER DUPER REAL NAME",
-				hobbies: "",
-				job: "asdf",
-				lname: "def",
-				prefs: "fdas",
-				prevjob: "adsfadsf",
-				projects: "asd",
-				skills: "asdf",
-			},
-			tags: [{ id: "computer science", text: "computer science" },
-			{ id: "computer engineer", text: "computer engineer" }
-			]
-		}]
+		const { profiles } = this.state
 		const carouselItems = profiles.map((p, i) => {
 			console.log('carousel', p)
 			return (
 				<Carousel.Item key={p.form.fname + i}>
 					<Profile profile={p} />
 					<CarouselCaption />
+					<Card.Text className="text-center">
+						<Button variant="primary" onClick={this._handleYeet} value={i}>YEET User</Button>
+					</Card.Text>
 				</Carousel.Item>)
 		})
 		return (

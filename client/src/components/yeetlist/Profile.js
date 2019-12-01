@@ -51,7 +51,7 @@ class Profile extends Component {
                                         <h4>Tags</h4>
                                         <ul>
                                             {profile.tags.map((t,i)=>{
-                                                return(<li key={`tag${i}`}>t</li>)
+                                                return(<li key={`tag${i}`}>{t}</li>)
                                             })}
                                         </ul>
                                     </div>
