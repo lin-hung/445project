@@ -17,15 +17,10 @@ class viewApplicantProfile extends Component {
 			if (res.data.contents === undefined || res.data.tags === undefined) {
 				console.log("Error: no user data retrieved")
 			} else {
-				console.log("Retrieved the following data: ", res.data.contents)
-				console.log("Tags: ", res.data.tags)
-				console.log("form", { form: res.data.contents })
-				this.setState({ form: res.data.contents })
-				this.setState({
-					tags: res.data.tags.map((t) => {
-						return { id: t, text: t }
-					})
-				})
+				console.log("Retrieved the following data: ", res.data)
+
+				this.setState({ form: res.data.contents, tags: res.data.tags })
+
 			}
 		})
 	}
@@ -44,8 +39,11 @@ class viewApplicantProfile extends Component {
 		return (
 			<Card bg="light" border="primmary">
 				<Card.Body>
+					<div id="buttonRight" className="inner">
+						<LinkContainer to='/applicantForm'><Button variant="primary">Edit profile</Button></LinkContainer>
+					</div>
 					<Profile profile={this.state} />
-					</Card.Body>
+				</Card.Body>
 			</Card>
 			// <div>
 			// 	<Card bg="light" border="primmary">
