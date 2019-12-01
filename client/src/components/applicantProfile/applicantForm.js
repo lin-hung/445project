@@ -5,6 +5,9 @@ import '../tagStyle.scss'
 import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
+import { connect } from 'react-redux'
+import { mapAuthStateToProps } from '../../resources/utils'
+import { setProfileAction } from '../../_actions/authActions'
 
 
 const suggestions = TAGS.map((type) => {
@@ -108,6 +111,7 @@ class ApplicantForm extends Component {
             })
         }).then((res) => {
             console.log("Submitting data...", res)
+            this.props.setProfileAction(res.data)
             // this.setState({ form: res.data.contents })
             // this.setState({ tags: res.data.tags })
             this.handleRedirect()
@@ -299,4 +303,4 @@ class ApplicantForm extends Component {
         );
     }
 }
-export default ApplicantForm;
+export default connect(mapAuthStateToProps, { setProfileAction })(ApplicantForm)

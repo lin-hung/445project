@@ -5,6 +5,9 @@ import { TAGS } from '../applicantProfile/tags';
 // import { render } from 'react-dom';
 import '../tagStyle.scss'
 import { WithContext as ReactTags } from 'react-tag-input';
+import {connect} from 'react-redux'
+import { mapAuthStateToProps } from '../../resources/utils'
+import { setProfileAction } from '../../_actions/authActions'
 
 const suggestions = TAGS.map((type) => {
     return {
@@ -110,6 +113,7 @@ class CompanyForm extends Component {
             })
         }).then((res) => {
             console.log("Form submitted")
+            this.props.setProfileAction(res.data)
             // this.setState({ form: res.data.contents })
             // this.setState({ tags: res.data.tags })
             this.handleRedirect()
@@ -233,4 +237,4 @@ class CompanyForm extends Component {
         );
     }
 }
-export default CompanyForm;
+export default connect(mapAuthStateToProps, { setProfileAction })(CompanyForm)
