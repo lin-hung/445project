@@ -29,7 +29,6 @@ class YeetList extends Component {
             let filtered = p
             for (var y in this.state.yeetList.yeeted) {
                 filtered = filtered.filter((p) => {
-                    console.log('filtering', p._id, this.state.yeetList.yeeted[y])
                     return (p._id !== this.state.yeetList.yeeted[y])
                 })
             }
