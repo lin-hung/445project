@@ -1,7 +1,7 @@
 import Passport from "passport"
 import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt'
 import GoogleStrategy from "passport-google-oauth20"
-import {Strategy as LinkedInStrategy} from 'passport-linkedin-oauth2'
+import { Strategy as LinkedInStrategy } from 'passport-linkedin-oauth2'
 import Mongoose from "mongoose"
 
 
@@ -32,8 +32,10 @@ module.exports = Passport => {
         }
         return done(null, false)
       })
-      .catch(err => console.log(err))
-    return done(null, true)
+      .catch(err => {
+        console.log(err)
+        return done(null, false)
+      })
   }))
 
 
@@ -49,7 +51,7 @@ module.exports = Passport => {
           return done(null, user)
         }
         else {
-          return done(null,false,{message:'User does not exist',profile:profile})
+          return done(null, false, { message: 'User does not exist', profile: profile })
         }
       })
     }
@@ -68,8 +70,8 @@ module.exports = Passport => {
       "public-profile-url",
       "email-address",
       "location",
-  ],
-    scope: ['r_emailaddress','r_liteprofile'],
+    ],
+    scope: ['r_emailaddress', 'r_liteprofile'],
     state: true
   }, (accessToken, refreshToken, profile, done) => {
     console.log(`in linkedinstrategy ${profile}`)
@@ -78,19 +80,19 @@ module.exports = Passport => {
       if (user) {
         return done(null, user)
       }
-      else{
-        return done(null,false,{message:'User does not exist',profile:profile})
+      else {
+        return done(null, false, { message: 'User does not exist', profile: profile })
       }
-    //   else {
-    //     new User({
-    //       name: profile.name.givenName + " " + profile.name.familyName,
-    //       email: profile.emails[0].value,
-    //       linkedinID: profile.id
-    //     }).save().then((user) => {
-    //       console.log(`new user created: linkedinID ${user.linkedinID} name ${user.name}`)
-    //       return done(null, user)
-    //     })
-    //  }
+      //   else {
+      //     new User({
+      //       name: profile.name.givenName + " " + profile.name.familyName,
+      //       email: profile.emails[0].value,
+      //       linkedinID: profile.id
+      //     }).save().then((user) => {
+      //       console.log(`new user created: linkedinID ${user.linkedinID} name ${user.name}`)
+      //       return done(null, user)
+      //     })
+      //  }
     })
   }
   )//new LinkedInStrateg
