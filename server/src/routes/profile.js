@@ -8,10 +8,17 @@ import YeetList from '../models/YeetList'
 
 const Router = Express.Router()
 
-const auth = Passport.authenticate('jwt', { session: false })
+const auth = (req, res, next) => {
+    Passport.authenticate('jwt', { session: false })
+    return next()
+}
 
-//TODO: fix submit code (auth breaks it for some reason? also tags)
-Router.post('/submit', (req, res) => {
+Router.get('/authTest', auth, (req, res) => {
+    console.log('authtest')
+    res.sendStatus(200)
+})
+
+Router.post('/submit',  auth, (req, res) => {
     const tokenUser = JWT.decode(req.header("Authorization").split(' ')[1]).user
     UserProfile.findOne({ user: tokenUser._id })
         .then(prof => {
@@ -25,7 +32,7 @@ Router.post('/submit', (req, res) => {
         })
 })
 
-Router.get('/get', (req, res) => {
+Router.get('/get', auth, (req, res) => {
     if (!req.header("Authorization")) return res.sendStatus(403)
     const tokenUser = JWT.decode(req.header("Authorization").split(' ')[1]).user
     UserProfile.findOne({ user: tokenUser._id })
@@ -35,30 +42,32 @@ Router.get('/get', (req, res) => {
         })
 })
 
-Router.get('/getAllCandidates', (req, res) => {
-    if (!req.header("Authorization")) return res.sendStatus(403)
-    UserProfile.find({ profileType: 'candidate' })
-        .then((profiles) => {
-            console.log('getall profiels:', profiles)
-            res.json(profiles.map(p => ({
-                _id: p._id,
-                contents: p.contents,
-                tags: p.tags
+Router.get('/getAllCandidates', auth,
+    (req, res, ) => {
+        if (!req.header("Authorization")) return res.sendStatus(403)
+        UserProfile.find({ profileType: 'candidate' })
+            .then((profiles) => {
+                console.log('getall profiels:', profiles)
+                res.json(profiles.map(p => ({
+                    _id: p._id,
+                    contents: p.contents,
+                    tags: p.tags
 
-            })))
-        })
-})
+                })))
+            })
+    })
 
-Router.get('/getYeetList/:profileId', (req, res) => {
-    if (!req.header("Authorization")) return res.sendStatus(403)
-    const profileId = req.params.profileId
-    console.log('get yeet listt', profileId)
-    YeetList.findOne({ owner: profileId })
-        .then((list) => {
-            res.json(list)
-        })
-})
-Router.get('/getPopulatedYeetList/:profileId', (req, res) => {
+Router.get('/getYeetList/:profileId', auth,
+    (req, res) => {
+        if (!req.header("Authorization")) return res.sendStatus(403)
+        const profileId = req.params.profileId
+        console.log('get yeet listt', profileId)
+        YeetList.findOne({ owner: profileId })
+            .then((list) => {
+                res.json(list)
+            })
+    })
+Router.get('/getPopulatedYeetList/:profileId',  auth, (req, res) => {
     if (!req.header("Authorization")) return res.sendStatus(403)
     const profileId = req.params.profileId
     console.log('get yeet listt', profileId)
@@ -67,7 +76,7 @@ Router.get('/getPopulatedYeetList/:profileId', (req, res) => {
             res.json(list)
         })
 })
-Router.post('/yeet/:profileId/:yId', (req, res) => {
+Router.post('/yeet/:profileId/:yId',  auth, (req, res) => {
     if (!req.header("Authorization")) return res.sendStatus(403)
     const { profileId, yId } = req.params
     console.log(`yeet pId ${profileId}, ${yId}`)
