@@ -5,7 +5,7 @@ const YeetListSchema = new Schema({
         ref: 'userProfiles',
         required: true
     },
-    tags: [{
+    yeeted: [{
         type: Schema.Types.ObjectId,
         ref: 'userProfiles'
     }]

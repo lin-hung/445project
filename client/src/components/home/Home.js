@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './homeStyle.scss'
-import ProfileCarousel from '../yeetlist/ProfileCarousel.js'
+import YeetList from '../yeetlist/YeetList'
 import Axios from 'axios'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
@@ -15,7 +15,7 @@ class Home extends Component {
             this.setState({ profile: result.data })
         })
     }
-    RedirectToForm = () => {
+    RedirectToFormIfNeeded = () => {
         if (!this.state.profile.contents) {
             if (this.state.profile.profileType === 'candidate') {
                 return (<Redirect to='/applicantForm' />)
@@ -26,6 +26,12 @@ class Home extends Component {
         }
         return (null) //don't send them to form
     }
+    Contents = () => {
+        if (this.state.profile.profileType === 'recruiter') {
+            return <YeetList profileId={this.state.profile._id} />
+        }
+        return null
+    }
 
     render() {
         if (this.state.profile === '') {
@@ -33,9 +39,8 @@ class Home extends Component {
         }
         return (
             <div id="homePage">
-                <this.RedirectToForm />
-                <h1 id="header">Recommended YEETs</h1>
-                <ProfileCarousel />
+                <this.RedirectToFormIfNeeded />
+                <this.Contents />
             </div>
         )
     }
