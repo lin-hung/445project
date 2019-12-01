@@ -20,19 +20,14 @@ class LoginModal extends Component {
             this.props.oAuthLoginAction(token)
         })
         socket.once('profile', (profile) => {
-            console.log(`profile recieved: ${profile}`)
+            console.log(`profile recieved:`,profile)
             this.props.setProfileAction(profile)
         })
         socket.on('authfailure', (msg) => {
             console.log(`authfailure msg: ${msg}`)
-            this.setState({ loginSuccess: false, modalShow: false, setModalShow: false })
+            // this.setState({ loginSuccess: false, modalShow: false, setModalShow: false })
             window.location.href = "./register"
         })
-    }
-
-    componentWillUnmount() {
-        const socket = this.props.socket
-        socket.removeAllListeners()
     }
 
     _closeModal = () => {
