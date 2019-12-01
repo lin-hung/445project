@@ -14,10 +14,11 @@ import viewApplicantProfile from './components/applicantProfile/viewApplicantPro
 import viewCompanyProfile from './components/companyProfile/viewCompanyProfile'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
-import store from "./_store/store"
+import { store, persistor } from "./_store/store"
 import "./resources/appStyle.scss"
 
 import { PrivateRoute/*, PropsRoute*/ } from './routes'
+import { PersistGate } from 'redux-persist/integration/react'
 
 if (localStorage.jwtToken) {
   // Set auth token header if localstorage contains token
@@ -30,6 +31,7 @@ function App() {
   const socket = io("http://localhost:3002/");
   return (
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <Router>
         <div className="App">
           <Navbar socket={socket} />
@@ -51,6 +53,7 @@ function App() {
           <Footer />
         </div>
       </Router>
+      </PersistGate>
     </Provider>
   );
 }
