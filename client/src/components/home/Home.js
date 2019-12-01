@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './homeStyle.scss'
-import ProfileCarousel from './ProfileCarousel.js'
+import ProfileCarousel from '../yeetlist/ProfileCarousel.js'
 import Axios from 'axios'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
@@ -33,9 +33,7 @@ class Home extends Component {
             <div id="homePage">
                 <this.RedirectToForm/>
                 <h1 id = "header">Recommended YEETs</h1>
-                <ProfileCarousel>
-
-                </ProfileCarousel>
+                <ProfileCarousel />
             </div>
         )
     }

@@ -4,6 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import './viewStyleApplicant.scss'
+import Profile from '../yeetlist/Profile'
 
 //This class is basically their profile card, this is what recruiters will see  
 class viewApplicantProfile extends Component {
@@ -41,49 +42,54 @@ class viewApplicantProfile extends Component {
 		}
 		const { form, tags } = this.state
 		return (
-			<div>
-				<Card bg="light" border="primmary">
-					<Card.Header><h3>{this.state.form.fname}'s Profile</h3>
-						<div className="inner">
-							<ul id="nobullet">
-								<li> <b>Currently: </b> {this.state.form.job}</li>
-								<li> <b> Email: </b> {this.state.form.email}</li>
-							</ul>
-						</div>
-
-						<div id="buttonRight" className="inner">
-							<LinkContainer to='/applicantForm'><Button variant="primary">Edit profile</Button></LinkContainer>
-						</div>
-
-
-					</Card.Header>
-					<Card.Body>
-						<div className="row">
-							<div id="wider" className="col-sm">
-								<h3> About me: </h3>
-								{this.state.form.about}
-							</div>
-							<div id="wider" className="col-sm">
-								<h3> Awards: </h3>
-								{this.state.form.awards}
-							</div>
-							<div className="col-sm">
-								<h2>Who we're hiring for: </h2>
-								<ul>
-									<li>{this.state.form.job}</li>
-								</ul>
-							</div>
-							<div className="col-sm">
-								<h2>Skills we're looking for: </h2>
-								{this.state.form.skills}
-								<h2>Experience we're looking for: </h2>
-								{this.state.form.experience}
-							</div>
-						</div>
-
+			<Card bg="light" border="primmary">
+				<Card.Body>
+					<Profile profile={this.state} />
 					</Card.Body>
-				</Card>
-			</div>
+			</Card>
+			// <div>
+			// 	<Card bg="light" border="primmary">
+			// 		<Card.Header><h3>{this.state.form.fname}'s Profile</h3>
+			// 			<div className="inner">
+			// 				<ul id="nobullet">
+			// 					<li> <b>Currently: </b> {this.state.form.job}</li>
+			// 					<li> <b> Email: </b> {this.state.form.email}</li>
+			// 				</ul>
+			// 			</div>
+
+			// 			<div id="buttonRight" className="inner">
+			// 				<LinkContainer to='/applicantForm'><Button variant="primary">Edit profile</Button></LinkContainer>
+			// 			</div>
+
+
+			// 		</Card.Header>
+			// 		<Card.Body>
+			// 			<div className="row">
+			// 				<div id="wider" className="col-sm">
+			// 					<h3> About me: </h3>
+			// 					{this.state.form.about}
+			// 				</div>
+			// 				<div id="wider" className="col-sm">
+			// 					<h3> Awards: </h3>
+			// 					{this.state.form.awards}
+			// 				</div>
+			// 				<div className="col-sm">
+			// 					<h2>Who we're hiring for: </h2>
+			// 					<ul>
+			// 						<li>{this.state.form.job}</li>
+			// 					</ul>
+			// 				</div>
+			// 				<div className="col-sm">
+			// 					<h2>Skills we're looking for: </h2>
+			// 					{this.state.form.skills}
+			// 					<h2>Experience we're looking for: </h2>
+			// 					{this.state.form.experience}
+			// 				</div>
+			// 			</div>
+
+			// 		</Card.Body>
+			// 	</Card>
+			// </div>
 		)
 
 
