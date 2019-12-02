@@ -6,7 +6,7 @@ import './profileCarousel.scss'
 
 class ProfileCarousel extends Component {
 	render() {
-		const { profiles, _handleYeetCB, disableYeetButton } = this.props
+		const { profiles, _handleYeetCB, disableYeetButton, messageButton, _handleMessageCB } = this.props
 		if (!profiles) return null
 		let carouselItems = []
 		profiles.forEach((p, i) => {
@@ -17,6 +17,9 @@ class ProfileCarousel extends Component {
 				{(disableYeetButton) ? null : <Card.Text className="text-center">
 					<Button variant="primary" onClick={_handleYeetCB} value={i}>YEET User</Button>
 				</Card.Text>}
+				{(messageButton) ? <Card.Text className="text-center">
+					<Button variant="primary" onClick={_handleMessageCB} value={i}>Message User</Button>
+				</Card.Text> : null}
 			</Carousel.Item>)
 		})
 		console.log(carouselItems)

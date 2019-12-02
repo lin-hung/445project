@@ -20,6 +20,10 @@ class YeetedList extends Component {
             this.setState({ yeetList: yeeted })
         })
     }
+    _handleMessageCB = (e) => {
+        const target=this.state.yeetList[e.target.value]
+        this.props.history.push(`/messages/${target._id}`)
+    }
     _ProfileCarousel = () => {
         if (!this.state.yeetList) {
             return null
@@ -29,7 +33,7 @@ class YeetedList extends Component {
                 <h4>You have not YEETed anybody!</h4>
             )
         }
-        return <ProfileCarousel profiles={this.state.yeetList} disableYeetButton={true} />
+        return <ProfileCarousel profiles={this.state.yeetList} disableYeetButton={true} messageButton={true} _handleMessageCB={this._handleMessageCB} />
     }
     render() {
         return (

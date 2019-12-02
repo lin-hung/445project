@@ -16,6 +16,7 @@ import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import { store, persistor } from "./_store/store"
 import YeetedList from './components/yeetlist/YeetedList'
+import Message from './components/messaging/Messaging'
 
 import "./resources/appStyle.scss"
 
@@ -51,6 +52,7 @@ function App() {
                 <PrivateRoute exact path="/applicantProfile" component={viewApplicantProfile} />
                 <PrivateRoute exact path="/companyProfile" component={viewCompanyProfile} />
                 <PrivateRoute exact path="/yeetedList" component={YeetedList} />
+                <PrivateRoute path="/messages" component={Message} io={io} />
               </Switch>
             </Container>
             <Footer />

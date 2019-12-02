@@ -5,6 +5,7 @@ import Passport from "passport"
 
 import auth from "./routes/auth"
 import profile from './routes/profile'
+import messaging from './routes/messaging'
 
 const app = Express()
 
@@ -21,8 +22,8 @@ app.use(
         extended: false
     })
 )
-app.use(Express.json())     
-app.use(Express.urlencoded()) 
+app.use(Express.json())
+app.use(Express.urlencoded())
 
 //DB Config
 const dbURI = process.env.dbURI
@@ -39,6 +40,7 @@ require("./config/passportConfig")(Passport)
 ///////////////////
 app.use('/api/auth', auth)
 app.use('/api/profile', profile)
+app.use('/api/messaging', messaging)
 
 ///////////////////
 const port = process.env.serverport
