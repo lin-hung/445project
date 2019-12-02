@@ -57,42 +57,42 @@ const sendProfileToUser = (req, res, profile) => {
 
 const loginOrRegister = (err, user, msg, req, res, next, provider) => {
     console.log('###########REGISTERTYPE:', req.session.registerType)
-    { //if the user isn't registered, msg contains the provider profile info
-        if (req.session.registerType) {
-            console.log(`user: ${user} regtype: ${req.session.registerType}`)
-            if (user) {
-                userAlreadyRegistered(req, res, user)
-                return res.end(closePopupScript)
-            }
-            else {//create user
-                const providerProfile = msg.profile
-                User.createUser(providerProfile, provider).save()
-                    .then((user) => {
-                        return createUserProfile(user, req.session.registerType).then((profile) => [user, profile])
-                    }).then(([user, profile]) => {
-                        console.log(`user created: 
-                        ${user}
-                        ${profile}`)
-                        sendTokenToUser(req, res, user)
-                        sendProfileToUser(req, res, profile)
-                        return res.end(closePopupScript)
-                    }).catch((err) => {
-                        console.log(err)
-                        res.status(400)
-                        res.send(err)
-                    })
-            }
-        }
-        else if (user) {
-            sendTokenToUser(req, res, user)
-            UserProfile.findOne({ user: user._id }).then((prof) => {
-                sendProfileToUser(req, res, prof)
-            })
+    //if the user isn't registered, msg contains the provider profile info
+    if (req.session.registerType) {
+        console.log(`user: ${user} regtype: ${req.session.registerType}`)
+        if (user) {
+            userAlreadyRegistered(req, res, user)
             return res.end(closePopupScript)
         }
-        io.in(req.session.socketId).emit('authfailure', "user is not registered")
+        else {//create user
+            const providerProfile = msg.profile
+            User.createUser(providerProfile, provider).save()
+                .then((user) => {
+                    return createUserProfile(user, req.session.registerType).then((profile) => [user, profile])
+                }).then(([user, profile]) => {
+                    console.log(`user created: 
+                        ${user}
+                        ${profile}`)
+                    sendTokenToUser(req, res, user)
+                    sendProfileToUser(req, res, profile)
+                }).catch((err) => {
+                    console.log(err)
+                    res.status(400)
+                    res.send(err)
+                })
+            return res.end(closePopupScript)
+        }
+    }
+    else if (user) {
+        sendTokenToUser(req, res, user)
+        UserProfile.findOne({ user: user._id }).then((prof) => {
+            sendProfileToUser(req, res, prof)
+        })
         return res.end(closePopupScript)
     }
+    io.in(req.session.socketId).emit('authfailure', "user is not registered")
+    return res.end(closePopupScript)
+
 }
 
 const createUserProfile = (user, registerType) => {
