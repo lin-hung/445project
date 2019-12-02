@@ -5,6 +5,7 @@ import socketioConfig, { addSocketIdToSession, io } from '../config/socketioConf
 import User from "../models/User"
 import UserProfile from "../models/UserProfile"
 import YeetList from '../models/YeetList'
+import Mongoose from 'mongoose'
 
 const Router = Express.Router()
 
@@ -38,7 +39,6 @@ Router.post('/submit', auth, (req, res) => {
 })
 
 Router.get('/get', auth, (req, res) => {
-    if (!req.header("Authorization")) return res.sendStatus(403)
     const tokenUser = JWT.decode(req.header("Authorization").split(' ')[1]).user
     UserProfile.findOne({ user: tokenUser._id })
         .then((prof) => {
@@ -48,10 +48,9 @@ Router.get('/get', auth, (req, res) => {
 
 Router.get('/getAllCandidates', auth,
     (req, res, ) => {
-        if (!req.header("Authorization")) return res.sendStatus(403)
         UserProfile.find({ profileType: 'candidate' })
             .then((profiles) => {
-                console.log('getall profiels:', profiles)
+                console.log('get all candidates')
                 res.json(profiles.map(p => ({
                     _id: p._id,
                     contents: p.contents,
@@ -63,7 +62,6 @@ Router.get('/getAllCandidates', auth,
 
 Router.get('/getYeetList/:profileId', auth,
     (req, res) => {
-        if (!req.header("Authorization")) return res.sendStatus(403)
         const profileId = req.params.profileId
         console.log('get yeet listt', profileId)
         YeetList.findOne({ owner: profileId })
@@ -72,7 +70,6 @@ Router.get('/getYeetList/:profileId', auth,
             })
     })
 Router.get('/getPopulatedYeetList/:profileId', auth, (req, res) => {
-    if (!req.header("Authorization")) return res.sendStatus(403)
     const profileId = req.params.profileId
     console.log('get yeet listt', profileId)
     YeetList.findOne({ owner: profileId }).populate('yeeted')
@@ -81,7 +78,6 @@ Router.get('/getPopulatedYeetList/:profileId', auth, (req, res) => {
         })
 })
 Router.post('/yeet/:profileId/:yId', auth, (req, res) => {
-    if (!req.header("Authorization")) return res.sendStatus(403)
     const { profileId, yId } = req.params
     console.log(`yeet pId ${profileId}, ${yId}`)
     YeetList.findOneAndUpdate({ owner: profileId },
@@ -95,5 +91,27 @@ Router.post('/yeet/:profileId/:yId', auth, (req, res) => {
         })
 })
 
+Router.get('/getYeetees', auth,
+    (req, res) => {
+        const tokenUser = JWT.decode(req.header("Authorization").split(' ')[1]).user
+        UserProfile.findOne({ user: tokenUser._id })
+            .then((prof) => {
+                console.log(prof)
+                if (prof.profileType !== 'candidate') throw Error('Wrong profile type!')
+                return YeetList.find({
+                    'yeeted': {
+                        $in: [
+                            prof._id
+                        ]
+                    }
+                }).populate('owner')
+            }).then(yeetLists => {
+                res.json(yeetLists.map(list => list.owner))
+            }).catch(err => {
+                console.log(err)
+                res.status(403)
+                res.send(err)
+            })
+    })
 
 export default Router
