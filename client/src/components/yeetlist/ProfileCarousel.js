@@ -14,9 +14,9 @@ class ProfileCarousel extends Component {
 			carouselItems.push(<Carousel.Item key={p.form.fname + i}>
 				<Profile profile={p} />
 				<CarouselCaption />
-				<Card.Text className="text-center">
+				{(disableYeetButton) ? null : <Card.Text className="text-center">
 					<Button variant="primary" onClick={_handleYeetCB} value={i}>YEET User</Button>
-				</Card.Text>
+				</Card.Text>}
 			</Carousel.Item>)
 		})
 		console.log(carouselItems)
