@@ -26,14 +26,19 @@ class Chat extends Component {
                 })
                 this.socket.emit('join', { room: res.data._id, prof: this.props.auth.profile._id })
             })
-
         this.socket.on('chatmsg', (msg) => {
             console.log('chatmsg', msg)
+            this.setState({ messages: [...this.state.messages, msg] })
         })
+    }
+    componentDidUpdate() {
+        this._scrollMessages()
     }
     Messages = () => {
         return (
-            <div className="container" >
+            <div id='msgBox' className="container overflow-auto" style={{
+                height: '16rem'
+            }}>
                 {this.state.messages.map((msg, i) => {
                     const posterStyle = (msg.poster === this.state.partner._id) ? 'justify-content-start' : 'justify-content-end'
                     return (
@@ -49,18 +54,25 @@ class Chat extends Component {
             </div>
         )
     }
+    _scrollMessages = () => {
+        const msgElement = document.querySelector("#msgBox")
+        if (msgElement) {
+            msgElement.scrollTop = msgElement.scrollHeight
+        }
+    }
     _handleMessageChange = (e) => {
         this.setState({ messageInput: e.target.value })
     }
     _handleMessageKeyUp = (e) => {
         if (e.which === 13) {//enter
             e.preventDefault()
-            this.socket.emit('chatmsg', {
+            const msg = {
                 room: this.state.room._id,
                 poster: this.props.auth.profile._id,
-                msg: this.state.messageInput
-            })
-            this.setState({ messageInput: '' })
+                text: this.state.messageInput
+            }
+            this.socket.emit('chatmsg', msg)
+            this.setState({ messageInput: '', messages: [...this.state.messages, msg] })
         }
     }
     render() {
@@ -77,7 +89,7 @@ class Chat extends Component {
             partnerName = null
         }
         else {
-            partnerName = (partner.profileType === 'candidate') ? partner.contents.fname + partner.contents.lname :
+            partnerName = (partner.profileType === 'candidate') ? partner.contents.fname + ' ' + partner.contents.lname :
                 partner.contents.cname
         }
 

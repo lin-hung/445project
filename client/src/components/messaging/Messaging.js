@@ -12,8 +12,8 @@ class Messaging extends Component {
         const socket = this.props.io('http://localhost:3002/messaging')
         const path = this.props.match.path
         console.log('messaging path:', path)
-        return (
-            <Card bg="light" border="primmary">
+        return ( 
+            <Card bg="light" border="primary">
                 <Card.Body>
                     <Switch>
                         <PropsRoute exact path={'/messages'} component={ChatList} />

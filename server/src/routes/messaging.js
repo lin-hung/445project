@@ -18,40 +18,26 @@ Router.get('/authTest', auth, (req, res) => {
     res.sendStatus(200)
 })
 
-let chatOnlineList = {}     //dict for storing online members
 
 io.of('/messaging').on('connection', (socket) => {
     console.log('connected', socket.id)
     socket.on('join', (msg) => {
-        socket.join(msg)
-        if (!chatOnlineList[msg.room]) {
-            chatOnlineList[msg.room] = {}
-        }
-        chatOnlineList[msg.room][socket.id] = msg.prof
-
+        socket.join(msg.room)
         console.log(`profile ${msg.prof} joined room ${msg.room} wtih socketid ${socket.id} `)
-        console.log(chatOnlineList)
-    })
-    socket.on('disconnect', () => {
-        for (var room in chatOnlineList) {
-            for (var socketid in chatOnlineList[room]) {
-                if (socketid === socket.id) {
-                    delete chatOnlineList[room][socketid]
-                }
-            }
-        }
-        console.log(`${socket.id} disconnected: onlineList 
-            `, chatOnlineList)
     })
     socket.on('chatmsg', (message) => {
-        io.of('/messaging').emit('chatmsg', message)
-
+        console.log('chat')
+        console.log(message.room)
+        io.of('/messaging').in(message.room).clients((err, clients) => {
+            console.log(clients) // an array of socket ids
+        })
+        socket.to(message.room).emit('chatmsg', message)
         MessageRooms.findById(message.room)
             .then(room => {
-                room.messages = [...room.messages, { text: message.msg, poster: message.poster }]
+                room.messages = [...room.messages, { text: message.text, poster: message.poster }]
                 return room.save()
             }).then(room => {
-                console.log(room)
+                // console.log(room)
             })
     })
 })
@@ -77,7 +63,7 @@ Router.get('/getChats/:uPId', auth,
     (req, res) => {
         const { uPId } = req.params
         MessageRooms.find({ members: { $in: [uPId] } }).populate('members')
-            .then(rooms=>{
+            .then(rooms => {
                 console.log(rooms)
                 res.json(rooms)
             })
