@@ -11,11 +11,12 @@ class YeetList extends Component {
     }
     _handleYeetCB = (e) => {
         e.preventDefault()
-        const y = this.state.profiles[e.target.value]
-        Axios.post(`/api/profile/yeet/${this.props.profileId}/${y._id}`)
+        const target = this.state.availableProfiles[e.target.value]
+        Axios.post(`/api/profile/yeet/${this.props.profileId}/${target._id}`)
         this.setState({
             availableProfiles: this.state.availableProfiles.filter((p) => {
-                return (p._id !== y._id)
+                console.log('yeetlist filter', p._id, target._id)
+                return (p._id !== target._id)
             })
         })
     }
