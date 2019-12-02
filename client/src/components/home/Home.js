@@ -7,40 +7,38 @@ import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
 import YeeteeList from '../yeetlist/YeeteeList';
 class Home extends Component {
-    state = {
-        profile: ''
-    }
-
-    componentDidMount() {
-        Axios.get('/api/profile/get').then(result => {
-            this.setState({ profile: result.data })
-        })
-    }
     RedirectToFormIfNeeded = () => {
-        if (!this.state.profile.contents) {
-            if (this.state.profile.profileType === 'candidate') {
+        const prof = this.props.auth.profile
+
+        if (!prof.contents) {
+            if (prof.profileType === 'candidate') {
                 return (<Redirect to='/applicantForm' />)
             }
-            if (this.state.profile.profileType === 'recruiter') {
+            if (prof.profileType === 'recruiter') {
                 return (<Redirect to='/companyForm' />)
             }
         }
         return (null) //don't send them to form
     }
     Contents = () => {
-        if (this.state.profile.profileType === 'recruiter') {
-            return <YeetList profileId={this.state.profile._id} />
+        const prof = this.props.auth.profile
+
+        if (prof.profileType === 'recruiter') {
+            return <YeetList profileId={prof._id} />
         }
-        else if(this.state.profile.profileType==='candidate'){
+        else if (prof.profileType === 'candidate') {
             return <YeeteeList />
         }
         return null
     }
 
     render() {
-        if (this.state.profile === '') {
+        const prof = this.props.auth.profile
+
+        if (!prof || prof == {}) {
             return null
         }
+
         return (
             <div id="homePage">
                 <this.RedirectToFormIfNeeded />
