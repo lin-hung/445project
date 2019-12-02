@@ -168,9 +168,9 @@ class ApplicantForm extends Component {
 
                                 <div className="FormField">
                                     <label className="FormField__Label" htmlFor="age">Age</label>
-                                    <input type="age" id="age" className="FormField__Input form-control"
-                                        placeholder="Enter your age" name="age" value={this.state.form.age}
-                                        required={true}
+                                    <input type="number" min="18" max="100" onkeypress="return event.charCode >= 48"
+                                        id="age" className="FormField__Input form-control" placeholder="Enter your age"
+                                        name="age" value={this.state.form.age} required={true}
                                         onChange={this.handleChange} />
                                 </div>
                             </div>
