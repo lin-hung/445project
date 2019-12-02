@@ -44,20 +44,20 @@ class Navbar extends Component {
     return null
   }
 
-  search = () => {
-    const pathname = window.location.pathname
-    if (pathname === '/' || pathname === '/login' || pathname === '/register') {//if not logged in and on landing, login, register, don't show login button
-      return (null)
-    }
-    if (this.props.auth.isAuthed) {
-      return (
-        <div>
-          <LinkContainer to='/search'><Button id="navButton" variant="light">Search Employers</Button></LinkContainer>
-        </div>
-      )
-    }
-    return null
-  }
+  // search = () => {
+  //   const pathname = window.location.pathname
+  //   if (pathname === '/' || pathname === '/login' || pathname === '/register') {//if not logged in and on landing, login, register, don't show login button
+  //     return (null)
+  //   }
+  //   if (this.props.auth.isAuthed) {
+  //     return (
+  //       <div>
+  //         <LinkContainer to='/search'><Button id="navButton" variant="light">Search Employers</Button></LinkContainer>
+  //       </div>
+  //     )
+  //   }
+  //   return null
+  // }
 
   profileUtilities = () => {
     const pathname = window.location.pathname
@@ -90,12 +90,12 @@ class Navbar extends Component {
           </BSNav.Brand>
         </LinkContainer>
 
-        <Nav className="col">
+        <Nav className="colFirst">
           <this.utilities />
         </Nav>
-        <Nav className="col">
+        {/* <Nav className="col">
           <this.search />
-        </Nav>
+        </Nav> */}
         <Nav>
           <this.profileUtilities />
           <this.loginButton />

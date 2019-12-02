@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Redirect } from 'react-router-dom'
 import './viewStyleCompany.scss'
+import noProfilePic from '../yeetlist/noPic.png'
 
 
 //This class is basically their profile card, this is what applicants will see  
@@ -47,7 +48,7 @@ class viewCompanyProfile extends Component {
         return (
             <div>
                 <Card bg="light" border="primmary">
-                    <Card.Header> <h3> {form.cname}'s profile </h3> 
+                    <Card.Header> <h3> {form.cname}'s Company profile </h3> 
                     <div id="buttonRight" className="inner">
 						<LinkContainer to='/companyForm'><Button variant="primary">Edit profile</Button></LinkContainer>
 					</div>
@@ -55,29 +56,28 @@ class viewCompanyProfile extends Component {
                     <Card.Body>
                         <div className="row">
                             <div id="left" className="column">
-
-                                <Card.Text className="column">
-                                    <b>Our company's email: </b><a href={"mailto:" + form.email}>{form.email}</a> 
-
+                                <img id="profilePicture" src={noProfilePic} alt="profilePicture"></img>
+                                <h3 className="text-center">
+                                    {form.cname} 
+                                </h3>
+                                <Card.Text className="text-center">
+                                    <b>Email: </b><a href={"mailto:" + form.email}>{form.email}</a>   
                                 </Card.Text>
-                                <div>
-                                    <b>About us:</b> {form.about}
-                                </div>
-
-
                             </div>
+
                             <div id="right" className="column">
                                 <div className="row">
                                     <div className="col-sm">
-                                        <h3>Who we're hiring for: </h3>
+                                        <h4>About us:</h4> {form.about}
+                                        <h4>Who we're hiring for: </h4>
                                         <ul>
                                             <li>{form.job}</li>
                                         </ul>
                                     </div>
                                     <div className="col-sm">
-                                        <h3>Skills we're looking for: </h3>
+                                        <h4>Skills we're looking for: </h4>
                                         {form.skills}
-                                        <h3>Experience we're looking for: </h3>
+                                        <h4>Experience we're looking for: </h4>
                                         {form.exp}
                                     </div>
                                 </div>
