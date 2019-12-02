@@ -73,7 +73,7 @@ class Navbar extends Component {
         </div>
       )
     }
-
+    return null
     // if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
     //   return(null)
     // }
