@@ -1,4 +1,3 @@
-import Axios from 'axios'
 import React, { Component } from 'react'
 import { Button, Card, Carousel } from 'react-bootstrap'
 import CarouselCaption from 'react-bootstrap/CarouselCaption'

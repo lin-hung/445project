@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import './homeStyle.scss'
-import YeetList from '../yeetlist/YeetList'
-import Axios from 'axios'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux'
-import { mapAuthStateToProps } from '../../resources/utils'
+import { mapAuthStateToProps } from '../../resources/utils';
 import YeeteeList from '../yeetlist/YeeteeList';
+import YeetList from '../yeetlist/YeetList';
+import './homeStyle.scss';
 class Home extends Component {
     RedirectToFormIfNeeded = () => {
         const prof = this.props.auth.profile
@@ -35,7 +34,7 @@ class Home extends Component {
     render() {
         const prof = this.props.auth.profile
 
-        if (!prof || prof == {}) {
+        if (!prof || prof === {}) {
             return null
         }
 

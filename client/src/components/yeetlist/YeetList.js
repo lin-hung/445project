@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import ProfileCarousel from './ProfileCarousel'
 import Axios from 'axios'
-import { Button, Card, Carousel } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { Card } from 'react-bootstrap'
+import ProfileCarousel from './ProfileCarousel'
 
 class YeetList extends Component {
     state = {
@@ -15,7 +15,6 @@ class YeetList extends Component {
         Axios.post(`/api/profile/yeet/${this.props.profileId}/${target._id}`)
         this.setState({
             availableProfiles: this.state.availableProfiles.filter((p) => {
-                console.log('yeetlist filter', p._id, target._id)
                 return (p._id !== target._id)
             })
         })

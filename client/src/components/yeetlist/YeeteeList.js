@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
-import { Button, Card, Carousel } from 'react-bootstrap'
+import { Card, Carousel } from 'react-bootstrap'
 import CompanyProfile from './CompanyProfile'
 
 class YeeteeList extends Component {

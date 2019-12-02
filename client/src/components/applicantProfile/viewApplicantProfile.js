@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
 import Axios from 'axios'
-import { LinkContainer } from 'react-router-bootstrap'
-import Card from 'react-bootstrap/Card'
+import React, { Component } from 'react'
 import Button from 'react-bootstrap/Button'
-import './viewStyleApplicant.scss'
+import Card from 'react-bootstrap/Card'
+import { LinkContainer } from 'react-router-bootstrap'
 import Profile from '../yeetlist/Profile'
+import './viewStyleApplicant.scss'
 
 //This class is basically their profile card, this is what recruiters will see  
 class viewApplicantProfile extends Component {
@@ -35,7 +35,6 @@ class viewApplicantProfile extends Component {
 				</div>
 			)
 		}
-		const { form, tags } = this.state
 		return (
 			<Card bg="light" border="primmary">
 				<Card.Body>

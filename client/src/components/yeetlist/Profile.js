@@ -1,18 +1,16 @@
 import React, { Component } from 'react'
-import { Button, Card } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import './profileStyle.scss'
+import { Card } from 'react-bootstrap'
 import noProfilePic from './noPic.png'
+import './profileStyle.scss'
 
 
 class Profile extends Component {
     render() {
-        console.log('profile', this.props.profile)
         const { profile } = this.props
         return (
                         <div className="row">
                             <div id="left" className="column">
-                                <img id="profilePicture" alt="profilePicture"></img>
+                                <img id="profilePicture" src={noProfilePic} alt="profilePicture"></img>
                                 <h3 className="text-center">
                                     {profile.form.fname} {profile.form.lname}
                                 </h3>

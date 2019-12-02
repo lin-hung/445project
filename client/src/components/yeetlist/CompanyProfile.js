@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap'
 class CompanyProfile extends Component {
     render() {
         const form = this.props.profile.contents
-        const tags = this.props.profile.tags
+        //const tags = this.props.profile.tags
         return (<div className="row">
             <div id="left" className="column">
 
