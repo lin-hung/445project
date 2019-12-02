@@ -68,7 +68,6 @@ class Navbar extends Component {
       return (
         <div>
           <LinkContainer to='/messages'><Button id="navButton" variant="light">Messages</Button></LinkContainer>
-          <LinkContainer to='/alerts'><Button id="navButton" variant="light">Alerts</Button></LinkContainer>
           <LinkContainer to='/help'><Button id="navButton" variant="light">Help</Button></LinkContainer>
         </div>
       )
