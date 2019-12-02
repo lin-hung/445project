@@ -38,78 +38,13 @@ class viewApplicantProfile extends Component {
 		return (
 			<Card bg="light" border="primmary">
 				<Card.Body>
-				
-			
-					
 					<Profile profile={this.state} />
+					<div id="buttonRight" className="inner">
+						<LinkContainer to='/applicantForm'><Button variant="primary">Edit profile</Button></LinkContainer>
+					</div>
 				</Card.Body>
 			</Card>
-			// <div>
-			// 	<Card bg="light" border="primmary">
-			// 		<Card.Header><h3>{this.state.form.fname}'s Profile</h3>
-			// 			<div className="inner">
-			// 				<ul id="nobullet">
-			// 					<li> <b>Currently: </b> {this.state.form.job}</li>
-			// 					<li> <b> Email: </b> {this.state.form.email}</li>
-			// 				</ul>
-			// 			</div>
-
-			// 			<div id="buttonRight" className="inner">
-			// 				<LinkContainer to='/applicantForm'><Button variant="primary">Edit profile</Button></LinkContainer>
-			// 			</div>
-
-
-			// 		</Card.Header>
-			// 		<Card.Body>
-			// 			<div className="row">
-			// 				<div id="wider" className="col-sm">
-			// 					<h3> About me: </h3>
-			// 					{this.state.form.about}
-			// 				</div>
-			// 				<div id="wider" className="col-sm">
-			// 					<h3> Awards: </h3>
-			// 					{this.state.form.awards}
-			// 				</div>
-			// 				<div className="col-sm">
-			// 					<h2>Who we're hiring for: </h2>
-			// 					<ul>
-			// 						<li>{this.state.form.job}</li>
-			// 					</ul>
-			// 				</div>
-			// 				<div className="col-sm">
-			// 					<h2>Skills we're looking for: </h2>
-			// 					{this.state.form.skills}
-			// 					<h2>Experience we're looking for: </h2>
-			// 					{this.state.form.experience}
-			// 				</div>
-			// 			</div>
-
-			// 		</Card.Body>
-			// 	</Card>
-			// </div>
 		)
-
-
-		// const profiles = [
-		// 	{
-		// 		profilePicUrl: '',
-		// 		name: 'Billy Bob',
-		// 		career: 'Computer Science',
-		// 		education: 'CSULB BS in Computer Science(2016-2020): 4.0 GPA' +
-		// 					'\nCSULB Masters in Computer Science (2020-2024): 4.0 GPA',
-		// 		work: 'Boston Dynamics: Assisted in building the software for the T100' +
-		// 				'\nDARPA: Literally invented the internet',
-		// 		misc: 'General AI Project: Built Skynet using assembly' +
-		// 				'\nSkills: C++, Java, Python, OOP, ML'
-		// 	}]
-
-		// return (
-		// 	<div>
-		// 		<Carousel bsPrefix="carousel" indicators={false} keyboard={true} interval={null} touch={true}>
-		// 			{carouselItems}
-		// 		</Carousel>
-		// 	</div>
-		// )
 	}
 }
 export default viewApplicantProfile
