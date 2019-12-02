@@ -12,6 +12,7 @@ import ApplicantForm from './components/applicantProfile/applicantForm'
 import CompanyForm from './components/companyProfile/CompanyForm'
 import viewApplicantProfile from './components/applicantProfile/viewApplicantProfile'
 import viewCompanyProfile from './components/companyProfile/viewCompanyProfile'
+import Help from './components/help/help'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
 import { store, persistor } from "./_store/store"
@@ -53,6 +54,7 @@ function App() {
                 <PrivateRoute exact path="/companyProfile" component={viewCompanyProfile} />
                 <PrivateRoute exact path="/yeetedList" component={YeetedList} />
                 <PrivateRoute path="/messages" component={Message} io={io} />
+                <PrivateRoute exact path="/help" component={Help} />
               </Switch>
             </Container>
             <Footer />
