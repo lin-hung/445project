@@ -26,7 +26,7 @@ class Home extends Component {
             return <YeetList profileId={prof._id} />
         }
         else if (prof.profileType === 'candidate') {
-            return <YeeteeList />
+            return <YeeteeList history={this.props.history} />
         }
         return null
     }

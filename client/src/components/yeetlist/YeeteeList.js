@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import React, { Component } from 'react'
-import { Card, Carousel } from 'react-bootstrap'
+import { Card, Carousel, Button } from 'react-bootstrap'
 import CompanyProfile from './CompanyProfile'
 
 class YeeteeList extends Component {
@@ -8,9 +8,13 @@ class YeeteeList extends Component {
         yeeteeList: null
     }
     componentDidMount() {
-        Axios.get(`/api/profile//getYeetees`).then((res) => {
+        Axios.get(`/api/profile/getYeetees`).then((res) => {
             this.setState({ yeeteeList: res.data })
         })
+    }
+    _handleMessageCB = (e) => {
+        const target=this.state.yeeteeList[e.target.value]
+        this.props.history.push(`/messages/${target._id}`)
     }
     _ProfileCarousel = () => {
         if (this.state.yeeteeList) {
@@ -19,6 +23,9 @@ class YeeteeList extends Component {
                 (
                     <Carousel.Item key={i}>
                         <CompanyProfile profile={p} />
+                        <Card.Text className="text-center">
+                            <Button variant="primary" onClick={this._handleMessageCB} value={i}>Message User</Button>
+                        </Card.Text>
                     </Carousel.Item>)
             )
             return (
