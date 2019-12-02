@@ -136,24 +136,27 @@ class CompanyForm extends Component {
                         <div id="sec1" className="form-row">
                             {/* begin col 1 of sec 1 */}
                             <div id="s1c1" className="col">
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="fname">Your Company Name</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="fname">Your Company Name</label>
                                     <input type="cname" id="cname" className="FormField__Input form-control"
                                         placeholder="Enter the name of your company" name="cname" value={this.state.form.cname}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="email">E-Mail Address</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="email">E-Mail Address</label>
                                     <input type="email" id="email" className="FormField__Input form-control"
                                         placeholder="Enter your email" name="email" value={this.state.form.email}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="job">Occupation</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="job">Jobs open</label>
                                     <input type="job" id="job" className="FormField__Input form-control"
                                         placeholder="Enter your job listing" name="job" value={this.state.form.job}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
                             </div>
@@ -172,24 +175,27 @@ class CompanyForm extends Component {
                         <div id="sec2" className="form-row" >
                             {/* begin col 1 of sec 2 */}
                             <div id="s2c1" className="col">
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="about">About us</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="about">About us</label>
                                     <textarea type="about" id="about" className="FormField__Input form-control"
                                         placeholder="Enter info about your company" name="about" value={this.state.form.about}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="exp">Experience</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="exp">Experience</label>
                                     <textarea type="exp" id="exp" className="FormField__Input form-control"
                                         placeholder="Enter your desired experience" name="exp" value={this.state.form.exp}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="skills">Skills</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="skills">Skills</label>
                                     <textarea type="skills" id="skills" className="FormField__Input form-control"
                                         placeholder="List your desired skills" name="skills" value={this.state.form.skills}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 

@@ -39,7 +39,8 @@ class YeetedList extends Component {
         return (
             <Card bg="light" border="primmary">
                 <Card.Body>
-                    <h1>YEETed Profiles</h1>
+                    <h1>YEETed Profiles</h1> 
+                    
                     <this._ProfileCarousel />
                 </Card.Body>
             </Card>
