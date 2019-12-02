@@ -5,6 +5,7 @@ import Axios from 'axios'
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
+import YeeteeList from '../yeetlist/YeeteeList';
 class Home extends Component {
     state = {
         profile: ''
@@ -29,6 +30,9 @@ class Home extends Component {
     Contents = () => {
         if (this.state.profile.profileType === 'recruiter') {
             return <YeetList profileId={this.state.profile._id} />
+        }
+        else if(this.state.profile.profileType==='candidate'){
+            return <YeeteeList />
         }
         return null
     }
