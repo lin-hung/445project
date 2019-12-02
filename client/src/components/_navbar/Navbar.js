@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
+import { Button, Nav, Navbar as BSNav } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar as BSNav, Nav, Button } from 'react-bootstrap'
-import Axios from 'axios'
 import logo from '../../resources/logo.svg'
 import { mapAuthStateToProps } from '../../resources/utils'
 import { logoutAction } from '../../_actions/authActions'
 import '../buttonColor.scss'
-import './navBarStyle.scss'
 import LoginModal from '../_auth/LoginModal'
+import './navBarStyle.scss'
 
 
 class Navbar extends Component {
@@ -74,7 +73,7 @@ class Navbar extends Component {
         </div>
       )
     }
-
+    return null
     // if(pathname==='/' || pathname ==='/login' || pathname === '/register'){//if not logged in and on landing, login, register, don't show login button
     //   return(null)
     // }

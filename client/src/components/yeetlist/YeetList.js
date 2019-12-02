@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import ProfileCarousel from './ProfileCarousel'
 import Axios from 'axios'
-import { Button, Card, Carousel } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { Card } from 'react-bootstrap'
+import ProfileCarousel from './ProfileCarousel'
 
 class YeetList extends Component {
     state = {
@@ -11,11 +11,11 @@ class YeetList extends Component {
     }
     _handleYeetCB = (e) => {
         e.preventDefault()
-        const y = this.state.profiles[e.target.value]
-        Axios.post(`/api/profile/yeet/${this.props.profileId}/${y._id}`)
+        const target = this.state.availableProfiles[e.target.value]
+        Axios.post(`/api/profile/yeet/${this.props.profileId}/${target._id}`)
         this.setState({
             availableProfiles: this.state.availableProfiles.filter((p) => {
-                return (p._id !== y._id)
+                return (p._id !== target._id)
             })
         })
     }
@@ -29,7 +29,6 @@ class YeetList extends Component {
             let filtered = p
             for (var y in this.state.yeetList.yeeted) {
                 filtered = filtered.filter((p) => {
-                    console.log('filtering', p._id, this.state.yeetList.yeeted[y])
                     return (p._id !== this.state.yeetList.yeeted[y])
                 })
             }

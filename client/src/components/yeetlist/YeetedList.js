@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import ProfileCarousel from './ProfileCarousel'
 import Axios from 'axios'
-import { Button, Card, Carousel } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { Card } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
+import ProfileCarousel from './ProfileCarousel'
 
 class YeetedList extends Component {
     state = {
