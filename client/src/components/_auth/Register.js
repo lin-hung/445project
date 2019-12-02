@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom";
 import { Button, Modal, Col, Row, Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { mapAuthStateToProps } from "../../resources/utils";
-import { oAuthLoginAction } from "../../_actions/authActions";
+import { oAuthLoginAction, setProfileAction } from "../../_actions/authActions";
 import "./style.scss";
 
 class Register extends Component {
@@ -22,8 +22,11 @@ class Register extends Component {
     socket.once("authtoken", token => {
       console.log("authtoken recieved", token);
       this.props.oAuthLoginAction(token);
-      this.setState({ modalShow: false });
     });
+    socket.once('profile', (profile) => {
+      console.log(`profile recieved:`, profile)
+      this.props.setProfileAction(profile)
+    })
     socket.once("authfailure", msg => {
       console.log("authfailure", msg);
       this.setState({ step: 0, error: msg, modalShow: false });
@@ -39,10 +42,7 @@ class Register extends Component {
     });
     //  }, 500)
   }
-  componentWillUnmount() {
-    const socket = this.props.socket;
-    socket.removeAllListeners();
-  }
+
   handleClick = e => {
     const step = this.state.step;
 
@@ -50,12 +50,12 @@ class Register extends Component {
       case 1: {
         //stores the userType (either recruiter or candidate)
         console.log("case 1", e.target.value);
-        this.setState({ userType: e.target.value, modalShow: true });
+        this.setState({ userType: e.target.value, modalShow: true, step: 2 });
         break;
       }
       case 2: {
         //stores user's Auth Provider (either google or linkedin)
-        this.setState({ provider: e.target.value });
+        this.setState({ provider: e.target.value, });
         break;
       }
       default: {
@@ -63,7 +63,7 @@ class Register extends Component {
         break;
       }
     }
-    this.setState({ step: this.state.step + 1 });
+    // this.setState({ step: this.state.step + 1 });
   };
 
   MyVerticallyCenteredModal = props => {
@@ -215,4 +215,4 @@ class Register extends Component {
     }
   }
 }
-export default connect(mapAuthStateToProps, { oAuthLoginAction })(Register);
+export default connect(mapAuthStateToProps, { oAuthLoginAction, setProfileAction })(Register);
