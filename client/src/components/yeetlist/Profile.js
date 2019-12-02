@@ -4,12 +4,13 @@ import noProfilePic from './noPic.png'
 import './profileStyle.scss'
 
 
+
 class Profile extends Component {
     render() {
         const { profile } = this.props
         return (
                         <div className="row">
-                            <div id="left" className="column">
+                            <div id="leftCo" className="column">
                                 <img id="profilePicture" src={noProfilePic} alt="profilePicture"></img>
                                 <h3 className="text-center">
                                     {profile.form.fname} {profile.form.lname}
@@ -17,25 +18,27 @@ class Profile extends Component {
 
 
                                 <Card.Text className="text-center">
-                                    {profile.form.prevjob}
+                                    <b>Currently:</b> {profile.form.job} 
                                 </Card.Text>
-
-
+                                <Card.Text className="text-center">
+                                    <b>Email: </b><a href={"mailto:" + profile.form.email}>{profile.form.email}</a>   
+                                </Card.Text>
                             </div>
-                            <div id="right" className="column">
-                                <h1 align="center">Qualifications</h1>
+
+                            <div id="rightCo" className="column">
+                                <h1 align="center">Qualifications </h1>
                                 <div className="row">
                                     <div className="col-sm">
                                         {/* Need string.split("\n").map((i, key) => {return <div key={key}>{i}</div>;}) to convert /n to new divs in html*/}
-                                        <h4>Education</h4>
+                                        <h4>Experience</h4> 
                                         <ul>
+                                        {profile.form.exp}
                                         {profile.form.projects}
                                         </ul>
                                     </div>
                                     <div className="col-sm">
-                                        <h4>Work</h4>
+                                        <h4>Previous Jobs</h4>
                                         <ul>
-                                            {profile.form.exp}
                                             {profile.form.prevjob}
                                         </ul>
                                     </div>
@@ -45,17 +48,21 @@ class Profile extends Component {
                                             {profile.form.hobbies}
                                         </ul>
                                     </div>
+                                  
+                                </div>
+                                <div className = "row tags">
                                     <div className="col-sm">
                                         <h4>Tags</h4>
                                         <ul>
                                             {profile.tags.map((t,i)=>{
-                                                return(<li key={`tag${i}`}>{t}</li>)
+                                                return( <li key={`tag${i}`}>{t}</li>)
                                             })}
                                         </ul>
                                     </div>
                                 </div>
 
                             </div>
+                          
                         </div>
 
             // <div>

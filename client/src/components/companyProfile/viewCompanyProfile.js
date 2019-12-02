@@ -47,35 +47,38 @@ class viewCompanyProfile extends Component {
         return (
             <div>
                 <Card bg="light" border="primmary">
-                    <Card.Header> <h3> {form.cname}'s profile </h3> <div className="buttonRight"> <LinkContainer to='/companyForm'><Button variant="primary">Edit profile</Button></LinkContainer> </div></Card.Header>
+                    <Card.Header> <h3> {form.cname}'s profile </h3> 
+                    <div id="buttonRight" className="inner">
+						<LinkContainer to='/companyForm'><Button variant="primary">Edit profile</Button></LinkContainer>
+					</div>
+                    </Card.Header>
                     <Card.Body>
                         <div className="row">
                             <div id="left" className="column">
 
                                 <Card.Text className="column">
-                                    Our email: {form.email}
+                                    <b>Our company's email: </b><a href={"mailto:" + form.email}>{form.email}</a> 
 
                                 </Card.Text>
                                 <div>
-                                    About us: {form.about}
+                                    <b>About us:</b> {form.about}
                                 </div>
 
 
                             </div>
                             <div id="right" className="column">
-                                <h1 align="center">About us:</h1>
                                 <div className="row">
                                     <div className="col-sm">
-                                        <h2>Who we're hiring for: </h2>
+                                        <h3>Who we're hiring for: </h3>
                                         <ul>
                                             <li>{form.job}</li>
                                         </ul>
                                     </div>
                                     <div className="col-sm">
-                                        <h2>Skills we're looking for: </h2>
+                                        <h3>Skills we're looking for: </h3>
                                         {form.skills}
-                                        <h2>Experience we're looking for: </h2>
-                                        {form.experience}
+                                        <h3>Experience we're looking for: </h3>
+                                        {form.exp}
                                     </div>
                                 </div>
 

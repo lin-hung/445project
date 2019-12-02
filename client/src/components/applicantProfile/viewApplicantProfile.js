@@ -38,9 +38,9 @@ class viewApplicantProfile extends Component {
 		return (
 			<Card bg="light" border="primmary">
 				<Card.Body>
-					<div id="buttonRight" className="inner">
-						<LinkContainer to='/applicantForm'><Button variant="primary">Edit profile</Button></LinkContainer>
-					</div>
+				
+			
+					
 					<Profile profile={this.state} />
 				</Card.Body>
 			</Card>

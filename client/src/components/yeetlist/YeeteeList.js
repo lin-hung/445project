@@ -14,7 +14,7 @@ class YeeteeList extends Component {
     }
     _ProfileCarousel = () => {
         if (this.state.yeeteeList) {
-            if (this.state.yeeteeList.length === 0) return <h4>You have not been YEETed yet!</h4>
+            if (this.state.yeeteeList.length === 0) return <h4>You have not been YEETed yet! Add more tags to help recruiters find your profile!</h4>
             const carouselItems = this.state.yeeteeList.map((p, i) =>
                 (
                     <Carousel.Item key={i}>
@@ -31,8 +31,9 @@ class YeeteeList extends Component {
     render() {
         return (
             <Card bg="light" border="primmary">
+                <Card.Header>  <h1>Your YEETees</h1>
+                    <div>These are some companies that have selected you. Keep an eye out for messages and or emails from these companies.</div></Card.Header>
                 <Card.Body>
-                    <h1>Your YEETees</h1>
                     <this._ProfileCarousel />
                 </Card.Body>
             </Card>
