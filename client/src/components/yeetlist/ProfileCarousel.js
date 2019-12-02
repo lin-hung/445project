@@ -8,17 +8,18 @@ class ProfileCarousel extends Component {
 	render() {
 		const { profiles, _handleYeetCB, disableYeetButton } = this.props
 		if (!profiles) return null
-		const carouselItems = profiles.map((p, i) => {
-			return (
-				<Carousel.Item key={p.form.fname + i}>
-					<Profile profile={p} />
-					<CarouselCaption />
-
-					{(!disableYeetButton) ? <Card.Text className="text-center">
-						<Button variant="primary" onClick={_handleYeetCB} value={i}>YEET User</Button>
-					</Card.Text> : null}
-				</Carousel.Item>)
+		let carouselItems = []
+		profiles.forEach((p, i) => {
+			if (!p.form) return
+			carouselItems.push(<Carousel.Item key={p.form.fname + i}>
+				<Profile profile={p} />
+				<CarouselCaption />
+				<Card.Text className="text-center">
+					<Button variant="primary" onClick={_handleYeetCB} value={i}>YEET User</Button>
+				</Card.Text>
+			</Carousel.Item>)
 		})
+		console.log(carouselItems)
 		return (
 
 			<Carousel bsPrefix="carousel" indicators={false} keyboard={true} interval={null} touch={true}>
