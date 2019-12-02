@@ -37,7 +37,7 @@ class Chat extends Component {
                 {this.state.messages.map((msg, i) => {
                     const posterStyle = (msg.poster === this.state.partner._id) ? 'justify-content-start' : 'justify-content-end'
                     return (
-                        <div className={`row ${posterStyle}`} key={'msg'+i}>
+                        <div className={`row ${posterStyle}`} key={'msg' + i}>
                             <div className="card col-9">
                                 <div className="card-body">
                                     {msg.text}
@@ -71,8 +71,15 @@ class Chat extends Component {
             return 'Loading'
         }
 
-        const partnerName = (partner.profileType === 'candidate') ? partner.contents.fname + partner.contents.lname :
-            partner.contents.cname
+
+        let partnerName
+        if (!partner.contents) {
+            partnerName = null
+        }
+        else {
+            partnerName = (partner.profileType === 'candidate') ? partner.contents.fname + partner.contents.lname :
+                partner.contents.cname
+        }
 
         return (
             <div id='chat'>
