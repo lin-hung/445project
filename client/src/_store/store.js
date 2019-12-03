@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import { createStore, compose } from "redux";
-=======
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
->>>>>>> parent of 4de6980... removed redux-thunk
 import rootReducer from "../_reducers/rootreducer";
 
 const initialState = {};
