@@ -15,6 +15,7 @@ class ChatList extends Component {
             })
     }
     Chats = () => {
+        if(this.state.chats.length===0) return "You don't have any messages yet!"
         const uPId = this.props.auth.profile._id
         const cards = this.state.chats.map((m, i) => {
             const partner = m.members.filter((m, i) => {
