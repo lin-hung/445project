@@ -104,11 +104,9 @@ class Register extends Component {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-<<<<<<< HEAD
-          <Button className="btn btn-primary" onClick={this._closeModal}>Close</Button>
-=======
+
           <Button onClick={this._closeModal}>Close</Button>
->>>>>>> parent of 0e17d2c... 🌊 BEAUTIFUL BUTTONS
+
         </Modal.Footer>
       </Modal>
     );
