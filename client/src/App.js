@@ -10,12 +10,19 @@ import Register from './components/_auth/Register'
 import Home from './components/home/Home.js'
 import ApplicantForm from './components/applicantProfile/applicantForm'
 import CompanyForm from './components/companyProfile/CompanyForm'
+import viewApplicantProfile from './components/applicantProfile/viewApplicantProfile'
+import viewCompanyProfile from './components/companyProfile/viewCompanyProfile'
+import Help from './components/help/help'
 import { setAuthToken } from './resources/utils'
 import { oAuthLoginAction } from './_actions/authActions'
-import store from "./_store/store"
+import { store, persistor } from "./_store/store"
+import YeetedList from './components/yeetlist/YeetedList'
+import Message from './components/messaging/Messaging'
+
 import "./resources/appStyle.scss"
 
 import { PrivateRoute/*, PropsRoute*/ } from './routes'
+import { PersistGate } from 'redux-persist/integration/react'
 
 if (localStorage.jwtToken) {
   // Set auth token header if localstorage contains token
@@ -28,25 +35,32 @@ function App() {
   const socket = io("http://localhost:3002/");
   return (
     <Provider store={store}>
-      <Router>
-        <div className="App">
-          <Navbar socket={socket} />
-          <Container id="content">
-            <Switch>
-              <Route exact path="/" component={Landing} />
-              <Route
-                exact
-                path="/register"
-                render={props => <Register socket={socket} />}
-              />
-              <PrivateRoute exact path='/home' component={Home} />
-              <PrivateRoute exact path="/applicantForm" component={ApplicantForm} />
-              <PrivateRoute exact path="/companyForm" component={CompanyForm} />
-            </Switch>
-          </Container>
-          <Footer />
-        </div>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <div className="App">
+            <Navbar socket={socket} />
+            <Container id="content">
+              <Switch>
+                <Route exact path="/" component={Landing} />
+                <Route
+                  exact
+                  path="/register"
+                  render={props => <Register socket={socket} />}
+                />
+                <PrivateRoute exact path='/home' component={Home} />
+                <PrivateRoute exact path="/applicantForm" component={ApplicantForm} />
+                <PrivateRoute exact path="/companyForm" component={CompanyForm} />
+                <PrivateRoute exact path="/applicantProfile" component={viewApplicantProfile} />
+                <PrivateRoute exact path="/companyProfile" component={viewCompanyProfile} />
+                <PrivateRoute exact path="/yeetedList" component={YeetedList} />
+                <PrivateRoute path="/messages" component={Message} io={io} />
+                <PrivateRoute exact path="/help" component={Help} />
+              </Switch>
+            </Container>
+            <Footer />
+          </div>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 }

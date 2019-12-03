@@ -5,6 +5,10 @@ import '../tagStyle.scss'
 import './profileStyle.scss'
 import Axios from 'axios'
 import { WithContext as ReactTags } from 'react-tag-input';
+import { connect } from 'react-redux'
+import { mapAuthStateToProps } from '../../resources/utils'
+import { setProfileAction } from '../../_actions/authActions'
+
 
 const suggestions = TAGS.map((type) => {
     return {
@@ -14,11 +18,11 @@ const suggestions = TAGS.map((type) => {
 })
 
 const KeyCodes = {
-    comma: 188,
     enter: 13,
+    comma: 188,
 };
 
-const delimiters = [KeyCodes.comma, KeyCodes.enter];
+const delimiters = [KeyCodes.enter, KeyCodes.comma];
 
 class ApplicantForm extends Component {
     state = {
@@ -33,28 +37,43 @@ class ApplicantForm extends Component {
             skills: '',
             prevjob: '', //previous jobs
             hobbies: '',
-            prefs: '', //preferences
             awards: '',
             projects: ''
         },
-        tags: [{ id: 'computer science', text: 'computer science' }, { id: 'computer engineer', text: 'computer engineer' }],
-        suggestions: suggestions,
+        tags: [
+            { id: 'computer science', text: 'computer science' },
+            { id: 'computer engineer', text: 'computer engineer' }],
+        suggestions: suggestions
     }
-    componentDidMount(){
-        Axios.get('/api/profile/get').then((res)=>{
-            console.log(res.data)
-            this.setState({form:res.data.contents})
+
+    componentDidMount() {
+        Axios.get('/api/profile/get').then((res) => {
+            if (res.data.contents === undefined || res.data.tags === undefined) {
+                console.log("Error: no user data retrieved")
+            } else {
+                console.log("Retrieved the following data: ", res.data)
+                console.log("Tags: ", res.data.tags)
+                this.setState({ form: res.data.contents })
+                this.setState({
+                    tags: res.data.tags.map((t) => {
+                        return { id: t, text: t }
+                    })
+                })
+            }
         })
     }
+
     handleDelete = (i) => {
         const { tags } = this.state;
         this.setState({
             tags: tags.filter((tag, index) => index !== i),
         });
     }
+
     handleAddition = (tag) => {
         this.setState(state => ({ tags: [...state.tags, tag] }));
     }
+
     handleDrag = (tag, currPos, newPos) => {
         const tags = [...this.state.tags];
         const newTags = tags.slice();
@@ -65,33 +84,41 @@ class ApplicantForm extends Component {
         // re-render
         this.setState({ tags: newTags });
     }
+
     handleTagClick = (index) => {
         console.log('The tag at index ' + index + ' was clicked');
     }
+
     handleChange = (e) => {
         let target = e.target;
         let value = target.type === 'checkbox' ? target.checked : target.value;
         let name = target.name;
-
         this.setState({
-            form: { ...this.state.form, [name]: value }
+            form: { ...this.state.form, [name]: value },
+            tags: [...this.state.tags]
         });
     }
+
     handleSubmit = (e) => {
         e.preventDefault();
+
+        console.log('HANDLE SUBMIT THIS.TAGS', this.tags)
         Axios.post('/api/profile/submit', {
-            form: this.state.form, 
+            form: this.state.form,
             tags: this.state.tags.map(t => {
-                return t.id
+                return (t.id, t.text)
             })
         }).then((res) => {
-            console.log(res)
-            this.setState({form:res.data.contents})
+            console.log("Submitting data...", res)
+            this.props.setProfileAction(res.data)
+            // this.setState({ form: res.data.contents })
+            // this.setState({ tags: res.data.tags })
+            this.handleRedirect()
         })
     }
 
     handleRedirect = (e) => {
-       this.props.history.push('/home')
+        this.props.history.push('/home')
     }
 
 
@@ -100,7 +127,7 @@ class ApplicantForm extends Component {
         return (
             <div id="main" className="FormCenter">
                 {/* <div id="landingHeader">Edit Your Profile</div> */}
-                <form className="FormFields">
+                <form onSubmit={this.handleSubmit} className="FormFields">
                     {/* begin section 1 */}
                     <div id="formlayout" className="form">
                         <h1> Create your Applicant profile</h1>
@@ -135,24 +162,25 @@ class ApplicantForm extends Component {
                                     <label className="FormField__Label control-label" htmlFor="job">Occupation</label>
                                     <input type="job" id="job" className="FormField__Input form-control"
                                         placeholder="Enter your current job" name="job" value={this.state.form.job}
-                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="age">Age</label>
-                                    <input type="age" id="age" className="FormField__Input form-control"
-                                        placeholder="Enter your age" name="age" value={this.state.form.age}
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="age">Age</label>
+                                    <input type="number" min="18" max="100" onkeypress="return event.charCode >= 48"
+                                        id="age" className="FormField__Input form-control" placeholder="Enter your age"
+                                        name="age" value={this.state.form.age}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
                             </div>
                             {/* end col 1 of sec 1 */}
                             {/* col 2 sec 1 (profile picture) */}
                             <div id="s1c2" className="col">
-                                <div className="form-group align-middle">
+                                {/* <div className="form-group align-middle">
                                     <label htmlFor="exampleFormControlFile1">Upload your profile picture</label>
                                     <input type="file" className="form-control-file" id="exampleFormControlFile1" />
-                                </div>
+                                </div> */}
                             </div>
                             {/* end col 2 of sec 1 */}
                         </div>
@@ -161,10 +189,11 @@ class ApplicantForm extends Component {
                         <div id="sec2" className="form-row" >
                             {/* begin col 1 of sec 2 */}
                             <div id="s2c1" className="col">
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="about">About me</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="about">About me</label>
                                     <textarea type="about" id="about" className="FormField__Input form-control"
                                         placeholder="Enter info about yourself" name="about" value={this.state.form.about}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
@@ -176,10 +205,11 @@ class ApplicantForm extends Component {
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="skills">Skills</label>
+                                <div className="FormField form-group required">
+                                    <label className="FormField__Label control-label" htmlFor="skills">Skills</label>
                                     <textarea type="skills" id="skills" className="FormField__Input form-control"
                                         placeholder="List your skills" name="skills" value={this.state.form.skills}
+                                        required={true}
                                         onChange={this.handleChange} />
                                 </div>
 
@@ -213,13 +243,6 @@ class ApplicantForm extends Component {
                                 </div>
 
                                 <div className="FormField">
-                                    <label className="FormField__Label" htmlFor="prefs">Preferences</label>
-                                    <textarea type="prefs" id="prefs" className="FormField__Input form-control"
-                                        placeholder="Enter your preferences" name="prefs" value={this.state.form.prefs}
-                                        onChange={this.handleChange} />
-                                </div>
-
-                                <div className="FormField">
                                     <label className="FormField__Label" htmlFor="awards">Awards</label>
                                     <textarea type="awards" id="awards" className="FormField__Input form-control"
                                         placeholder="Enter your awards" name="awards" value={this.state.form.awards}
@@ -233,10 +256,10 @@ class ApplicantForm extends Component {
                                         onChange={this.handleChange} />
                                 </div>
 
-                                <div className="form-group align-middle">
+                                {/* <div className="form-group align-middle">
                                     <label className="FormField__Label" htmlFor="exampleFormControlFile1">Upload your resumé</label>
                                     <input type="file" className="form-control-file" id="exampleFormControlFile2" />
-                                </div>
+                                </div> */}
                             </div>
                             {/* end col 2 of sec 2 */}
                         </div>
@@ -265,7 +288,7 @@ class ApplicantForm extends Component {
                         <div id="buttonSpace" className="button">
                             <div id="sec4" className="row">
                                 <div className="FormCenter col-12">
-                                    <button type="submit" onClick={this.handleSubmit, this.handleRedirect} className="btn btn-primary">Submit</button>
+                                    <button type="submit" className="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
@@ -275,4 +298,4 @@ class ApplicantForm extends Component {
         );
     }
 }
-export default ApplicantForm;
+export default connect(mapAuthStateToProps, { setProfileAction })(ApplicantForm)

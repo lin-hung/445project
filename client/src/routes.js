@@ -16,9 +16,6 @@ export const PrivateRoute = connect(state => ({
         }
     />
 ))
-PrivateRoute.propTypes = {
-    auth: PropTypes.object.isRequired
-};
 
 
 export const PropsRoute = ({ component: Component, ...rest }) => {//this is neater than wrapping it in render lol

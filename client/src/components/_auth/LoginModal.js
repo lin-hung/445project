@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button, Modal, Col, Row, Container } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { mapAuthStateToProps } from '../../resources/utils'
-import { oAuthLoginAction } from '../../_actions/authActions'
+import { oAuthLoginAction, setProfileAction } from '../../_actions/authActions'
 import './idFedButton.scss'
 
 class LoginModal extends Component {
@@ -19,9 +19,13 @@ class LoginModal extends Component {
             this.setState({ loginSuccess: true })
             this.props.oAuthLoginAction(token)
         })
+        socket.once('profile', (profile) => {
+            console.log(`profile recieved:`,profile)
+            this.props.setProfileAction(profile)
+        })
         socket.on('authfailure', (msg) => {
             console.log(`authfailure msg: ${msg}`)
-            this.setState({ loginSuccess: false, modalShow: false, setModalShow: false })
+            // this.setState({ loginSuccess: false, modalShow: false, setModalShow: false })
             window.location.href = "./register"
         })
     }
@@ -72,7 +76,7 @@ class LoginModal extends Component {
                     </Container>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={this._closeModal}>Close</Button>
+                    <Button className="btn btn-primary" onClick={this._closeModal}>Close</Button>
                 </Modal.Footer>
             </Modal>
         );
@@ -81,16 +85,16 @@ class LoginModal extends Component {
     render() {
         return (
             <div>
-                <Button className="btn btn-danger employeetBtn" onClick={() => this.setState({ modalShow: true })}>
+                <Button className="btn btn-primary employeetBtn" onClick={() => this.setState({ modalShow: true })}>
                     Log In
                 </Button>
 
                 <this.MyVerticallyCenteredModal
                     show={this.state.modalShow}
-                    onHide={() => this.setState({ setModalShow: true })}
+                    onHide={() => this.setState({ setModalShow: false })}
                 />
             </div>)
     }
 }
 
-export default connect(mapAuthStateToProps, { oAuthLoginAction })(LoginModal)
+export default connect(mapAuthStateToProps, { oAuthLoginAction, setProfileAction })(LoginModal)

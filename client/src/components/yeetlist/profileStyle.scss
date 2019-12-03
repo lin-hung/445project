@@ -1,0 +1,57 @@
+#profilePicture {
+    width : 80%;
+    height: auto;
+    padding-top: 25%;
+    padding-bottom: 5%;
+    display: block;
+    margin: 0 auto;
+}
+.col-sm{
+   padding-top: 3%;
+}
+.inner{
+   display: inline-block;
+}
+
+#nobullet{
+   list-style-type: none;
+   margin-right: 0px;
+   margin-left: 0px;
+   padding-inline-start: none;
+}
+.tags{
+   padding-top: 2%;
+   padding-bottom: 2%;
+}
+
+#buttonRight{
+  float: right;
+  padding-right: 20px;
+}
+#leftCo {
+   padding-left: 10%;
+    width : 33%;
+    padding-bottom: 15px;
+ }
+
+ #rightCo {
+   padding-right: 20px;
+   padding-left: 2.5%;
+    width : 65%; 
+    padding-bottom: 15px;
+ }
+
+ #internalColLeft {
+    width: 33%;
+    margin: 10px
+ }
+
+ #internalColMid {
+   width: 33%;
+   margin: 10px
+}
+
+#internalColRight {
+   width: 40%;
+   margin: 10px
+}

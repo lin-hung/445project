@@ -19,6 +19,7 @@
     "react-scripts": "3.1.1",
     "react-tag-input": "^6.4.1",
     "redux": "^4.0.4",
+    "redux-persist": "^6.0.0",
     "sass": "^1.23.3",
     "socket.io": "^2.2.0"
   },
