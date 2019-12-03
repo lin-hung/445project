@@ -104,9 +104,7 @@ class Register extends Component {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-
           <Button onClick={this._closeModal}>Close</Button>
-
         </Modal.Footer>
       </Modal>
     );
