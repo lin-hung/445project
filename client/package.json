@@ -21,7 +21,7 @@
     "redux": "^4.0.4",
     "redux-persist": "^6.0.0",
     "sass": "^1.23.3",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
