@@ -17,7 +17,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
     "passport-jwt": "^4.0.0",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.4.0",
     "react-dnd": "5.0.0",
     "react-dnd-html5-backend": "3.0.2"
     
